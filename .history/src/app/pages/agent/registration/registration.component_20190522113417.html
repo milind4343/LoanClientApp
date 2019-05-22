@@ -1,0 +1,139 @@
+
+<div class="row">
+   
+    <div class="col-md-12">
+      <nb-card style="text-align: center;font-size:16px;">
+        <nb-card-header>Agent Registration</nb-card-header>
+        <nb-card-body>
+          <form  name="frmregister" #form="ngForm" aria-labelledby="title">
+            <div class="form-group row">
+              <label for="inputFirstname" class="col-sm-2 col-form-label">FirstName</label>
+              <div class="col-sm-2">
+                <input type="firstname" name="Firstname"  #Firstname="ngModel" [(ngModel)]="user.Firstname" class="form-control" id="inputfirstname" placeholder="FirstName" required>
+                  <p class="error-message" *ngIf="Firstname.invalid && submitted && Firstname.errors.required">Required!</p>
+              </div>
+              <label for="inputMiddlename" class="col-sm-2 col-form-label">MiddleName</label>
+              <div class="col-sm-2">
+                <input type="middlename" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.MiddleName" class="form-control" id="inputmiddlename" placeholder="MiddleName" required>
+                <p class="error-message" *ngIf="MiddleName.invalid && submitted && MiddleName.errors.required">Required!</p>
+              </div>
+           
+              <label for="inputLastname" class="col-sm-2 col-form-label">LastName</label>
+              <div class="col-sm-2">
+                <input type="email" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.Lastname" class="form-control" id="inputlastname" placeholder="LastName" required>
+                <p class="error-message" *ngIf="Lastname.invalid && submitted && Lastname.errors.required">Required!</p>
+              </div>
+            </div>
+           
+            <div class="form-group row">
+              <label class="col-sm-3">Gender</label>
+              <div class="col-sm-9">
+      
+                <nb-radio-group [(ngModel)]="user.Gender" name="Gender">
+                    <nb-radio 
+                      [value]="'Male'">
+                      Male
+                    </nb-radio>
+                    <nb-radio
+                      [value]="'Female'">
+                      Female
+                    </nb-radio>
+                    
+                  </nb-radio-group>
+              </div>
+            </div>
+            
+            <div class="form-group row">
+                <label for="inputMiddlename" class="col-sm-2 col-form-label">BirthDate</label>
+                <div class="col-sm-2">
+                  <input nbInput placeholder="BirthDate" #DOB="ngModel" [nbDatepicker]="picker" [(ngModel)]="user.DOB" name="DOB" required>
+                  <p class="error-message" *ngIf="DOB.invalid && submitted && DOB.errors.required">Required!</p>
+                  <nb-datepicker #picker></nb-datepicker>
+                  </div>
+                  
+            </div>
+
+            <div class="form-group row">
+            <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-4">
+              <input type="email" class="form-control" #EmailID="ngModel" id="inputemail" placeholder="Email" [(ngModel)]="user.EmailID" name="EmailID" required>
+              <p class="error-message" *ngIf="EmailID.invalid && submitted && EmailID.errors.required">Required!</p>
+            </div>
+          </div>
+          <div class="form-group row">
+              <label for="inputEmail" class="col-sm-2 col-form-label">Contact No</label>
+              <div class="col-sm-4">
+                <input type="ContactNo" class="form-control" id="inputemail" placeholder="Contact No" #Mobile="ngModel" [(ngModel)]="user.Mobile" name="Mobile" required>
+                <ng-container *ngIf="Mobile.invalid && (Mobile.dirty || Mobile.touched)">
+                    <p class="error-message" *ngIf="Mobile.errors.required">
+                      Required!
+                    </p>
+                  </ng-container>
+              </div>
+          </div>
+          <div class="form-group row">
+                <label for="inputEmail" class="col-sm-2 col-form-label">Alternate No</label>
+                <div class="col-sm-4">
+                  <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel" [(ngModel)]="user.Phone" name="Phone" required>
+                  <ng-container *ngIf="Phone.invalid && (Phone.dirty || Phone.touched)">
+                      <p class="error-message" *ngIf="Phone.errors.required">
+                        Required!
+                      </p>
+                    </ng-container>
+                </div>
+          </div>
+
+          <div class="form-group row">
+                  <label for="inputEmail" class="col-sm-2 col-form-label">Address</label>
+                  <div class="col-sm-4">
+                      <textarea rows="5" nbInput fullWidth shape="round"  placeholder="Address" #Address="ngModel"  [(ngModel)]="user.Address" name="Address" required></textarea>
+                      <ng-container *ngIf="Address.invalid && (Address.dirty || Address.touched)">
+                          <p class="error-message" *ngIf="Address.errors.required">
+                            Required!
+                          </p>
+                        </ng-container>
+                  </div>
+          </div>
+
+          <div class="form-group row">
+              <label class="col-sm-2">State</label>
+            
+              <select class="form-control col-sm-3" (change)="onStateSelect(user.stateId)" #stateId="ngModel" [(ngModel)]="user.stateId" name="stateId" required>
+                  <option *ngFor="let stateval of state" value="{{stateval.id}}">
+                      {{stateval.name}}
+                  </option>
+                  
+              </select>
+              <p class="error-message" *ngIf="stateId.invalid && submitted">
+                  Required!
+                  </p>
+             
+              <label class="col-sm-2">City</label>
+                <select class="form-control col-sm-3" (change)="onCitySelect(user.cityId)" #cityId="ngModel" [(ngModel)]="user.cityId" name="cityId" [disabled]="!(user.stateId!==0)">
+                    <option *ngFor="let cityval of city" value="{{cityval.id}}">
+                        {{cityval.name}}
+                    </option>
+                    <ng-container *ngIf="cityId.invalid && (cityId.dirty || cityId.touched)">
+                        <p class="error-message" *ngIf="cityId.errors.required">
+                          Required!
+                        </p>
+                      </ng-container>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2">PIN Code</label>
+                  <select class="form-control col-sm-3" [(ngModel)]="user.zipCode" name="zipCode" [disabled]="!(user.cityId!==0)">
+                      <option *ngFor="let areaval of area" value="{{areaval.id}}">
+                          {{areaval.name}}
+                      </option>
+                  </select>
+          </div>
+          <div class="offset-sm-3 col-sm-9">
+              <button type="button" class="btn btn-primary" (click)="submitted=true;registration()" >Register</button>
+          </div>
+           
+          </form>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
