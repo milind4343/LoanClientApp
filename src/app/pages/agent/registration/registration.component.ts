@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
-import{ City } from '../City';
-import{ State } from '../State';
+
 
 
 @Component({
@@ -16,8 +15,12 @@ export class RegistrationComponent implements OnInit {
   city: any=[];
   area: any=[];
   submitted:boolean=false;
+  min: Date;
+  max: Date;
 
-  constructor(private agentService: AgentService,router: Router) { }
+  constructor(private agentService: AgentService,router: Router) { 
+    this.max = new Date();
+  }
   ngOnInit() {
     this.state=[];
     this.agentService.getState().then(result => {
@@ -29,7 +32,7 @@ export class RegistrationComponent implements OnInit {
         this.user.stateId='';
         // this.user.cityId='';
         // this.user.areaId='';
-        // this.user.Gender="Male";
+         this.user.Gender="Male";
       }
     }).catch(err => {
       console.log(err);

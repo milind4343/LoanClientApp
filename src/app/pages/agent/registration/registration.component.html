@@ -8,20 +8,19 @@
           <form  name="frmregister" #form="ngForm" aria-labelledby="title">
             <div class="form-group row">
               <label for="inputFirstname" class="col-sm-2 col-form-label">FirstName</label>
-              
               <div class="col-sm-2">
-                <input type="firstname" name="Firstname"  #Firstname="ngModel" [(ngModel)]="user.Firstname" class="form-control" id="inputfirstname" placeholder="FirstName" required>
-                  <p class="error-message" *ngIf="Firstname.invalid && submitted && Firstname.errors.required">Required!</p>
+                <input type="firstname" name="Firstname"  #Firstname="ngModel" [(ngModel)]="user.Firstname" class="form-control" id="inputfirstname" placeholder="FirstName" maxlength="50" required >
+                <p class="error-message" *ngIf="Firstname.invalid && submitted && Firstname.errors.required">Required!</p>
               </div>
               <label for="inputMiddlename" class="col-sm-2 col-form-label">MiddleName</label>
               <div class="col-sm-2">
-                <input type="middlename" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.MiddleName" class="form-control" id="inputmiddlename" placeholder="MiddleName" required>
+                <input type="middlename" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.MiddleName" class="form-control" id="inputmiddlename" placeholder="MiddleName" maxlength="50" required>
                 <p class="error-message" *ngIf="MiddleName.invalid && submitted && MiddleName.errors.required">Required!</p>
               </div>
            
               <label for="inputLastname" class="col-sm-2 col-form-label">LastName</label>
               <div class="col-sm-2">
-                <input type="email" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.Lastname" class="form-control" id="inputlastname" placeholder="LastName" required>
+                <input type="email" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.Lastname" class="form-control" id="inputlastname" maxlength="50" placeholder="LastName" required>
                 <p class="error-message" *ngIf="Lastname.invalid && submitted && Lastname.errors.required">Required!</p>
               </div>
             </div>
@@ -45,11 +44,11 @@
             </div>
             
             <div class="form-group row">
-                <label for="inputMiddlename" class="col-sm-2 col-form-label">BirthDate</label>
+                <label for="inputBirthDate" class="col-sm-2 col-form-label">BirthDate</label>
                 <div class="col-sm-2">
-                  <input nbInput placeholder="BirthDate" #DOB="ngModel" [nbDatepicker]="picker" [(ngModel)]="user.DOB" name="DOB" required>
+                  <input nbInput placeholder="BirthDate" #DOB="ngModel" [nbDatepicker]="picker" [(ngModel)]="user.DOB" name="DOB"  required [readonly]="true">
                   <p class="error-message" *ngIf="DOB.invalid && submitted && DOB.errors.required">Required!</p>
-                  <nb-datepicker #picker></nb-datepicker>
+                  <nb-datepicker #picker  [max]="max"></nb-datepicker>
                   </div>
                   
             </div>
@@ -57,31 +56,31 @@
             <div class="form-group row">
             <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
             <div class="col-sm-4">
-              <pre>{{EmailID.errors}}</pre>
-              <input type="email" class="form-control" #EmailID="ngModel"  id="inputemail" placeholder="Email" [(ngModel)]="user.EmailID" name="EmailID" required email>
+              <input type="email" class="form-control" #EmailID="ngModel"  id="inputemail" placeholder="Email" [(ngModel)]="user.EmailID"  name="EmailID" maxlength="125" required email>
               <p class="error-message" *ngIf="EmailID.invalid && submitted && EmailID.errors.required">Required!</p>
-              <p class="error-message" *ngIf="(EmailID.invalid && EmailID.errors.email && (email.touched || submitted)) ">Email not valid</p>
+              <p class="error-message" *ngIf="(EmailID.invalid && EmailID.errors.email && (EmailID.touched || submitted))">Email not valid</p>
             </div>
           </div>
           <div class="form-group row">
-              <label for="inputEmail" class="col-sm-2 col-form-label">Contact No</label>
+              <label for="inputContact" class="col-sm-2 col-form-label">Contact No</label>
               <div class="col-sm-4">
-                <input type="ContactNo" class="form-control" id="inputemail" placeholder="Contact No" #Mobile="ngModel" [(ngModel)]="user.Mobile" name="Mobile" required>
+                <input type="ContactNo" class="form-control" id="inputemail" placeholder="Contact No" #Mobile="ngModel" [(ngModel)]="user.Mobile" name="Mobile" pattern="[0-9]*" maxlength="25" required>
                 <p class="error-message" *ngIf="Mobile.invalid && submitted && Mobile.errors.required">Required!</p>
+                <p class="error-message" *ngIf="(Mobile.invalid && Mobile.errors.pattern && (Mobile.touched || submitted))">Allow only number!</p>
               </div>
           </div>
           <div class="form-group row">
-                <label for="inputEmail" class="col-sm-2 col-form-label">Alternate No</label>
+                <label for="inputAlternate" class="col-sm-2 col-form-label">Alternate No</label>
                 <div class="col-sm-4">
-                  <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel" [(ngModel)]="user.Phone" name="Phone" required>
+                  <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel" [(ngModel)]="user.Phone" name="Phone" maxlength="25" required>
                   <p class="error-message" *ngIf="Phone.invalid && submitted && Phone.errors.required">Required!</p>
                 </div>
           </div>
 
           <div class="form-group row">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Address</label>
+                  <label for="inputAddress" class="col-sm-2 col-form-label">Address</label>
                   <div class="col-sm-4">
-                      <textarea rows="5" nbInput fullWidth shape="round"  placeholder="Address" #Address="ngModel"  [(ngModel)]="user.Address" name="Address" required></textarea>
+                      <textarea rows="5" nbInput fullWidth shape="round"  placeholder="Address" #Address="ngModel"  [(ngModel)]="user.Address" name="Address" maxlength="500" required></textarea>
                       <p class="error-message" *ngIf="Address.invalid && submitted && Address.errors.required">Required!</p>
                   </div>
           </div>
