@@ -25,6 +25,7 @@ export class PagesComponent implements OnInit  {
       this.activeLinks.push({home:true,icon:'nb-home',link:'/pages/dashboard',title:'Dashboard'});
       // this.activeLinks.push({home:false,icon:'nb-star',link:'',title:'Extra Components',children:[{title: 'Calendar',link: '/pages/extra-components/calendar'},{title: 'Stepper',link: '/pages/extra-components/stepper'}]});
       this.activeLinks.push({home:true,icon:'nb-compose',link:'/pages/agent/register',title:'Agent Registration'});
+      this.activeLinks.push({home:true,icon:'nb-person',link:'/pages/customer/customer-list', title: 'Customers'});
       this.menu = this.activeLinks;
     }
   }
