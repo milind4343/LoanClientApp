@@ -1,6 +1,5 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { AgentdashboardComponent } from './agentdashboard/agentdashboard.component';
 import { RegistrationComponent } from '../agent/registration/registration.component';
 import { AgentComponent } from './agent.component';

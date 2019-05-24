@@ -23,6 +23,10 @@ const routes: Routes = [{
     loadChildren: './agent/agent.module#AgentModule',
   },
   {
+    path: 'customer',
+    loadChildren: './customer/customer.module#CustomerModule',
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   }],

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
-import 'style-loader!angular2-toaster/toaster.css';
+
 import {NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 
 

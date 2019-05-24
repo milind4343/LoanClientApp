@@ -1,0 +1,40 @@
+
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>        
+      <nb-card-header>Customers</nb-card-header>          
+      <nb-card-body>
+        <div class="col-md-8"></div>
+          <div class="col-md-4">
+              <button nbButton status="primary" class="btn-demo" routerLink='/pages/customer/add'> Add Customer </button>
+            </div>
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>FirstName</th>
+                  <th>LastName</th>
+                  <th>Gender</th>
+                  <th>Email</th>
+                  <th>Contact</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let cust of customerlist">
+                  <td>{{cust.userId}}</td>
+                  <td>{{cust.firstname}}</td>
+                  <td>{{cust.lastname}}</td>
+                  <td>{{cust.gender}}</td>
+                  <td>{{cust.emailId}}</td>
+                  <td>{{cust.mobile}}</td>
+                  <td><i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i>
+                    <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="Edit Role"></i></span>
+                  </td>
+                </tr>
+              </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

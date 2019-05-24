@@ -2,8 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { takeWhile } from 'rxjs/operators' ;
 import { SolarData } from '../../@core/data/solar';
-import { DashboardService } from './dashboard.service';
-import { Router } from '@angular/router';
+
 
 interface CardSettings {
   title: string;
@@ -79,8 +78,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   };
 
   constructor(private themeService: NbThemeService,
-    private solarService: SolarData, private dashboardService: DashboardService,
-    private router: Router) {
+    private solarService: SolarData) {
     this.themeService.getJsTheme()
       .pipe(takeWhile(() => this.alive))
       .subscribe(theme => {
@@ -99,13 +97,5 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // this.dashboardService.getWeatherInfo().then((result) => {
-    //   console.log(result);
-    // }).catch((err) => {
-    //   if (err.status == 401) {
-    //     this.router.navigate(['auth']);
-    //   }
-    //   console.log(err);
-    // });
   }
 }

@@ -1,0 +1,156 @@
+<div class="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-10">
+    <nb-card>        
+      <nb-card-header>Add New Customer</nb-card-header>      
+      <nb-card-body>       
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="register(form)">
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="input-firstname">First Name</label>
+                  <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control" id="input-firstname"
+                    placeholder="First Name">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="input-middlename">Middle Name</label>
+                  <input type="text" [(ngModel)]="customer.middlename" name="middlename" class="form-control" id="input-middlename"
+                    placeholder="Middle Name">
+                </div>
+              </div>
+              <div class="col-sm-4">
+                <div class="form-group">
+                  <label for="input-lastname">Last Name</label>
+                  <input type="text" [(ngModel)]="customer.lastname" name="lastname" class="form-control" id="input-lastname"
+                    placeholder="Last Name">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="input-birthdate">Birthdate</label>                        
+                          <input id="input-initialdate" nbInput class="form-control" placeholder="Birthdate" name="Birthdate"
+                            [(ngModel)]="customer.dob" [nbDatepicker]="formpicker">
+                          <nb-datepicker #formpicker></nb-datepicker>                       
+                      </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="input-amount">Gender</label>
+                        <div class="demo-radio">
+                          <nb-radio-group [(ngModel)]="customer.gender" name="gender">
+                            <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
+                            <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
+                          </nb-radio-group>
+                        </div>
+                      </div>
+                </div>                
+            </div>
+            
+            <div class="row">
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="input-email">Email</label>
+                  <input type="text" [(ngModel)]="customer.email" name="email" class="form-control" id="input-email"
+                    placeholder="Email">
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="input-contact">Contact</label>
+                  <input type="text" [(ngModel)]="customer.contact" name="contact" class="form-control" id="input-contact"
+                    placeholder="Contact">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-4">
+                <div class="form-group">
+                    <label for="input-state">State</label>
+                    <select class="form-control" [(ngModel)]="customer.stateId" name="stateId">
+                      <option value="">--- Select State ---</option>
+                      <option *ngFor="let s of state" value="{{s.id}}">{{s.name}}</option>                       
+                      </select>
+                      
+                </div>
+              </div>
+              <div class="col-sm-4">
+                  <div class="form-group">
+                      <label for="input-state">City</label>
+                      <select class="form-control" placeholder="Success">
+                          <option value="1">Option 1</option>
+                          <option value="2">Option 2</option>
+                          <option value="3">Option 3</option>
+                          <option value="4">Option 4</option>
+                        </select>                        
+                  </div>
+                </div>
+                <div class="col-sm-4"> 
+                    <div class="form-group">
+                        <label for="input-state">Pincode</label>
+                        <!-- <select class="form-control" placeholder="Success">
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="4">Option 4</option>
+                          </select> -->
+                          
+                    </div>
+                  </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6">
+                  <div class="form-group">
+                      <label for="input-contact">Address</label>
+                        <textarea rows="5" nbInput fullWidth [(ngModel)]="customer.address" name="address" class="form-control"
+                          id="input-address" placeholder="Address"></textarea>
+                    </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-group">
+                  <label for="input-profession">Profession</label>
+                  <input type="text" [(ngModel)]="customer.profession" name="profession" class="form-control" id="input-profession"
+                    placeholder="Profession">
+                  </div>
+                <div class="form-group">
+                  <label for="input-company">Company</label>
+                  <input type="text" [(ngModel)]="customer.company" name="company" class="form-control" id="input-company"
+                    placeholder="Company">
+                  </div>
+                
+              </div>
+            </div>
+
+          <!-- <div class="input-group">
+                <input type="text" placeholder="Enter your name" class="form-control" formControlName="firstCtrl"
+                       [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
+              </div> -->
+              <!-- <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="container-btn col-sm-4">
+                    <div class="form-group">
+                          <button nbButton type="submit" class="btn-demo btn-success">Submit</button>
+                      </div>
+                </div>
+              </div> -->
+              
+                <div class="row">
+                  <div class="col-sm-4"></div>
+                  <div class="example-container col-md-4">
+                    <div class="container-btn">
+                        <button type="submit" nbButton status="success" class="btn-demo">Submit</button>
+                    </div>
+                  </div>                  
+                </div>
+         
+        </form>
+      </nb-card-body>        
+    </nb-card>
+  </div>
+</div>
