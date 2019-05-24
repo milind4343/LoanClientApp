@@ -4,7 +4,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
 
-@ Component({
+@Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
@@ -24,13 +24,13 @@ constructor(private authService: AuthService, service: NbAuthService, @Inject(NB
 
   login() {
     this .router.navigate(['pages/agent']);
-    this.authService.login(this.user).then(result => {
-      if (result != null) {
-          localStorage.setItem("jwt", result.AccessToken);
-          this .router.navigate(['dashboard']);
-      }
-    }).catch(err => {
-      console.log(err);
-    })
+    // this.authService.login(this.user).then(result => {
+    //   if (result != null) {
+    //       localStorage.setItem("jwt", result.AccessToken);
+    //       this .router.navigate(['dashboard']);
+    //   }
+    // }).catch(err => {
+    //   console.log(err);
+    // })
   }
 }

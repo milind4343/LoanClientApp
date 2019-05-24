@@ -41,5 +41,11 @@ export class AgentService {
       .toPromise();
   }
 
+  getAgent(){
+    return this.http.get(this.agentUrl+'/getAgent',{ headers: this.headers })
+    .map(res => res.json())
+      .toPromise();
+  }
+
   
 }

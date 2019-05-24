@@ -5,7 +5,8 @@
       <nb-card style="text-align: center;font-size:16px;">
         <nb-card-header>Agent Registration</nb-card-header>
         <nb-card-body>
-          <form  name="frmregister" #form="ngForm" aria-labelledby="title">
+          
+          <form  name="frmregister" #form="ngForm" aria-labelledby="title" novalidate>
             <div class="form-group row">
               <label for="inputFirstname" class="col-sm-2 col-form-label">FirstName</label>
               <div class="col-sm-2">
@@ -116,7 +117,7 @@
                   <p class="error-message" *ngIf="zipCode.invalid && submitted && zipCode.errors.required">Required!</p>
           </div>
           <div class="offset-sm-3 col-sm-9">
-              <button type="button" class="btn btn-primary" (click)="submitted=true;registration()" >Register</button>
+              <button type="button" class="btn btn-primary" (click)="submitted=true;validate=form.valid;registration()" >Register</button>
           </div>
           </form>
         </nb-card-body>

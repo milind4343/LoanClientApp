@@ -6,14 +6,17 @@ import { RegistrationComponent } from './registration/registration.component';
 import { AgentComponent } from './agent.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeModule } from '../../@theme/theme.module';
+import { ListAgentComponent } from './list-agent/list-agent.component';
+import { DataTablesModule } from 'angular-datatables';
 
 @NgModule({
-  declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent],
+  declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent, ListAgentComponent],
   imports: [
     CommonModule,
     AgentRoutingModule,
     NgbModule,
-    ThemeModule
+    ThemeModule,
+    DataTablesModule
   ]
 })
 export class AgentModule { }
