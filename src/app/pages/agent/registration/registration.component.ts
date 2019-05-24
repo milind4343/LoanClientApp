@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
-import{ City } from '../City';
-import{ State } from '../State';
 
 
 @Component({
