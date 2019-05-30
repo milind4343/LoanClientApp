@@ -13,6 +13,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
 
   //authService: any;
   user: any = {};
+ 
 
 constructor(private authService: AuthService, service: NbAuthService, @Inject(NB_AUTH_OPTIONS) protected options = {}, cd: ChangeDetectorRef, router: Router) {
     super(service, options, cd, router);

@@ -8,7 +8,7 @@ import{MiscellaneousModule} from './miscellaneous/miscellaneous.module';
 
 
 const PAGES_COMPONENTS = [
-  PagesComponent,
+  PagesComponent
 ];
 
 @NgModule({

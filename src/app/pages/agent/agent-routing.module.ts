@@ -1,9 +1,9 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AgentdashboardComponent } from './agentdashboard/agentdashboard.component';
-import { RegistrationComponent } from '../agent/registration/registration.component';
+import { AgentdashboardComponent } from './agent-dashboard/agent-dashboard.component';
+import { RegistrationComponent } from '../agent/agent-registration/agent-registration.component';
 import { AgentComponent } from './agent.component';
-import { ListAgentComponent } from '../agent/list-agent/list-agent.component';
+import { ListAgentComponent } from './agent-list/agent-list.component';
 
 const routes: Routes = [{
   path: '',
@@ -14,10 +14,12 @@ const routes: Routes = [{
     component: AgentdashboardComponent,
   },
   {
-    // path: 'register',
-    // component: RegistrationComponent,
-    path: 'register',
+    path: 'list',
     component:ListAgentComponent ,
+  },
+  {
+    path: 'register',
+    component: RegistrationComponent,
   }],
 }];
 
