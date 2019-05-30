@@ -1,10 +1,55 @@
 <nb-card>
-    <nb-card-header>Enter your name</nb-card-header>
-    <nb-card-body>
-      <input #name nbInput placeholder="Name">
-    </nb-card-body>
-    <nb-card-footer>
-      <button nbButton status="danget" (click)="cancel()">Cancel</button>
-      <button nbButton status="success" (click)="submit(name.value)">Submit</button>
-    </nb-card-footer>
-  </nb-card>
+  <nb-card-header>{{ title }}
+    <!-- <button class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button> -->
+  </nb-card-header>
+      <nb-card-body>
+          <div *ngIf="title=='Fund Transfer'" style="padding: 0 5%">
+            <form class="form-horizontal"  #fundform="ngForm" aria-labelledby="title" novalidate>
+                <div class="row">
+                  <label class="col-sm-5">Agent</label>
+                  <div class="col-sm-5">
+                        <select class="form-control"  #agentid="ngModel" [(ngModel)]="agent.agentid" name="agentid"  required> 
+                            <option *ngFor="let agentval of agentlist" value="{{agentval.id}}">
+                                {{agentval.name}}
+                            </option>
+                        </select>
+                        <p class="error-message" *ngIf="agentid.invalid && submitted">
+                            Required!
+                        </p>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <label class="col-sm-5">Amount</label>
+                  <div class="col-sm-5">
+                    <div class="form-group">
+                      <input type="fundamount"  name="fundamount" #fundamount="ngModel" [(ngModel)]="agent.fundamount" class="form-control" id="inputmiddlename" placeholder="Fund Amount" maxlength="50" required>
+                      <p class="error-message" *ngIf="fundamount.invalid && submitted">Required!</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                    <label class="col-sm-5">Remark</label>
+                    <div class="col-sm-5">
+                      <div class="form-group">
+                          <textarea rows="5" nbInput fullWidth shape="round"  placeholder="Remark" #remark="ngModel"  [(ngModel)]="agent.remark" name="remark" maxlength="500" required></textarea>
+                      </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-md btn-primary" (click)="submitted=true;addFundDtl(agent,fundform)">Save</button>
+                <button class="btn btn-md btn-warning" (click)="cancel('No')">Cancle</button>
+            </form>
+          </div>
+          <div *ngIf="title=='Confirmation'" style="padding: 0 5%">
+            <nb-card-body>
+                <p>{{description}}</p>
+            </nb-card-body>
+            <button class="btn btn-md btn-primary" (click)="submit('Yes')">Yes</button>
+            <button class="btn btn-md btn-warning" (click)="cancel('No')">No</button>
+          </div>
+      </nb-card-body>
+</nb-card>

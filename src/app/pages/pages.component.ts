@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 import { ActiveLink } from '../auth/auth.model';
+import { MENU_ITEMS } from './pages-menu';
 import { LoaderService } from '../commonServices/loader.service';
 import { EncrDecrService } from '../commonServices/encrdecr.service';
 import { Router } from '@angular/router';
@@ -36,6 +37,7 @@ export class PagesComponent implements OnInit {
   // }
 
   ngOnInit() {
+    //this.menu = MENU_ITEMS;
     if (this.activeLinks === undefined || this.activeLinks.length === 0) {
       let item = localStorage.getItem("encryptkey");
       if (item == "" || item == null) {
