@@ -10,5 +10,7 @@
 
 export const environment = {
   production: false,
-  domain:'http://localhost:63956'
+  domain:'http://localhost:63956',
+  menulist: [],
+  encryptkey : '123456$#@$^@1ERF'
 };

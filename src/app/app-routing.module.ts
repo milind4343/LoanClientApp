@@ -6,6 +6,7 @@ import { NgModule } from '@angular/core';
 import { LoginComponent } from './auth/login/login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import { AuthenticationService } from './commonServices/authentication.service';
 
 
 const routes: Routes = [
@@ -17,10 +18,12 @@ const routes: Routes = [
       {
         path: '',
         component: LoginComponent,
+        canActivate:[AuthenticationService]
       },
       {
         path: 'login',
         component: LoginComponent,
+        canActivate:[AuthenticationService]
       },
       
       {

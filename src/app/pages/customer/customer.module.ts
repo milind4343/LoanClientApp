@@ -7,6 +7,8 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerComponent } from './customer.component';
 import { DataTablesModule } from 'angular-datatables';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 @NgModule({
   declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent],
@@ -15,7 +17,9 @@ import { CustomerAddComponent } from './customer-add/customer-add.component';
     CustomerRoutingModule,
     ThemeModule,
     Ng2SmartTableModule,
-    DataTablesModule
+    DataTablesModule,
+    SelectDropDownModule,
+    UiSwitchModule
   ]
 })
 export class CustomerModule { }

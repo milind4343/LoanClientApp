@@ -19,7 +19,9 @@ import { AuthService } from './auth/auth.service';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-
+import { LoaderService } from './commonServices/loader.service';
+import { AuthenticationService } from './commonServices/authentication.service';
+import { EncrDecrService } from './commonServices/encrdecr.service';
 
 @NgModule({
   declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent],
@@ -36,8 +38,11 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
   bootstrap: [AppComponent],
   providers: [
    // { provide: APP_BASE_HREF, useValue: '/' },
-    AuthService
-  ],
+    AuthService,
+    LoaderService,
+    AuthenticationService,
+    EncrDecrService
+  ]
 })
 export class AppModule {
 }

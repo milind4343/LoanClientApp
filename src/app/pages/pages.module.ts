@@ -4,11 +4,12 @@ import { PagesComponent } from './pages.component';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { PagesRoutingModule } from './pages-routing.module';
 import { ThemeModule } from '../@theme/theme.module';
-import{MiscellaneousModule} from './miscellaneous/miscellaneous.module';
-
+import {MiscellaneousModule} from './miscellaneous/miscellaneous.module';
+import { DialogNamePromptComponent } from './dialog-name-prompt/dialog-name-prompt.component';
 
 const PAGES_COMPONENTS = [
   PagesComponent,
+  DialogNamePromptComponent
 ];
 
 @NgModule({
@@ -16,11 +17,10 @@ const PAGES_COMPONENTS = [
     PagesRoutingModule,
     ThemeModule,
     DashboardModule,
-    MiscellaneousModule,
-   
+    MiscellaneousModule
   ],
   declarations: [
-    ...PAGES_COMPONENTS,
+    ...PAGES_COMPONENTS   
     
   ],
 })

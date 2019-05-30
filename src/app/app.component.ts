@@ -4,17 +4,19 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  */
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from './commonServices/loader.service';
 
 @Component({
   selector: 'ngx-app',
-  template: '<router-outlet></router-outlet>',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
 
-  constructor() {
+  constructor(public loader:LoaderService) {
   }
 
   ngOnInit(): void {
-   
+   this.loader.loader = false;
   }
 }
