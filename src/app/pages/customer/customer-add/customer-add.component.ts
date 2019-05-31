@@ -17,7 +17,7 @@ import { LoaderService } from '../../../commonServices/loader.service';
 export class CustomerAddComponent implements OnInit {
   @Input() editUserID: number;
   @Output() callParent = new EventEmitter<string>();
-  submitted:boolean = false;
+  submitted: boolean = false;
   //fileData: File = null;
   imgUrl: any;
   formData: FormData = new FormData();
@@ -37,14 +37,14 @@ export class CustomerAddComponent implements OnInit {
   hasIcon = true;
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
-  
-  constructor(public loader:LoaderService, private customerservice: CustomerService, private agentservice: AgentService, private toastrService: NbToastrService) {
+
+  constructor(public loader: LoaderService, private customerservice: CustomerService, private agentservice: AgentService, private toastrService: NbToastrService) {
     this.imgUrl = "assets/images/user-placeholder.png";
   }
 
   ngOnInit() {
     this.customer.cityId = "";
-    this.customer.zipcode = "";    
+    this.customer.zipcode = "";
     let userId = this.editUserID;
     if (userId > 0) {
       this.getCustomer(userId);
@@ -52,8 +52,8 @@ export class CustomerAddComponent implements OnInit {
     this.getState();
   }
 
-  getCustomer(userID: number){
-    this.customerservice.getCustomers(userID).subscribe(result => { 
+  getCustomer(userID: number) {
+    this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
       this.customer = result[0];
       this.imgUrl = 'data:image/png;base64,' + result[0].profileImageCode;
@@ -65,8 +65,8 @@ export class CustomerAddComponent implements OnInit {
   fileProgress(fileInput: any) {
     //this.fileData = <File>fileInput.target.files[0];
     var reader = new FileReader();
-    let fileToUpload = <File>fileInput[0];   
-    this.formData.append('file', fileToUpload, fileToUpload.name);        
+    let fileToUpload = <File>fileInput[0];
+    this.formData.append('file', fileToUpload, fileToUpload.name);
     reader.readAsDataURL(fileInput[0]);
     reader.onload = (_event) => {
       this.imgUrl = reader.result;
@@ -74,107 +74,106 @@ export class CustomerAddComponent implements OnInit {
   }
 
 
-  register(form:any) {
+  register(form: any) {
     debugger;
-if(form.valid){
-  this.loader.loader = true;
-  this.loadingMediumGroup = true;
+    if (form.valid) {
+      this.loader.loader = true;
+      this.loadingMediumGroup = true;
 
-  const config = {
-    status: this.status,
-    destroyByClick: this.destroyByClick,
-    duration: this.duration,
-    hasIcon: this.hasIcon,
-    position: this.position,
-    preventDuplicates: this.preventDuplicates
-  }; 
-  
-  this.formData.append("customer", JSON.stringify(this.customer));
+      const config = {
+        status: this.status,
+        destroyByClick: this.destroyByClick,
+        duration: this.duration,
+        hasIcon: this.hasIcon,
+        position: this.position,
+        preventDuplicates: this.preventDuplicates
+      };
 
-  //this.customerservice.registerCustomer(this.customer).then(result=>{
-    this.customerservice.registerCustomer(this.formData).then(result=>{
-    debugger;
-    if(result.success){
+      this.formData.append("customer", JSON.stringify(this.customer));
 
-      this.callParent.emit('List');
+      //this.customerservice.registerCustomer(this.customer).then(result=>{
+      this.customerservice.registerCustomer(this.formData).then(result => {
+        debugger;
+        if (result.success) {
 
-      this.toastrService.show(
-        "Customer Added Successfully",
-        "Success",
-        config);
-    }
-    else{
-      config.status = NbToastStatus.DANGER;
-      this.toastrService.show(
-        "Something goes wrong!",
-        "Error",
-        config);
-    }
-    this.loadingMediumGroup = false;
-    this.loader.loader = false;
-  }).catch(err=>{
-    
-    config.status = NbToastStatus.DANGER;
+          this.callParent.emit('List');
 
-      this.toastrService.show(
-        "Something goes wrong!",
-        "Error",
-        config);
+          this.toastrService.show(
+            "Customer Added Successfully",
+            "Success",
+            config);
+        }
+        else {
+          config.status = NbToastStatus.DANGER;
+          this.toastrService.show(
+            "Something goes wrong!",
+            "Error",
+            config);
+        }
+        this.loadingMediumGroup = false;
+        this.loader.loader = false;
+      }).catch(err => {
+
+        config.status = NbToastStatus.DANGER;
+
+        this.toastrService.show(
+          "Something goes wrong!",
+          "Error",
+          config);
         this.loader.loader = false;
         this.loadingMediumGroup = false;
-  });
-}
-   
+      });
+    }
+
   }
 
-  getState(){
-    this.agentservice.getState().then(result=>{
-      if(result != null){   
+  getState() {
+    this.agentservice.getState().then(result => {
+      if (result != null) {
         result.forEach(element => {
-          this.state.push({id: element.stateId, name:element.stateName})
+          this.state.push({ id: element.stateId, name: element.stateName })
         });
-        if (!(this.editUserID > 0))        
+        if (!(this.editUserID > 0))
           this.customer.stateId = "";
-      }      
+      }
     })
   }
 
-  onStateSelect(stateId: string){
+  onStateSelect(stateId: string) {
     debugger;
     this.agentservice.getCity(stateId).then(result => {
 
-      if(result != null && result.length > 0){
-        
+      if (result != null && result.length > 0) {
+
         result.forEach(element => {
-          this.city.push({id: element.id, name: element.name})
-        }); 
-        if (!(this.editUserID > 0)) 
-            this.customer.cityId = "";
+          this.city.push({ id: element.id, name: element.name })
+        });
+        if (!(this.editUserID > 0))
+          this.customer.cityId = "";
       }
-      else{
-        this.city = [];        
+      else {
+        this.city = [];
       }
     });
-   
+
   }
 
-  onCitySelect(cityId: string){
+  onCitySelect(cityId: string) {
 
-    this.agentservice.getArea(cityId).then(result=>{
-      if(result!=null && result.length > 0){
-        result.forEach(e=>{
-          this.areacode.push({id: e.id, name: e.name});
+    this.agentservice.getArea(cityId).then(result => {
+      if (result != null && result.length > 0) {
+        result.forEach(e => {
+          this.areacode.push({ id: e.id, name: e.name });
         })
 
-        if (!(this.editUserID > 0)) 
+        if (!(this.editUserID > 0))
           this.customer.zipcode = "";
       }
-      else{
+      else {
         this.areacode = [];
       }
-
     });
-    
+
   }
 
   cancelForm() {

@@ -27,6 +27,11 @@ const routes: Routes = [{
     loadChildren: './customer/customer.module#CustomerModule',
   },
   {
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   }],

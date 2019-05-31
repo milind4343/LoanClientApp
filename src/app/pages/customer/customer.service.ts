@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers} from '@angular/http';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Customer } from './customer';
@@ -10,15 +10,16 @@ import { Customer } from './customer';
 })
 export class CustomerService {
 
+  private token = "Bearer " + localStorage.getItem('jwt');
   private customerUrl = environment.domain + '/api/customer';
-  //private headers = new Headers({ 'Content-Type': 'application/json' })
-  private headers = new Headers({ 'Content-Type': 'multipart/form-data' })
+  //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
+  private headers = new HttpHeaders({'Authorization': this.token})
   
 
   constructor(private http: Http, private httpclient: HttpClient) { }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
-    return this.httpclient.get<Customer[]>(this.customerUrl + '/list/'+userID);
+    return this.httpclient.get<Customer[]>(this.customerUrl + '/list/' + userID, {headers : this.headers});
   }
 
   // getCustomers(userID: number = 0) : Promise<Customer[]> {
@@ -38,9 +39,7 @@ export class CustomerService {
 
 
   activeCustomer(IsActive:boolean){
-    //return 
-
-
+    //return
   }
 
 }

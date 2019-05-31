@@ -19,13 +19,14 @@ import { AuthService } from './auth/auth.service';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import { DialogNamePromptComponent } from './pages/dialog-name-prompt/dialog-name-prompt.component';
 import { LoaderService } from './commonServices/loader.service';
 import { AuthenticationService } from './commonServices/authentication.service';
 import { EncrDecrService } from './commonServices/encrdecr.service';
+import { ExceptionHandler } from './commonServices/exceptionhandler.service';
+import { PageAccessService } from './commonServices/getpageaccess.service';
 
 @NgModule({
-  declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent,DialogNamePromptComponent],
+  declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -42,10 +43,9 @@ import { EncrDecrService } from './commonServices/encrdecr.service';
     AuthService,
     LoaderService,
     AuthenticationService,
-    EncrDecrService
-  ],
-  entryComponents:[
-    DialogNamePromptComponent
+    EncrDecrService,
+    ExceptionHandler,
+    PageAccessService
   ]
 })
 export class AppModule {

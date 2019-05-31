@@ -5,6 +5,9 @@ import { CustomerService } from '../customer.service';
 import { Customer } from '../customer';
 import { NbDialogService } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
+import { ExceptionHandler } from '../../../commonServices/exceptionhandler.service';
+import { PageAccessService } from '../../../commonServices/getpageaccess.service';
+
 
 @Component({
   selector: 'ngx-customer-list',
@@ -22,10 +25,11 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   names:string[];
   
-  constructor(private customerservice: CustomerService, private dialogService: NbDialogService){ 
+  constructor(private pageAccessService: PageAccessService,private customerservice: CustomerService, private dialogService: NbDialogService, private handleError:ExceptionHandler){ 
   }
 
   ngOnInit(): void {
+    this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
@@ -34,6 +38,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       debugger;
       this.customerlist = result;
       this.dtTrigger.next();
+    },
+    error =>{
+      console.log(error);
+      this.handleError.handleExcption(error);
     });   
 
   }

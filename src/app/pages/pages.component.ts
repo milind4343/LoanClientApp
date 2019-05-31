@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbMenuItem } from '@nebular/theme';
 import { ActiveLink } from '../auth/auth.model';
-import { MENU_ITEMS } from './pages-menu';
 import { LoaderService } from '../commonServices/loader.service';
 import { EncrDecrService } from '../commonServices/encrdecr.service';
 import { Router } from '@angular/router';
@@ -58,9 +57,7 @@ export class PagesComponent implements OnInit {
                 this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title, children: subActiveLinks });
               }
             }
-            environment.menulist = [];
             this.menu = this.activeLinks;
-            environment.menulist = this.activeLinks;
             var encrypted = this.EncrDecr.set(environment.encryptkey, JSON.stringify(this.activeLinks));
             localStorage.setItem("encryptkey", encrypted);
             this.loader.loader = false;

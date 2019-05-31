@@ -43,6 +43,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
 
 
   login() {
+    debugger;
     this.loader.loader = true;
     this.authService.login(this.user).then(result => {
       if (result !== null) {
@@ -50,7 +51,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
           localStorage.setItem("jwt","");               
           localStorage.setItem("encryptkey","");
           setTimeout(()=>{
-            localStorage.setItem("jwt", result.accesstoken);
+            localStorage.setItem("jwt", result.token);
             this.router.navigate(['dashboard']);
             this.loader.loader = false;
           },500);
