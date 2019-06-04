@@ -19,4 +19,5 @@ export class Customer {
     profileImage: any;
     remarks : string;
     profileImageCode: string;
+    isActive: boolean;
 }

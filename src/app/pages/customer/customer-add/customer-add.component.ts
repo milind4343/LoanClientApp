@@ -38,11 +38,13 @@ export class CustomerAddComponent implements OnInit {
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
 
-  constructor(public loader: LoaderService, private customerservice: CustomerService, private agentservice: AgentService, private toastrService: NbToastrService) {
+  constructor(public loader: LoaderService, private customerservice: CustomerService, 
+    private agentservice: AgentService, private toastrService: NbToastrService) {
     this.imgUrl = "assets/images/user-placeholder.png";
   }
 
   ngOnInit() {
+    debugger;
     this.customer.cityId = "";
     this.customer.zipcode = "";
     let userId = this.editUserID;
@@ -53,6 +55,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   getCustomer(userID: number) {
+    debugger;
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
       this.customer = result[0];
@@ -92,10 +95,11 @@ export class CustomerAddComponent implements OnInit {
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{
-      this.customerservice.registerCustomer(this.formData).then(result => {
+      this.customerservice.registerCustomer(this.formData).subscribe(result => {
         debugger;
         if (result.success) {
 
+          this.editUserID = 0;
           this.callParent.emit('List');
 
           this.toastrService.show(
@@ -112,7 +116,7 @@ export class CustomerAddComponent implements OnInit {
         }
         this.loadingMediumGroup = false;
         this.loader.loader = false;
-      }).catch(err => {
+      },err => {
 
         config.status = NbToastStatus.DANGER;
 
@@ -177,6 +181,7 @@ export class CustomerAddComponent implements OnInit {
   }
 
   cancelForm() {
+    this.editUserID = 0;
     this.callParent.emit('List');
   }
 

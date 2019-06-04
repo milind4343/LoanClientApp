@@ -46,8 +46,9 @@ export class PagesComponent implements OnInit {
             this.activeLinks = new Array<ActiveLink>();
             this.activeLinks.push({ home: true, icon: "nb-home", link: '/pages/dashboard', title: 'Dashboard' });
             for (let i = 0; i < result.length; i++) {
+              debugger;
               if (result[i].home) {
-                this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title, children: [] });
+                this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title });
               }
               else {
                 let subActiveLinks = [];

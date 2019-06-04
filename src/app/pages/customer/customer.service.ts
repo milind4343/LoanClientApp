@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Http, Headers} from '@angular/http';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -19,6 +19,7 @@ export class CustomerService {
   constructor(private http: Http, private httpclient: HttpClient) { }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
+    debugger;
     return this.httpclient.get<Customer[]>(this.customerUrl + '/list/' + userID, {headers : this.headers});
   }
 
@@ -31,14 +32,15 @@ export class CustomerService {
 
 
   //registerCustomer(req : Customer) {
-    registerCustomer(formdata : any) {
-    return this.http.post(this.customerUrl + '/add', formdata)
-    .map(res => res.json())
-    .toPromise();
+    registerCustomer(formdata : any) : Observable<any> {
+    return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.headers });
+    // .map(res => res.json())
+    // .toPromise();
   }
 
 
-  activeCustomer(IsActive:boolean){
+  changeStatus(id: number){
+    return this.httpclient.get(this.customerUrl + '/changeStatus/'+ id, {headers: this.headers});
     //return
   }
 
