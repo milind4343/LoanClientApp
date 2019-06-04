@@ -7,9 +7,11 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerComponent } from './customer.component';
 import { DataTablesModule } from 'angular-datatables';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
+import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
+
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent],
+  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

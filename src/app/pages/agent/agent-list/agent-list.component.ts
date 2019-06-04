@@ -13,6 +13,7 @@ import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-
 })
 
 export class ListAgentComponent implements OnInit, OnDestroy {
+ 
   dtOptions: DataTables.Settings = {};
   agentlist: Agent[] = [];
   dtTrigger: any = new Subject();
@@ -21,12 +22,10 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   pageTitle : string = "Agent List";
   pageView : string = "List";
   userid: number;
-
-  fundtransfer:any;
+  // fundtransfer:any;
+  fundHistorylist:any[];
   agent: any=[];
   constructor(private agentService: AgentService,private dialogService: NbDialogService) { }
-
-  
 
   ngOnInit(): void {
     debugger;
@@ -43,7 +42,7 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       this.dtTrigger.next();
     });
   }
-  
+
   onPageChanged(eventValue :string) {
     this.pageView = eventValue;
     this.pageTitle='Agent List';
@@ -75,8 +74,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       });
   }
 
-  
-
   editAgent(userId){
     debugger;
     this.userid=userId;
@@ -84,9 +81,16 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.pageTitle='Edit Agent';
   }
 
-  fundHistory(userId)
-  {
-  
+  fetchFundHistory(userId){
+    debugger;
+    this.userid=userId;
+    this.pageView='History';
+    this.pageTitle='Fund History';
+    // this.agentService.getAgentfund(userId).subscribe(result =>{
+    //   debugger;
+    //  this.fundHistorylist=result;
+    // });
+    
   }
 
   popupFund(){
@@ -125,9 +129,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     console.log(err);
   })
 }
-
-
-
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();

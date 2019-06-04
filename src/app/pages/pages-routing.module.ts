@@ -27,6 +27,10 @@ const routes: Routes = [{
     loadChildren: './customer/customer.module#CustomerModule',
   },
   {
+    path:'loan',
+    loadChildren:'./customer/customer.module#CustomerModule',
+  },
+  {
     path: '**',
     component: NotFoundComponent,
   }],

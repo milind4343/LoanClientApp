@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 export class AgentService {
 
   private agentUrl = environment.domain + '/api/agent';
+  private commonUrl = environment.domain + '/api/common';
   
   private headers = new Headers({ 'Content-Type': 'application/json' })
 
@@ -25,26 +26,27 @@ export class AgentService {
   }
 
   getState(){
-    return this.http.get(this.agentUrl+'/getstate',{ headers: this.headers })
+    return this.http.get(this.commonUrl+'/getstate',{ headers: this.headers })
     .map(res => res.json())
       .toPromise();
   }
 
   getCity(stateId){
-    return this.http.get(this.agentUrl+'/getcity?stateid='+stateId,{ headers: this.headers })
+    return this.http.get(this.commonUrl+'/getcity?stateid='+stateId,{ headers: this.headers })
     .map(res => res.json())
       .toPromise();
   }
 
   getArea(cityId){
-    return this.http.get(this.agentUrl+'/getarea?cityId='+cityId,{ headers: this.headers })
+    return this.http.get(this.commonUrl+'/getarea?cityId='+cityId,{ headers: this.headers })
     .map(res => res.json())
       .toPromise();
   }
 
 
   getAgent(): Observable<Agent[]>{
-    return this.httpclient.get<Agent[]>(this.agentUrl + '/getAgent');
+    // return this.httpclient.get<Agent[]>(this.agentUrl + '/getAgent');
+    return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent');
   }
 
   editAgent(agentId){
@@ -62,11 +64,16 @@ export class AgentService {
       .toPromise();
   }
 
-  getAgentfund(agentId){
-    return this.http.get(this.agentUrl+'/getAgentfund?userId='+agentId,{ headers: this.headers })
-    .map(res => res.json())
-      .toPromise();
+
+  getAgentfund(userId){
+    return this.http.get(this.agentUrl + '/getAgentfund?userId='+userId,{ headers: this.headers }).map(res=>res.json());
   }
+  
+
+  isreceivefund(agentfundId,isreceive){
+    return this.http.get(this.agentUrl + '/isreceivefund?agentfundId='+agentfundId+'&isreceive='+isreceive,{ headers: this.headers });
+  }
+
 
   
   // getAgent(){

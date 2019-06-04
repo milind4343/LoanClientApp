@@ -42,6 +42,7 @@ export class RegistrationComponent  {
     }).catch(err => {
       console.log(err);
     })
+    
     debugger;
     if(this.userId>0 || this.userId==undefined){
       this.agentService.editAgent(this.userId).subscribe(result =>{
@@ -53,6 +54,7 @@ export class RegistrationComponent  {
     }
     else
     {
+      this.user.userId=0;
       this.user.stateId='';
       this.user.gender="Male";
     }
@@ -67,7 +69,6 @@ export class RegistrationComponent  {
         result.forEach(element => {
           this.city.push({id : element.id , name : element.name})
         });
-        this.user.cityId='';
       }
       else
       {

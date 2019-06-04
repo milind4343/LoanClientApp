@@ -9,10 +9,11 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ListAgentComponent } from './agent-list/agent-list.component';
 import { DataTablesModule } from 'angular-datatables';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
 
 
 @NgModule({
-  declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent, ListAgentComponent],
+  declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent, ListAgentComponent, AgentFundhistoryComponent],
   imports: [
     CommonModule,
     AgentRoutingModule,

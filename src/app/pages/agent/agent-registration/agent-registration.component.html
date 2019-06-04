@@ -114,10 +114,14 @@
                   <p class="error-message" *ngIf="zipCode.invalid && submitted && zipCode.errors.required">Required!</p>
           </div>
 
-          <div class="offset-sm-3 col-sm-9">
+          <div class="offset-sm-3 col-sm-9" *ngIf="(user.userId>0)">
+              <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)" >Update</button>
+              <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()" >Cancle</button>
+          </div>
+
+          <div class="offset-sm-3 col-sm-9" *ngIf="(user.userId==0)">
               <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)" >Register</button>
               <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()" >Cancle</button>
           </div>
           </div>
         </form>
-

@@ -19,7 +19,7 @@ import { AuthService } from './auth/auth.service';
 import { HttpModule } from '@angular/http';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
-import{DialogNamePromptComponent} from './pages/dialog-name-prompt/dialog-name-prompt.component';
+import { DialogNamePromptComponent } from './pages/dialog-name-prompt/dialog-name-prompt.component';
 
 
 @NgModule({

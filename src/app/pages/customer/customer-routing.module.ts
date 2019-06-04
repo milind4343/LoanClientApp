@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { CustomerComponent } from './customer.component';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
+import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
 
 const routes: Routes = [{
   path: '',
@@ -13,6 +14,10 @@ const routes: Routes = [{
   },{
     path: 'add',
     component: CustomerAddComponent
+  },
+  {
+    path: 'loan',
+    component: CustomerLoanAddComponent
   }]
 }];
 
