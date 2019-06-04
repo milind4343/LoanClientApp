@@ -31,8 +31,15 @@
                   <td>{{cust.mobile}}</td>
                   <td>
                     <!-- <i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i> -->
-                    <span style="margin-left:10px;"><i class="fa fa-edit-2" aria-hidden="true" title="Edit Customer" (click)="editCustomer(cust.userID)"></i></span>
-                    <span style="margin-left:10px;"><ui-switch size="small" name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch></span>
+                    <button class="icon-btn" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="Edit Customer">
+                      <i class="fa fa-edit" aria-hidden="true"></i>
+                    </button>     
+                    <button class="icon-btn" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
+                        <i class="fa fa-plus-circle" title="Add Loan">loan</i>
+                    </button>
+                    <span style="margin-left:5px;">
+                      <ui-switch size="small" name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
+                    </span>                    
                   </td>
                 </tr>
               </tbody>
@@ -40,7 +47,10 @@
         </div>
         <div *ngIf="pageView === 'Add' || pageView === 'Edit'">
             <ngx-customer-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-add>
-        </div>       
+        </div>  
+        <div *ngIf="pageView === 'AddLoan'">
+          <ngx-customer-loan-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-add>
+        </div>     
         
       </nb-card-body>
     </nb-card>

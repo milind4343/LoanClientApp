@@ -1,4 +1,4 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit, PipeTransform, Input, EventEmitter, Output } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import{Agent}from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
@@ -9,6 +9,10 @@ import { NbDateService } from '@nebular/theme';
   styleUrls: ['./customer-loan-add.component.scss']
 })
 export class CustomerLoanAddComponent implements OnInit {
+
+  @Input() editUserID: number;
+  @Output() callParent = new EventEmitter<string>();
+  
   max: Date;
   min:Date;
   agentlist: Agent[] = [];
@@ -80,7 +84,11 @@ export class CustomerLoanAddComponent implements OnInit {
 
   loantermcalculation(){
     debugger;
+  }
 
+  cancelForm() {
+    this.editUserID = 0;
+    this.callParent.emit('List');
   }
 }
 
