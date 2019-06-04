@@ -25,6 +25,8 @@ export class AgentService {
       .toPromise();
   }
 
+  //getState(){
+    //return this.http.get(this.agentUrl+'/getstate',{ headers: this.headers })
   getState(){
     return this.http.get(this.commonUrl+'/getstate',{ headers: this.headers })
     .map(res => res.json())

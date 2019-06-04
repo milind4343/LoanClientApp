@@ -1,14 +1,23 @@
 
 export class Customer {
-    userId: number;
+    userID: number;
     firstname: string;
+    middlename: string;
     lastname: string;
+    uid: string;
+    dob:Date;
     gender: string;
     emailId: string;
     mobile: string;
-    dob:Date;
+    phone: string;
+    stateId: string;
+    cityId: string;
+    zipcode: string;
     address: string;
     profession:string;
     company:string;
-    stateId:string;
+    profileImage: any;
+    remarks : string;
+    profileImageCode: string;
+    isActive: boolean;
 }

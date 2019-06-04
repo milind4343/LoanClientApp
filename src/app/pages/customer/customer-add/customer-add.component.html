@@ -1,137 +1,177 @@
-<div class="row">
-  <div class="col-md-1"></div>
-  <div class="col-md-10">
-    <nb-card>        
-      <nb-card-header>Add New Customer</nb-card-header>      
-      <nb-card-body>       
-        <form class="form-horizontal" #form="ngForm" (ngSubmit)="register(form)">
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="input-firstname">First Name</label>
-                  <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control" id="input-firstname"
-                    placeholder="First Name">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="input-middlename">Middle Name</label>
-                  <input type="text" [(ngModel)]="customer.middlename" name="middlename" class="form-control" id="input-middlename"
-                    placeholder="Middle Name">
-                </div>
-              </div>
-              <div class="col-sm-4">
-                <div class="form-group">
-                  <label for="input-lastname">Last Name</label>
-                  <input type="text" [(ngModel)]="customer.lastname" name="lastname" class="form-control" id="input-lastname"
-                    placeholder="Last Name">
-                </div>
-              </div>
-            </div>
+<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;register(form)">
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="input-firstname">First Name</label>
+        <span class="text-danger" *ngIf="firstname.invalid && submitted && firstname.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control"
+          id="input-firstname" placeholder="First Name" required>          
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="input-middlename">Middle Name</label>
+        <span class="text-danger" *ngIf="middlename.invalid && submitted && middlename.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.middlename" name="middlename" class="form-control"
+          id="input-middlename" #middlename="ngModel" placeholder="Middle Name" required>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="input-lastname">Last Name</label>
+        <span class="text-danger" *ngIf="lastname.invalid && submitted && lastname.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.lastname" name="lastname" class="form-control" id="input-lastname"
+          #lastname= "ngModel" placeholder="Last Name" required>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <!-- <input type="text" [(ngModel)]="customer.profile" name="profile" id="input-profile"> -->
+        <input style="display: none" type="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
+          (change)="fileProgress(fileInput.files)"> <!-- (change)="onFileChanged($event)" -->
+        <a (click)="fileInput.click()">
+          <img [src]="imgUrl" *ngIf="imgUrl" style="height: 150px;" 
+          nbTooltip="Upload Profile Photo" nbTooltipPlacement="top" nbTooltipStatus="success" />
+        </a>
+      </div>
+    </div>
+  </div>
 
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="input-birthdate">Birthdate</label>                        
-                          <input id="input-initialdate" nbInput class="form-control" placeholder="Birthdate" name="Birthdate"
-                            [(ngModel)]="customer.dob" [nbDatepicker]="formpicker">
-                          <nb-datepicker #formpicker></nb-datepicker>                       
-                      </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="input-amount">Gender</label>
-                        <div class="demo-radio">
-                          <nb-radio-group [(ngModel)]="customer.gender" name="gender">
-                            <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
-                            <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
-                          </nb-radio-group>
-                        </div>
-                      </div>
-                </div>                
-            </div>
-            
-            <div class="row">
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="input-email">Email</label>
-                  <input type="text" [(ngModel)]="customer.email" name="email" class="form-control" id="input-email"
-                    placeholder="Email">
-                </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="input-contact">Contact</label>
-                  <input type="text" [(ngModel)]="customer.contact" name="contact" class="form-control" id="input-contact"
-                    placeholder="Contact">
-                </div>
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-UID">UID</label>
+        <span class="text-danger" *ngIf="uid.invalid && submitted && uid.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.uid" #uid="ngModel" name="UID" class="form-control" id="input-UID"
+          placeholder="Unique Identity No." required>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-birthdate">Birthdate</label>
+        <input id="input-initialdate" nbInput class="form-control" placeholder="Birthdate" name="Birthdate"
+          [(ngModel)]="customer.dob" [nbDatepicker]="formpicker">
+        <nb-datepicker #formpicker></nb-datepicker>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-amount">Gender</label>
+        <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span>
+        <div class="demo-radio">
+          <nb-radio-group [(ngModel)]="customer.gender" #gender="ngModel" name="gender" required>
+            <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
+            <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            <div class="row">
-              <div class="col-sm-4">
-                <div class="form-group">
-                    <label for="input-state">State</label>
-                    <select class="form-control" [(ngModel)]="customer.stateId" name="stateId">
-                      <option value="">--- Select State ---</option>
-                      <option *ngFor="let s of state" value="{{s.id}}">{{s.name}}</option>                       
-                      </select>
-                      
-                </div>
-              </div>
-              <div class="col-sm-4">
-                  <div class="form-group">
-                      <label for="input-state">City</label>
-                      <select class="form-control" placeholder="Success">
-                          <option value="1">Option 1</option>
-                          <option value="2">Option 2</option>
-                          <option value="3">Option 3</option>
-                          <option value="4">Option 4</option>
-                        </select>                        
-                  </div>
-                </div>
-                <div class="col-sm-4"> 
-                    <div class="form-group">
-                        <label for="input-state">Pincode</label>
-                        <!-- <select class="form-control" placeholder="Success">
-                            <option value="1">Option 1</option>
-                            <option value="2">Option 2</option>
-                            <option value="3">Option 3</option>
-                            <option value="4">Option 4</option>
-                          </select> -->
-                          
-                    </div>
-                  </div>
-            </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-email">Email</label>
+        <span class="text-danger" *ngIf="email.invalid && submitted && email.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.emailId" #email="ngModel" name="email" class="form-control" id="input-email"
+          placeholder="Email" required>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-contact">Contact No.</label>
+        <span class="text-danger" *ngIf="mobile.invalid && submitted && mobile.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.mobile" name="contact" #mobile="ngModel" class="form-control" id="input-contact"
+          placeholder="Contact" required>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-altcontact">Alternate Contact No.</label>
+        <span class="text-danger" *ngIf="phone.invalid && submitted && phone.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.phone" name="altcontact" #phone="ngModel" class="form-control" id="input-altcontact"
+          placeholder="Alternate Contact" required>
+      </div>
+    </div>
+  </div>
 
-            <div class="row">
-              <div class="col-sm-6">
-                  <div class="form-group">
-                      <label for="input-contact">Address</label>
-                        <textarea rows="5" nbInput fullWidth [(ngModel)]="customer.address" name="address" class="form-control"
-                          id="input-address" placeholder="Address"></textarea>
-                    </div>
-              </div>
-              <div class="col-sm-6">
-                <div class="form-group">
-                  <label for="input-profession">Profession</label>
-                  <input type="text" [(ngModel)]="customer.profession" name="profession" class="form-control" id="input-profession"
-                    placeholder="Profession">
-                  </div>
-                <div class="form-group">
-                  <label for="input-company">Company</label>
-                  <input type="text" [(ngModel)]="customer.company" name="company" class="form-control" id="input-company"
-                    placeholder="Company">
-                  </div>
-                
-              </div>
-            </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-state">State</label>
+        <span class="text-danger" *ngIf="stateId.invalid && submitted && stateId.errors.required"> * required</span>
+        <!-- <ngx-select-dropdown tabindex="0" name="stateId" [multiple]="false" [(ngModel)]="customer.stateId" [config]="config"
+                  [options]="state"></ngx-select-dropdown> -->
+        <select class="form-control" [(ngModel)]="customer.stateId" #stateId="ngModel" name="stateId" required
+          (change)="onStateSelect(customer.stateId)">
+          <option value="">--- Select State ---</option>
+          <option *ngFor="let s of state" value="{{s.id}}">{{s.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-state">City</label>
+        <span class="text-danger" *ngIf="cityId.invalid && submitted && cityId.errors.required"> * required</span>
+        <select class="form-control" [(ngModel)]="customer.cityId" #cityId="ngModel" name="cityId"
+          (change)="onCitySelect(customer.cityId)" required>
+          <option value="">--- Select City ---</option>
+          <option *ngFor="let c of city" value="{{c.id}}">{{c.name}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="input-state">Pincode</label>
+        <span class="text-danger" *ngIf="zipcode.invalid && submitted && zipcode.errors.required"> * required</span>
+        <select class="form-control" name="zipcode" #zipcode="ngModel" [(ngModel)]="customer.zipcode" required>
+          <option value="">--- Select Zipcode ---</option>
+          <option *ngFor="let a of areacode" value="{{a.id}}">{{a.name}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
 
-          <!-- <div class="input-group">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="input-contact">Address</label>
+        <span class="text-danger" *ngIf="address.invalid && submitted && address.errors.required"> * required</span>
+        <textarea rows="5" nbInput fullWidth [(ngModel)]="customer.address" #address="ngModel" name="address" class="form-control"
+          id="input-address" placeholder="Address" required></textarea>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="input-profession">Profession</label>
+        <span class="text-danger" *ngIf="profession.invalid && submitted && profession.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.profession" name="profession" #profession="ngModel" class="form-control"
+          id="input-profession" placeholder="Profession" required>
+      </div>
+      <div class="form-group">
+        <label for="input-company">Company</label>
+        <span class="text-danger" *ngIf="company.invalid && submitted && company.errors.required"> * required</span>
+        <input type="text" [(ngModel)]="customer.company" name="company" #company="ngModel" class="form-control" id="input-company"
+          placeholder="Company" required>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="input-remarks">Remarks</label>
+        <textarea rows="2" [(ngModel)]="customer.remarks" name="remarks" class="form-control" id="input-remarks"
+          placeholder="Remarks"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="input-group">
                 <input type="text" placeholder="Enter your name" class="form-control" formControlName="firstCtrl"
                        [ngClass]="{'form-control-danger': firstForm.invalid && (firstForm.dirty || firstForm.touched)}">
               </div> -->
-              <!-- <div class="row">
+  <!-- <div class="row">
                 <div class="col-sm-4"></div>
                 <div class="container-btn col-sm-4">
                     <div class="form-group">
@@ -139,18 +179,20 @@
                       </div>
                 </div>
               </div> -->
-              
-                <div class="row">
-                  <div class="col-sm-4"></div>
-                  <div class="example-container col-md-4">
-                    <div class="container-btn">
-                        <button type="submit" nbButton status="success" class="btn-demo">Submit</button>
-                    </div>
-                  </div>                  
-                </div>
-         
-        </form>
-      </nb-card-body>        
-    </nb-card>
+
+  <div class="row">
+    <div class="col-sm-4"></div>
+    <div class="example-container col-md-4">
+      <div class="container-btn">
+        <button type="submit" nbButton status="success" size="medium" class="btn-demo" [nbSpinner]="loadingMediumGroup"
+          nbSpinnerStatus="success" nbSpinnerMessage="">
+          Submit </button>
+
+        <button type="button" nbButton status="warning" size="medium" class="btn-demo"
+           (click)="cancelForm()">
+          Cancel </button>
+      </div>
+    </div>
   </div>
-</div>
+
+</form>

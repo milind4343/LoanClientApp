@@ -1,0 +1,15 @@
+.filepicker{
+    -webkit-appearance: none;
+    position:inherit;
+    top:1px;
+    right:1px;
+    width: 150px;
+    height: 150px;
+    text-indent: 100em;
+    background: url('assets/images/profilee.jpg');
+    background-size: cover;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    //float: right;
+}

@@ -14,7 +14,7 @@ const routes: Routes = [{
     component: AgentdashboardComponent,
   },
   {
-    path: 'list',
+    path: '',
     component:ListAgentComponent ,
   },
   {
