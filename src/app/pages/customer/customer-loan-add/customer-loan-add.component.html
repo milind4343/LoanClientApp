@@ -41,7 +41,7 @@
                     <div class="col-sm-2"></div>
                   <label for="inputPassword2" class="col-sm-3 col-form-label">Interest</label>
                   <div class="col-sm-5">
-                      <select class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required>
+                      <select class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required (change)="tenurecalculation(loan)">
                           <option value="">
                               --Select Interest--
                           </option>
@@ -120,6 +120,14 @@
                   <div class="col-sm-2"></div>
                 </div>
                 <div class="form-group row">
+                  <div class="col-sm-2"></div>
+                  <label for="inputPassword2" class="col-sm-3 col-form-label">Payment Amount</label>
+                  <div class="col-sm-5">
+                    <input type="paymentamount" class="form-control" name="paymentamount" id="paymentamount"  #paymentamount [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
+                  </div>
+                  <div class="col-sm-2"></div>
+                </div>
+                <div class="form-group row">
                     <div class="col-sm-2"></div>
                   <label for="totaltnstallments" class="col-sm-3 col-form-label">Total Installments</label>
                   <div class="col-sm-5">
@@ -127,14 +135,7 @@
                   </div>
                   <div class="col-sm-2"></div>
                 </div>
-                <div class="form-group row">
-                  <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Payment Amount</label>
-                  <div class="col-sm-5">
-                    <input type="paymentamount" class="form-control" name="paymentamount" id="paymentamount"  #paymentamount [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" (change)="loantermcalculation()">
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
+               
                 <div class="form-group row">
                     <div class="col-sm-2"></div>
                   <label for="repayingstuff" class="col-sm-3 col-form-label">Re-Paying stuff</label>
@@ -170,40 +171,31 @@
 
               <br>
               <br>
-              <nb-card size="small">
+              <!-- <nb-card size="small">
                   <nb-card-header>
                     Select Uploaded Documents
                   </nb-card-header>
                   <nb-card-body>
                   </nb-card-body>
-                </nb-card>
+                </nb-card> -->
                 <br>
                 <br>
                 <table datatable class="row-border hover">
                     <thead>
                         <tr>
-                          <th>ID</th>
-                          <th>FirstName</th>
-                          <th>LastName</th>
-                          <th>Gender</th>
-                          <th>Email</th>
-                          <th>Contact</th>
-                          <th>Action</th>
+                          <th>Sr No</th>
+                          <th>Installment Date</th>
+                          <th>Installment Amount</th>
                         </tr>
                       </thead>
                       <tbody>
+                        {{ installmenttenure | json }}
                           <!-- *ngFor="let cust of customerlist" -->
-                        <tr>
-                          <td>userId</td>
-                          <td>firstname</td>
-                          <td>lastname</td>
-                          <td>gender</td>
-                          <td>emailId</td>
-                          <td>mobile</td>
-                          <td><i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i>
-                            <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="Edit Role"></i></span>
-                          </td>
-                        </tr>
+                          <tr *ngFor="let tenure of installmenttenure">
+                            <td>{{tenure.srno}}</td>
+                            <td>{{tenure.installmentdate}}</td>
+                            <td>{{tenure.installmentamount}}</td>
+                          </tr>
                       </tbody>
                 </table>
               <br>

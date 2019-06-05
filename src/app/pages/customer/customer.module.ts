@@ -8,7 +8,6 @@ import { CustomerComponent } from './customer.component';
 import { DataTablesModule } from 'angular-datatables';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
-import { SelectDropDownModule } from 'ngx-select-dropdown';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
 
@@ -20,7 +19,6 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
     ThemeModule,
     Ng2SmartTableModule,
     DataTablesModule,
-    SelectDropDownModule,
     UiSwitchModule
   ]
 })
