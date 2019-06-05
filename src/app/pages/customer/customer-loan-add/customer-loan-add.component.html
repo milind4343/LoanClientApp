@@ -2,8 +2,8 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputagent">Agent</label>
-        <select class="form-control" #userid [(ngModel)]="loan.agentid" name="agentid" required>
+        <label for="agentId">Agent</label>
+        <select id="agentId" class="form-control" #userid [(ngModel)]="loan.agentid" name="agentid" required>
           <option *ngFor="let agentval of agent" value="{{agentval.id}}">
             {{agentval.name}}
           </option>
@@ -12,8 +12,8 @@
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputPassword2">Loan Type</label>
-        <select class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required>
+        <label for="loanType">Loan Type</label>
+        <select id="loanType" class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required>
           <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
             {{loantype.name}}
           </option>
@@ -23,14 +23,14 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="inputLoanAmount">Loan Amount</label>
-        <input type="loanamount" class="form-control" #loanamount [(ngModel)]="loan.loanamount" name="loanamount"
+        <input type="text" class="form-control" #loanamount [(ngModel)]="loan.loanamount" name="loanamount"
           id="inputLoanAmount" placeholder="₱ 10000">
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group">
         <label for="interest">Interest</label>
-        <select class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required>
+        <select id="interest" class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required>
           <option value="">
             --- Select Interest ---
           </option>
@@ -56,30 +56,28 @@
       </div>
     </div>
   </div>
-
-
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputPassword2">Loan Start Date</label>
-        <input class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
+        <label for="startDate">Loan Start Date</label>
+        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
           [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" required>
         <nb-datepicker #startdate [min]="min"></nb-datepicker>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputPassword2">Loan End Date</label>
-        <input class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
+        <label for="endDate">Loan End Date</label>
+        <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
           [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
         <nb-datepicker #enddate></nb-datepicker>
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputPaymentPeriodicity">Payment Periodicity</label>
+        <label for="periodicity">Payment Periodicity</label>
         <div class="demo-radio">
-          <nb-radio-group name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
+          <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
             <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
             <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
           </nb-radio-group>
@@ -102,15 +100,15 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="totaltnstallments">Total Installments</label>
-        <input type="text" class="form-control" name="totalinstallments" id="totalinstallments" #totalinstallments
+        <label for="totalInstallments">Total Installments</label>
+        <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments" #totalinstallments
           [(ngModel)]="loan.totalinstallments" placeholder="Total Installments">
       </div>
     </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="inputPassword2">Payment Amount</label>
-        <input type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
+        <label for="paymentAmount">Payment Amount</label>
+        <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" (change)="loantermcalculation()">
       </div>
     </div>
