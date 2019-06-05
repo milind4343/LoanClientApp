@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Http , Headers} from '@angular/http';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -12,7 +11,7 @@ export class PageService {
   private master = environment.domain + '/api/menu';
   
 
-  constructor(private http: Http,private httpClient : HttpClient) { }
+  constructor(private http: Http) { }
 
 
   getMenuList() {

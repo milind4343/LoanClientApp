@@ -1,6 +1,6 @@
-import { Component, OnInit, PipeTransform, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CustomerService } from '../customer.service';
-import{Agent}from '../../agent/agent-list/agent';
+import { Agent }from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
 
 @Component({

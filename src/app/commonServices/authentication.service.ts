@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthenticationService {
     
-    constructor(private router:Router,private actvieRoute : ActivatedRoute) {
+    constructor(private router:Router) {
 
     }
 
