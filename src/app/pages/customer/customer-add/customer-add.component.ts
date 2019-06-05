@@ -40,7 +40,7 @@ export class CustomerAddComponent implements OnInit {
 
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
     private agentservice: AgentService, private toastrService: NbToastrService) {
-    this.imgUrl = "assets/images/user-placeholder.png";
+      this.imgUrl = "assets/images/user-placeholder.png";
   }
 
   ngOnInit() {
@@ -59,6 +59,7 @@ export class CustomerAddComponent implements OnInit {
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
       this.customer = result[0];
+      debugger;
       this.imgUrl = 'data:image/png;base64,' + result[0].profileImageCode;
       this.onStateSelect(this.customer.stateId);
       this.onCitySelect(this.customer.cityId);

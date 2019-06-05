@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy , TemplateRef  } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+//import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import{ Agent  }from './agent';
 import { AgentService } from '../agent.service';

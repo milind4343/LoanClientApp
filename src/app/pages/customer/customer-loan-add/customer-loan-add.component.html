@@ -1,222 +1,173 @@
-<div class="row">
-    <div class="col-md-1"></div>
-    <div class="col-md-10">
-      <nb-card>
-        <nb-card-header>Add Loan Detail</nb-card-header>      
-        <nb-card-body>       
-            <form class="form-horizontal"  #loanform="ngForm" aria-labelledby="title" novalidate>
-                <div class="form-group row">
-                  <div class="col-sm-2"></div>
-                  <label for="inputagent" class="col-sm-3 col-form-label">Agent</label>
-                  <div class="col-sm-5">
-                        <select class="form-control" #userid [(ngModel)]="loan.agentid" name="agentid" required> 
-                            <option *ngFor="let agentval of agent" value="{{agentval.id}}">
-                                  {{agentval.name}}
-                            </option>
-                        </select>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Loan Type</label>
-                  <div class="col-sm-5">
-                      <select class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required> 
-                          <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
-                              {{loantype.name}}
-                          </option>
-                      </select>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="inputLoanAmount" class="col-sm-3 col-form-label">Loan Amount</label>
-                  <div class="col-sm-5">
-                    <input type="loanamount" class="form-control" #loanamount [(ngModel)]="loan.loanamount" name="loanamount" id="inputLoanAmount" placeholder="₱ 10000">
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Interest</label>
-                  <div class="col-sm-5">
-                      <select class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required>
-                          <option value="">
-                              --Select Interest--
-                          </option>
-                          <option value="15">
-                              15%
-                          </option>
-                          <option value="16">
-                              16%
-                          </option>
-                          <option value="17">
-                              17%
-                          </option>
-                          <option value="18">
-                              18%
-                          </option>
-                          <option value="19">
-                              19%
-                          </option>
-                          <option value="20">
-                              20%
-                          </option>
-                      </select>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Loan Start Date</label>
-                  <div class="col-sm-5">
-                    <input nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate [(ngModel)]="loan.startdate"  (ngModelChange)="changeenddate($event)" name="startdate" required>
-                    <nb-datepicker #startdate  [min]="min"></nb-datepicker>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Loan End Date</label>
-                  <div class="col-sm-5">
-                      <input nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
-                      <nb-datepicker #enddate></nb-datepicker>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="inputPaymentPeriodicity" class="col-sm-3 col-form-label">Payment Periodicity</label>
-                  <div class="col-sm-5" >
-                      <nb-radio-group name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
-                          <nb-radio 
-                            [value]="'Weekly'">
-                            Weekly
-                          </nb-radio>
-                          <nb-radio
-                            [value]="'Daily'">
-                            Daily
-                          </nb-radio>
-                      </nb-radio-group>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Interest Payment</label>
-                  <div class="col-sm-5">
-                      <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat">
-                          <nb-radio 
-                            [value]="'UpFront'">
-                            Up-Front
-                          </nb-radio>
-                          <nb-radio
-                            [value]="'AtEnd'">
-                            At End
-                          </nb-radio>
-                      </nb-radio-group>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="totaltnstallments" class="col-sm-3 col-form-label">Total Installments</label>
-                  <div class="col-sm-5">
-                    <input type="totalinstallments" class="form-control" name="totalinstallments" id="totalinstallments" #totalinstallments [(ngModel)]="loan.totalinstallments" placeholder="Total Installments">
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-2"></div>
-                  <label for="inputPassword2" class="col-sm-3 col-form-label">Payment Amount</label>
-                  <div class="col-sm-5">
-                    <input type="paymentamount" class="form-control" name="paymentamount" id="paymentamount"  #paymentamount [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" (change)="loantermcalculation()">
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="repayingstuff" class="col-sm-3 col-form-label">Re-Paying stuff</label>
-                  <div class="col-sm-5">
-                    <input type="repayingstuff" class="form-control" id="repayingstuff" name="repayingstuff" placeholder="Re-Paying stuff">
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-5"></div>
-                  <div class="col-sm-5"><input type="file" name="image"  /></div>
-                  <div class="col-sm-2"></div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <label for="document" class="col-sm-3 col-form-label">Document</label>
-                  <div class="col-sm-5">
-                      <select class="form-control" name="interest" required>
-                          <option value="0">
-                              --Select Document Type--
-                          </option>
-                      </select>
-                  </div>
-                <div class="col-sm-2"></div>
-                </div>
-
-                <div class="form-group row">
-                    <div class="col-sm-5"></div>
-                  <div class="col-sm-5"><input type="file" name="image"  /></div>
-                  <div class="col-sm-2"></div>
-                </div>
-
-              <br>
-              <br>
-              <nb-card size="small">
-                  <nb-card-header>
-                    Select Uploaded Documents
-                  </nb-card-header>
-                  <nb-card-body>
-                  </nb-card-body>
-                </nb-card>
-                <br>
-                <br>
-                <table datatable class="row-border hover">
-                    <thead>
-                        <tr>
-                          <th>ID</th>
-                          <th>FirstName</th>
-                          <th>LastName</th>
-                          <th>Gender</th>
-                          <th>Email</th>
-                          <th>Contact</th>
-                          <th>Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                          <!-- *ngFor="let cust of customerlist" -->
-                        <tr>
-                          <td>userId</td>
-                          <td>firstname</td>
-                          <td>lastname</td>
-                          <td>gender</td>
-                          <td>emailId</td>
-                          <td>mobile</td>
-                          <td><i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i>
-                            <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="Edit Role"></i></span>
-                          </td>
-                        </tr>
-                      </tbody>
-                </table>
-              <br>
-              <br>
-                <div class="form-group row">
-                    <div class="col-sm-2"></div>
-                  <div class="offset-sm-5 col-sm-8">
-                    <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
-                  </div>
-                  <div class="col-sm-2"></div>
-                </div>
-              </form>
-        </nb-card-body>        
-      </nb-card>
+<form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="agentId">Agent</label>
+        <select id="agentId" class="form-control" #userid [(ngModel)]="loan.agentid" name="agentid" required>
+          <option *ngFor="let agentval of agent" value="{{agentval.id}}">
+            {{agentval.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="loanType">Loan Type</label>
+        <select id="loanType" class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required>
+          <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
+            {{loantype.name}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="inputLoanAmount">Loan Amount</label>
+        <input type="text" class="form-control" #loanamount [(ngModel)]="loan.loanamount" name="loanamount"
+          id="inputLoanAmount" placeholder="₱ 10000">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="interest">Interest</label>
+        <select id="interest" class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required>
+          <option value="">
+            --- Select Interest ---
+          </option>
+          <option value="15">
+            15%
+          </option>
+          <option value="16">
+            16%
+          </option>
+          <option value="17">
+            17%
+          </option>
+          <option value="18">
+            18%
+          </option>
+          <option value="19">
+            19%
+          </option>
+          <option value="20">
+            20%
+          </option>
+        </select>
+      </div>
     </div>
   </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="startDate">Loan Start Date</label>
+        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
+          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" required>
+        <nb-datepicker #startdate [min]="min"></nb-datepicker>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="endDate">Loan End Date</label>
+        <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
+          [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
+        <nb-datepicker #enddate></nb-datepicker>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="periodicity">Payment Periodicity</label>
+        <div class="demo-radio">
+          <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
+            <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
+            <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="inputPassword2">Interest Payment</label>
+        <div class="demo-radio">
+          <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat">
+            <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
+            <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="totalInstallments">Total Installments</label>
+        <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments" #totalinstallments
+          [(ngModel)]="loan.totalinstallments" placeholder="Total Installments">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="paymentAmount">Payment Amount</label>
+        <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
+          [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" (change)="loantermcalculation()">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="repayingstuff">Re-Paying Stuff</label>
+        <input type="text" class="form-control" id="repayingstuff" name="repayingstuff" placeholder="Re-Paying stuff">
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="repayingstuffDoc">Re-Paying Stuff Doc</label>
+        <input class="form-control" type="file" name="image" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="document">Document</label>
+        <select class="form-control" name="interest" required>
+          <option value="0">
+            --Select Document Type--
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="document">Upload Document</label>
+        <input class="form-control" type="file" name="image" />
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="document">Remarks</label>
+        <textarea rows="2" class="form-control" id="remarks" name="remarks" placeholder="Remarks"
+          [(ngModel)]="loan.remarks" #remarks></textarea>
+      </div>
+    </div>
+  </div>
+  <nb-card size="small">
+    <nb-card-header>
+      Select Uploaded Documents
+    </nb-card-header>
+    <nb-card-body>
+    </nb-card-body>
+  </nb-card>
+
+  <div class="row">
+    <div class="col-sm-3"></div>
+    <div class="button-container">
+      <button type="button" class="btn btn-info">Preview Installments</button>
+    </div>
+    <div class="button-container">
+      <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
+    </div>
+    <div class="button-container">
+      <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+</form>

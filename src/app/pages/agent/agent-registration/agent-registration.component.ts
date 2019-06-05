@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
 import {NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';

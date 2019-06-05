@@ -1,10 +1,9 @@
-import { Injectable, Optional } from '@angular/core';
-import { Http, Headers} from '@angular/http';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Customer } from './customer';
-import{Agent}from '../agent/agent-list/agent'
+import { Agent }from '../agent/agent-list/agent'
 
 
 @Injectable({
@@ -19,7 +18,7 @@ export class CustomerService {
   private headers = new HttpHeaders({'Authorization': this.token})
 
 
-  constructor(private http: Http, private httpclient: HttpClient) { }
+  constructor(private httpclient: HttpClient) { }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
     debugger;

@@ -59,7 +59,7 @@ export class PagesComponent implements OnInit  {
               }
             }
 
-      this.activeLinks.push({home:true,icon:'nb-person',link:'/pages/customer/loan', title: 'CustomerLoan'});
+      //this.activeLinks.push({home:true,icon:'nb-person',link:'/pages/customer/loan', title: 'CustomerLoan'});
       
       this.menu = this.activeLinks;
             var encrypted = this.EncrDecr.set(environment.encryptkey, JSON.stringify(this.activeLinks));

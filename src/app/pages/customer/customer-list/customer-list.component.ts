@@ -66,13 +66,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   addCustomer() {
     debugger;
     this.pageView = 'Add';
-    this.pageTitle = 'Add Customer';
+    this.pageTitle = 'Fill Customer Detail';
     this.editUserID = 0;
   }
 
   editCustomer(userId: number) {
     this.pageView = 'Edit';
-    this.pageTitle = 'Edit Customer';
+    this.pageTitle = 'Update Customer Detail';
     this.editUserID = userId;
   }
 
@@ -118,6 +118,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       error => {
         debugger;
       });
+  }
+
+  addLoan(userId: number){
+    this.pageView = "AddLoan";
+    this.pageTitle = "Fill Up Loan Detail";
+    this.editUserID = userId;
   }
 
 }
