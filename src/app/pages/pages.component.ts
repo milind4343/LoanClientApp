@@ -49,12 +49,12 @@ export class PagesComponent implements OnInit {
             for (let i = 0; i < result.length; i++) {
               debugger;
               if (result[i].home) {
-                this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title });
+                this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title, isadd:result[i].isadd,isedit:result[i].isedit, isdelete:result[i].isdelete, ischangestatus:result[i].ischangestatus });
               }
               else {
                 let subActiveLinks = [];
                 result[i].children.forEach(element => {
-                  subActiveLinks.push({ link: element.routelink, title: element.title });
+                  subActiveLinks.push({ link: element.routelink, title: element.title, isadd:result[i].isadd,isedit:result[i].isedit, isdelete:result[i].isdelete, ischangestatus:result[i].ischangestatus  });
                 });
                 this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title, children: subActiveLinks });
               }

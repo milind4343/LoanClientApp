@@ -2,7 +2,7 @@
   <div class="col-md-12">
       <h1 class="title">{{pageTitle}}</h1>
       <div class="form-group" *ngIf="pageView === 'List'">
-          <button nbButton status="primary" class="btn-demo" (click)="addCustomer()"> Add Customer </button>
+          <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd"> Add Customer </button>
       </div> 
     <nb-card>             
       <!-- <nb-card-header>{{pageTitle}}</nb-card-header> -->
@@ -23,6 +23,8 @@
               </thead>
               <tbody>
                 <tr *ngFor="let cust of customerlist">
+
+                
                   <td>{{cust.userID}}</td>
                   <td>{{cust.firstname}}</td>
                   <td>{{cust.lastname}}</td>
@@ -30,15 +32,19 @@
                   <td>{{cust.emailId}}</td>
                   <td>{{cust.mobile}}</td>
                   <td>
+                    
                     <!-- <i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i> -->
-                    <button class="icon-btn" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="Edit Customer">
+                    <button class="icon-btn" *ngIf="pageaccesscontrol.isedit" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="Edit Customer">
                       <i class="fa fa-edit" aria-hidden="true"></i>
+                    </button>  
+                    <button class="icon-btn" *ngIf="!pageaccesscontrol.isedit" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="View Customer">
+                      <i class="fa fa-eye" aria-hidden="true"></i>
                     </button>     
-                    <button class="icon-btn" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
+                    <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
                         <i class="fa fa-plus-circle" title="Add Loan">loan</i>
                     </button>
                     <span style="margin-left:5px;">
-                      <ui-switch size="small" name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
+                      <ui-switch size="small"  *ngIf="pageaccesscontrol.isedit"  name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
                     </span>                    
                   </td>
                 </tr>

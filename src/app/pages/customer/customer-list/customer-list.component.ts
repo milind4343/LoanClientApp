@@ -34,14 +34,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   hasIcon = true;
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
-
+  pageaccesscontrol:any={};
   constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService, 
     private dialogService: NbDialogService, private handleError: ExceptionHandler, private toastrService: NbToastrService) {
   }
 
   ngOnInit(): void {
-    debugger;
-    this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
+    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 3,

@@ -56,13 +56,12 @@ export class AgentService {
   }
   
   changeStatus(userId,isActive){
-    return this.http.get(this.agentUrl + '/changeStatus?userId='+userId+'&isActive='+isActive,{ headers: this.headers });
+    return this.http.get(this.agentUrl + '/changeStatus/'+ userId+"/"+isActive ,{ headers: this.headers });
   }
 
 
-  addAgentfund(model:any){
+  addAgentfund(model:any) {
     return this.http.post(this.agentUrl+'/addAgentfund',JSON.stringify(model),{ headers: this.headers })
-    .map(res => res.json())
       .toPromise();
   }
 
@@ -73,7 +72,7 @@ export class AgentService {
   
 
   isreceivefund(agentfundId,isreceive){
-    return this.http.get(this.agentUrl + '/isreceivefund?agentfundId='+agentfundId+'&isreceive='+isreceive,{ headers: this.headers });
+    return this.http.get(this.agentUrl + '/isreceivefund/'+agentfundId+"/"+isreceive,{ headers: this.headers }).map(res=>res.json());
   }
 
 

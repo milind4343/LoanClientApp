@@ -21,7 +21,9 @@
                     <td>{{fund.remark}}</td>
                     <td> {{fund.createddate | date:'dd-MM-yyyy hh:mm'}}</td>
                     <td>{{fund.depositby}}</td>
-                    <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status" [ngModelOptions]="{standalone: true}"  [(ngModel)]="fund.isreceive" (change)="isreceive(fund)" [disabled]="(fund.isreceive)" ></ui-switch>
+                    <td>
+                    <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status" [ngModelOptions]="{standalone: true}"  [(ngModel)]="fund.isreceive" (change)="isreceive(fund)" [disabled]="(fund.isreceive) || pageaccesscontrol.isedit" ></ui-switch>
+                  </td>
                   </tr>
                 </tbody>
           </table>

@@ -41,6 +41,7 @@ export class DialogNamePromptComponent implements OnInit, OnDestroy {
   }
 
   addFundDtl(result,fundform){
+    debugger;
     if(fundform.valid)
     {
       result=JSON.stringify(result);

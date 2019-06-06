@@ -5,7 +5,7 @@
         <label for="input-firstname">First Name</label>
         <span class="text-danger" *ngIf="firstname.invalid && submitted && firstname.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control"
-          id="input-firstname" placeholder="First Name" required>          
+          id="input-firstname" placeholder="First Name" required >          
       </div>
     </div>
     <div class="col-sm-3">
@@ -182,7 +182,7 @@
 
   <div class="row">
     <div class="col-sm-4"></div>
-      <div class="button-container">
+      <div class="button-container" *ngIf="pageaccesscontrol.isedit">
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
       <div class="button-container">

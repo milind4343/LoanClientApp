@@ -6,6 +6,7 @@ import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 import { NbToastStatus } from '@nebular/theme/components/toastr/model';
 import { ToasterConfig } from 'angular2-toaster';
 import { LoaderService } from '../../../commonServices/loader.service';
+import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class CustomerAddComponent implements OnInit {
   state: any = [];
   city: any = [];
   areacode: any = [];
-
+  pageaccesscontrol:any={};
   loadingMediumGroup = false;
 
   config: ToasterConfig;
@@ -39,12 +40,13 @@ export class CustomerAddComponent implements OnInit {
   preventDuplicates = true;
 
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
-    private agentservice: AgentService, private toastrService: NbToastrService) {
+    private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {
       this.imgUrl = "assets/images/user-placeholder.png";
   }
 
   ngOnInit() {
     debugger;
+    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.customer.cityId = "";
     this.customer.zipcode = "";
     let userId = this.editUserID;
