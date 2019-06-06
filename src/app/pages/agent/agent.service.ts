@@ -61,11 +61,12 @@ export class AgentService {
       .toPromise();
   }
 
-  getAgentfund(userId){
-    return this.http.get(this.agentUrl + '/getAgentfund?userId='+userId,{ headers: this.headers }).map(res=>res.json());
+  getAgentfund(userId, IsAgent){
+    debugger;
+    return this.http.get(this.agentUrl + '/getAgentfund/'+ userId + '/'+IsAgent,{ headers: this.headers }).map(res=>res.json());
   }
 
-  isreceivefund(agentfundId,isreceive){
+  isreceivefund(agentfundId, isreceive){
     return this.http.get(this.agentUrl + '/isreceivefund/'+agentfundId+"/"+isreceive,{ headers: this.headers }).map(res=>res.json());
   }
 }

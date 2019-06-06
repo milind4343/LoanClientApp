@@ -30,13 +30,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     // this.userService.getUsers()
     //   .subscribe((users: any) => this.user = users.nick);
-    debugger;
+   
     this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {
-      result.picture = 'assets/images/nick.png';
+      debugger;
+      //result.picture = 'assets/images/nick.png';
+      this.user.profileImage = 'data:image/png;base64,' + result.profileImageCode;
       this.user = result;
     },error => {  
         this.exceptionHandler.handleExcption(error);
     })
+
   }
 
   toggleSidebar(): boolean {

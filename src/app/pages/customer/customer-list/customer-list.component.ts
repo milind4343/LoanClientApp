@@ -43,7 +43,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 3
+      pageLength: 3,
+      //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+      //dom: 'Blfrtip'     
     };
 
     this.customerservice.getCustomers().subscribe(result => {

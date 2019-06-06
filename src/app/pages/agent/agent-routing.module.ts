@@ -4,6 +4,7 @@ import { AgentdashboardComponent } from './agent-dashboard/agent-dashboard.compo
 import { RegistrationComponent } from '../agent/agent-registration/agent-registration.component';
 import { AgentComponent } from './agent.component';
 import { ListAgentComponent } from './agent-list/agent-list.component';
+import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
 
 const routes: Routes = [{
   path: '',
@@ -20,6 +21,10 @@ const routes: Routes = [{
   {
     path: 'register',
     component: RegistrationComponent,
+  },
+  {
+    path: 'history',
+    component: AgentFundhistoryComponent
   }],
 }];
 

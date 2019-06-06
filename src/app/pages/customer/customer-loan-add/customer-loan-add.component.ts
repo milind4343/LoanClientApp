@@ -2,8 +2,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Agent }from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
-import { forEach } from '@angular/router/src/utils/collection';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'ngx-customer-loan-add',
@@ -69,7 +67,7 @@ installmenttenure:any[]=[];
       result.forEach(element => {
         this.loantypelist.push({id : element.loantypeid , name : element.loantype})
       });
-      this.loan.loantypeid='';
+      this.loan.loantypeid = '';
     }
   });
   }
@@ -93,9 +91,7 @@ installmenttenure:any[]=[];
     
     let interestAnnual:any;
     let loanamount=+data.loanamount;
-    //let interestper=+data.interest;
     interestAnnual=+(data.loanamount*data.interest)/100;
-
   
     let finalAmount=0;
     let interestDaily=+((+interestAnnual/365).toFixed(2));

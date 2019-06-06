@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PageAccessService } from '../../commonServices/getpageaccess.service';
+//import { PageAccessService } from '../../commonServices/getpageaccess.service';
 
 @Component({
   selector: 'ngx-customer',
