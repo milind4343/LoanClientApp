@@ -63,7 +63,7 @@ export class CustomerLoanAddComponent implements OnInit {
       result.forEach(element => {
         this.loantypelist.push({id : element.loantypeid , name : element.loantype})
       });
-      this.loan.loantypeid='';
+      this.loan.loantypeid = '';
     }
   });
   }

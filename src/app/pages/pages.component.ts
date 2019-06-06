@@ -17,9 +17,10 @@ import { PageService } from './page.service';
     </ngx-sample-layout>
   `,
 })
-export class PagesComponent implements OnInit  {
-  activeLinks : any;
-  menu : NbMenuItem[];
+
+export class PagesComponent implements OnInit {
+  activeLinks: any;
+  menu: NbMenuItem[];
 
   constructor(public loader: LoaderService, private router: Router, private EncrDecr: EncrDecrService, private pageService: PageService) {
   }
@@ -37,13 +38,13 @@ export class PagesComponent implements OnInit  {
 
   ngOnInit() {
     //this.menu = MENU_ITEMS;
-    if(this.activeLinks === undefined || this.activeLinks.length === 0 ) {
+    if (this.activeLinks === undefined || this.activeLinks.length === 0) {
       let item = localStorage.getItem("encryptkey");
       if (item == "" || item == null) {
         this.loader.loader = true;
         this.pageService.getMenuList().then((result) => {
           if (result !== null) {
-      this.activeLinks = new Array<ActiveLink>();
+            this.activeLinks = new Array<ActiveLink>();
             this.activeLinks.push({ home: true, icon: "nb-home", link: '/pages/dashboard', title: 'Dashboard' });
             for (let i = 0; i < result.length; i++) {
               debugger;
@@ -59,17 +60,17 @@ export class PagesComponent implements OnInit  {
               }
             }
 
-      //this.activeLinks.push({home:true,icon:'nb-person',link:'/pages/customer/loan', title: 'CustomerLoan'});
-      
-      this.menu = this.activeLinks;
+            //this.activeLinks.push({home:true,icon:'nb-person',link:'/pages/customer/loan', title: 'CustomerLoan'});
+
+            this.menu = this.activeLinks;
             var encrypted = this.EncrDecr.set(environment.encryptkey, JSON.stringify(this.activeLinks));
             localStorage.setItem("encryptkey", encrypted);
             this.loader.loader = false;
             if (!this.checkAccessPage()) {
               this.router.navigate(['/pages/miscellaneous/401']);
-    }
+            }
             this.loader.loader = false;
-  }
+          }
         }).catch((error) => {
           this.loader.loader = false;
           if (error.status == 401) {
@@ -93,7 +94,7 @@ export class PagesComponent implements OnInit  {
       for (let i = 0; i < this.activeLinks.length; i++) {
         if (this.activeLinks[i].link === routerurl) {
           return true;
-}
+        }
         else {
           if (this.activeLinks[i].children) {
             for (let j = 0; j < this.activeLinks[i].children.length; j++) {
