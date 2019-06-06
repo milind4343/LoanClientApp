@@ -1,4 +1,4 @@
-<form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate>
+<form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
@@ -23,14 +23,16 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="inputLoanAmount">Loan Amount</label>
-        <input type="text" class="form-control" #loanamount [(ngModel)]="loan.loanamount" name="loanamount"
-          id="inputLoanAmount" placeholder="₱ 10000">
+        <span class="text-danger" *ngIf="loanamount.invalid && submitted && loanamount.errors.required"> * required</span>
+        <input type="text" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
+          id="inputLoanAmount" placeholder="₱ 10000" required>
       </div>
     </div>
     <div class="col-sm-3">
         <div class="form-group">
           <label for="interest">Interest</label>
-          <select id="interest" class="form-control" #interest [(ngModel)]="loan.interest" name="interest" required >
+          <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
+          <select id="interest" class="form-control" #interest="ngModel" [(ngModel)]="loan.interest" name="interest" required >
             <option value="">
               --- Select Interest ---
             </option>
@@ -162,24 +164,8 @@
     </div>
   </div>
 
-  <table datatable class="row-border hover">
-      <thead>
-          <tr>
-            <th>ID</th>
-            <th>Instalment Date</th>
-            <th>Instalment  Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-            <!-- *ngFor="let cust of customerlist" -->
-          <tr *ngFor="let tenure of installmenttenure">
-            <td>{{tenure.srno}}</td>
-            <td>{{tenure.installmentdate | date:'dd-MM-yyyy'}}</td>
-            <td>{{tenure.installmentamount}}</td>
-           
-          </tr>
-        </tbody>
-  </table>
+
+  
   <!-- <nb-card size="small">
     <nb-card-header>
       Select Uploaded Documents
@@ -191,7 +177,7 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="button-container">
-      <button type="button" class="btn btn-info" (click)="tenurecalculation(loan)">Preview Installments</button>
+      <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
     </div>
     <div class="button-container">
       <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
@@ -200,4 +186,27 @@
       <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
     </div>
   </div>
+
+  <!-- *ngIf="showInstallments == true" -->
+  <div class="row"> 
+      <div class="col-sm-12">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+              <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Instalment Date</th>
+                    <th>Instalment  Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <!-- *ngFor="let cust of customerlist" -->
+                  <tr *ngFor="let tenure of installmenttenure">
+                    <td>{{tenure.srno}}</td>
+                    <td>{{tenure.installmentdate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{tenure.installmentamount}}</td>           
+                  </tr>
+                </tbody>
+          </table>
+      </div>
+    </div>
 </form>
