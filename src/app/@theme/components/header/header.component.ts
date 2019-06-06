@@ -4,6 +4,8 @@ import { NbMenuService, NbSidebarService } from '@nebular/theme';
 import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
+import { AuthenticationService } from '../../../commonServices/authentication.service';
+import { ExceptionHandler } from '../../../commonServices/exceptionhandler.service';
 
 @Component({
   selector: 'ngx-header',
@@ -22,12 +24,19 @@ export class HeaderComponent implements OnInit {
               private menuService: NbMenuService,
               private userService: UserData,
               private analyticsService: AnalyticsService,
-              private layoutService: LayoutService) {
+              private layoutService: LayoutService,private authenticationService:AuthenticationService,private exceptionHandler:ExceptionHandler) {
   }
 
   ngOnInit() {
-    this.userService.getUsers()
-      .subscribe((users: any) => this.user = users.nick);
+    // this.userService.getUsers()
+    //   .subscribe((users: any) => this.user = users.nick);
+    debugger;
+    this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {
+      result.picture = 'assets/images/nick.png';
+      this.user = result;
+    },error => {  
+        this.exceptionHandler.handleExcption(error);
+    })
   }
 
   toggleSidebar(): boolean {

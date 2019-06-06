@@ -29,7 +29,7 @@ installmenttenure:any[]=[];
 
   ngOnInit() {
     this.setdefaultvalue();
-    this.agentbind();
+    //this.agentbind();
     this.loantypebind();
   }
 
@@ -93,7 +93,7 @@ installmenttenure:any[]=[];
     
     let interestAnnual:any;
     let loanamount=+data.loanamount;
-    let interestper=+data.interest;
+    //let interestper=+data.interest;
     interestAnnual=+(data.loanamount*data.interest)/100;
 
   
@@ -102,10 +102,13 @@ installmenttenure:any[]=[];
     let durationInterest=+((+interestDaily*45).toFixed(2));
     if(data.interestpayat=="AtEnd"){
       
-      finalAmount=(loanamount)+(durationInterest);
+      // finalAmount=(loanamount)+(durationInterest);
+      finalAmount=(loanamount);
+      this.loan.paymentamount=finalAmount;
     }
     else{
       finalAmount=(loanamount);
+      this.loan.paymentamount=(finalAmount)-(durationInterest);
     }
     this.loan.interestamout=+(durationInterest);
 
@@ -151,8 +154,7 @@ installmenttenure:any[]=[];
     // this.installmenttenure = {
     //   tenure:this.tenure
     // }
-    debugger;
-    this.loan.paymentamount=finalAmount;
+  
   }
 
   cancelForm() {

@@ -75,9 +75,9 @@ export class ListAgentComponent implements OnInit, OnDestroy {
 
   activeinactive(cust : any) {
       this.agentService.changeStatus(cust.userId,cust.isactive).subscribe(result => {
-        debugger;
+        this.toastrService.success('Status updated successfully !','Success',this.config);
       },error=>{
-        debugger;
+        this.toastrService.danger('Something went wrong !','Failed',this.config);
       });
   }
 
@@ -93,11 +93,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.userid=userId;
     this.pageView='History';
     this.pageTitle='Fund History';
-    // this.agentService.getAgentfund(userId).subscribe(result =>{
-    //   debugger;
-    //  this.fundHistorylist=result;
-    // });
-    
   }
 
   popupFund(){

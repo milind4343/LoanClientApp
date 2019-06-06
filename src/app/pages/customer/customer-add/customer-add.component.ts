@@ -78,8 +78,7 @@ export class CustomerAddComponent implements OnInit {
       this.imgUrl = reader.result;
     }
   }
-
-
+  
   register(form: any) {
     debugger;
     if (form.valid) {
