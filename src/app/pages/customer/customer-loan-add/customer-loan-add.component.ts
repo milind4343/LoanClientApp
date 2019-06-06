@@ -1,7 +1,9 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Agent }from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'ngx-customer-loan-add',
@@ -21,11 +23,24 @@ export class CustomerLoanAddComponent implements OnInit {
   loantypelist:any=[];
   submitted:boolean=false;
   tenure:any=[];
-//  installmenttenure:any={};
-installmenttenure:any[]=[];
-  constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) { }
+  installmenttenure:any[]=[];
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: any = new Subject();
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  showInstallments: boolean = false;
+
+  constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) {
+   
+  }    
 
   ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 5
+    };
+
     this.setdefaultvalue();
     //this.agentbind();
     this.loantypebind();
@@ -38,12 +53,12 @@ installmenttenure:any[]=[];
     
     // this.max = new Date();
     // this.min = new Date();
-    this.loan.startdate=this.min;
-    this.loan.enddate=this.max;
-    this.loan.interest='';
-    this.loan.interest='';
-    this.loan.paymentperiodicity='Daily';
-    this.loan.interestpayat='AtEnd';
+    this.loan.startdate = this.min;
+    this.loan.enddate = this.max;
+    this.loan.interest = '';
+    this.loan.interest = '';
+    this.loan.paymentperiodicity = 'Daily';
+    this.loan.interestpayat = 'AtEnd';
   }
 
   agentbind(){
@@ -86,8 +101,12 @@ installmenttenure:any[]=[];
     this.loan.enddate= this.dateService.addDay(startdate, 44);
   }
 
-  tenurecalculation(data:any){
-    this.installmenttenure=[];
+  tenurecalculation(data:any) {
+
+    if(this.installmenttenure.length > 0) {
+      this.rerender();
+    }
+    this.installmenttenure = [];
     
     let interestAnnual:any;
     let loanamount=+data.loanamount;
@@ -96,8 +115,7 @@ installmenttenure:any[]=[];
     let finalAmount=0;
     let interestDaily=+((+interestAnnual/365).toFixed(2));
     let durationInterest=+((+interestDaily*45).toFixed(2));
-    if(data.interestpayat=="AtEnd"){
-      
+    if(data.interestpayat=="AtEnd"){      
       // finalAmount=(loanamount)+(durationInterest);
       finalAmount=(loanamount);
       this.loan.paymentamount=finalAmount;
@@ -108,13 +126,10 @@ installmenttenure:any[]=[];
     }
     this.loan.interestamout=+(durationInterest);
 
-    
-
     let date =  data.startdate;
     if(data.paymentperiodicity=="Weekly") {
       this.loan.totalinstallments=6;
       let weeklyinstallment=+(finalAmount/6).toFixed(2);
-
 
       this.tenure=[];
       for(let i=0;i<6;i++)
@@ -145,7 +160,18 @@ installmenttenure:any[]=[];
         })
       }
     }
+    this.dtTrigger.next();
+    this.installmenttenure = this.tenure;    
+    this.loan.paymentamount = finalAmount;   
+    this.showInstallments = true;   
+  }
 
+
+  /*This function used for rerender grid*/
+  rerender():void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
     this.installmenttenure =this.tenure;
     // this.installmenttenure = {
     //   tenure:this.tenure
@@ -157,6 +183,7 @@ installmenttenure:any[]=[];
     this.editUserID = 0;
     this.callParent.emit('List');
   }
+
 }
 
 

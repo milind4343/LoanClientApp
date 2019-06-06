@@ -7,12 +7,14 @@ import { environment } from '../../environments/environment';
 @Injectable()
 export class AuthenticationService {
   private agenturl = environment.domain + '/api/agent';
-    constructor(private router:Router,private http: Http) {
+  
+    constructor(private router:Router, private http : Http) {
+
     }
 
     canActivate(): boolean {
         if(localStorage.getItem("jwt") === '' || localStorage.getItem("jwt") === null) {
-                return true;
+            return true;
         }
         else {  
             this.router.navigate(['dashboard']);
