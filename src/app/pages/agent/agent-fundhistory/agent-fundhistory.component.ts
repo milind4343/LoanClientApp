@@ -1,8 +1,9 @@
 import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AgentService } from '../agent.service';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
+import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 
 @Component({
   selector: 'ngx-agent-fundhistory',
@@ -18,12 +19,16 @@ export class AgentFundhistoryComponent implements OnInit {
   
   pageTitle : string = "Agent List";
   pageView : string = "List";
- 
+  config = {
+    position: NbGlobalPhysicalPosition.TOP_RIGHT
+  };
   fundHistorylist:any[];
   agentName:string;
-  constructor(private agentService: AgentService,private dialogService: NbDialogService) { }
+  pageaccesscontrol:any={};
+  constructor(private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService,private pageAccessService: PageAccessService) { }
 
   ngOnInit(): void {
+    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     debugger;
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -53,9 +58,9 @@ export class AgentFundhistoryComponent implements OnInit {
 
   activeinactive(fund : any) {
       this.agentService.isreceivefund(fund.agentfundid,fund.isreceive).subscribe(result => {
-        debugger;
+        this.toastrService.success('Fund receive success !','Success',this.config);
       },error=>{
-        debugger;
+        this.toastrService.danger('Something went wrong !','Failed',this.config);
       });
   }
 

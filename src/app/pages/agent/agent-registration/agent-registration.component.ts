@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
 import {NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
@@ -103,11 +103,15 @@ export class RegistrationComponent  {
     {
       this.agentService.register(this.user).then(result => {
       if (result != null) {
-        debugger;
-        //localStorage.setItem("jwt", result.AccessToken);
-        //this .router.navigate(['dashboard']);
-        this.toastrService.success('Registration success !','Success',this.config);
-        this.onPageChange.emit('List');
+        if(this.user.userId>0)
+        {
+          this.toastrService.success('Data update success !','Success',this.config);
+          this.onPageChange.emit('List');
+        }
+        else{
+          this.toastrService.success('Registration success !','Success',this.config);
+          this.onPageChange.emit('List');
+        }
       }
       else
       {

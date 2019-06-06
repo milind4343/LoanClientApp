@@ -34,13 +34,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   hasIcon = true;
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
-
+  pageaccesscontrol:any={};
   constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService, 
     private dialogService: NbDialogService, private handleError: ExceptionHandler, private toastrService: NbToastrService) {
   }
 
   ngOnInit(): void {
-    this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
+    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 3
@@ -66,13 +66,13 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   addCustomer() {
     debugger;
     this.pageView = 'Add';
-    this.pageTitle = 'Add Customer';
+    this.pageTitle = 'Fill Customer Detail';
     this.editUserID = 0;
   }
 
   editCustomer(userId: number) {
     this.pageView = 'Edit';
-    this.pageTitle = 'Edit Customer';
+    this.pageTitle = 'Update Customer Detail';
     this.editUserID = userId;
   }
 
@@ -118,6 +118,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       error => {
         debugger;
       });
+  }
+
+  addLoan(userId: number){
+    this.pageView = "AddLoan";
+    this.pageTitle = "Fill Up Loan Detail";
+    this.editUserID = userId;
   }
 
 }

@@ -1,6 +1,6 @@
-import { Component, OnInit, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { CustomerService } from '../customer.service';
-import{Agent}from '../../agent/agent-list/agent';
+import { Agent }from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
 import { forEach } from '@angular/router/src/utils/collection';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
@@ -11,6 +11,10 @@ import { analyzeAndValidateNgModules } from '@angular/compiler';
   styleUrls: ['./customer-loan-add.component.scss']
 })
 export class CustomerLoanAddComponent implements OnInit {
+
+  @Input() editUserID: number;
+  @Output() callParent = new EventEmitter<string>();
+  
   max: Date;
   min:Date;
   agentlist: Agent[] = [];
@@ -19,7 +23,8 @@ export class CustomerLoanAddComponent implements OnInit {
   loantypelist:any=[];
   submitted:boolean=false;
   tenure:any=[];
- installmenttenure:any={};
+//  installmenttenure:any={};
+installmenttenure:any[]=[];
   constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) { }
 
   ngOnInit() {
@@ -31,7 +36,7 @@ export class CustomerLoanAddComponent implements OnInit {
   setdefaultvalue(){
     debugger;
     this.min = new Date();
-    this.max = this.dateService.addDay(this.min, 45);
+    this.max = this.dateService.addDay(this.min, 44);
     
     // this.max = new Date();
     // this.min = new Date();
@@ -80,32 +85,38 @@ export class CustomerLoanAddComponent implements OnInit {
 
   changeenddate(startdate:any){
     debugger;
-    this.loan.enddate= this.dateService.addDay(startdate, 45);
+    this.loan.enddate= this.dateService.addDay(startdate, 44);
   }
 
   tenurecalculation(data:any){
-    this.installmenttenure={};
+    this.installmenttenure=[];
     
     let interestAnnual:any;
     let loanamount=+data.loanamount;
     let interestper=+data.interest;
     interestAnnual=+(data.loanamount*data.interest)/100;
 
+  
+    let finalAmount=0;
     let interestDaily=+((+interestAnnual/365).toFixed(2));
     let durationInterest=+((+interestDaily*45).toFixed(2));
-    let finalAmount=0;
     if(data.interestpayat=="AtEnd"){
-       finalAmount=(loanamount)+(durationInterest);
+      
+      finalAmount=(loanamount)+(durationInterest);
     }
     else{
       finalAmount=(loanamount);
     }
+    this.loan.interestamout=+(durationInterest);
 
-    this.loan.totalinstallments=6;
-    let weeklyinstallment=finalAmount/6;
+    
 
     let date =  data.startdate;
     if(data.paymentperiodicity=="Weekly") {
+      this.loan.totalinstallments=6;
+      let weeklyinstallment=+(finalAmount/6).toFixed(2);
+
+
       this.tenure=[];
       for(let i=0;i<6;i++)
       {
@@ -120,24 +131,33 @@ export class CustomerLoanAddComponent implements OnInit {
     }
     else
     {
-      this.tenure=[];
       this.loan.totalinstallments=45;
+      let dailyinstallment=+(finalAmount/45).toFixed(2);
+
+      this.tenure=[];
+      
       for(let i=0;i<45;i++) {
         if(i !== 0) 
           date=  this.dateService.addDay(date,1);
           this.tenure.push({
           srno:i+1,
           installmentdate:date,
-          installmentamount:weeklyinstallment
+          installmentamount:dailyinstallment
         })
       }
     }
 
-    this.installmenttenure = {
-      tenure:this.tenure
-    }
+    this.installmenttenure =this.tenure;
+    // this.installmenttenure = {
+    //   tenure:this.tenure
+    // }
     debugger;
     this.loan.paymentamount=finalAmount;
+  }
+
+  cancelForm() {
+    this.editUserID = 0;
+    this.callParent.emit('List');
   }
 }
 

@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy , TemplateRef  } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+//import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import{ Agent  }from './agent';
 import { AgentService } from '../agent.service';
-import { NbDialogService } from '@nebular/theme';
+import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
+import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 
 @Component({
   selector: 'ngx-agent-list',
@@ -22,12 +23,18 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   pageTitle : string = "Agent List";
   pageView : string = "List";
   userid: number;
+  pageaccesscontrol:any={};
   // fundtransfer:any;
   fundHistorylist:any[];
   agent: any=[];
-  constructor(private agentService: AgentService,private dialogService: NbDialogService) { }
+  config = {
+    position: NbGlobalPhysicalPosition.TOP_RIGHT
+  };
+  
+  constructor(private pageaccess:PageAccessService,private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService) { }
 
   ngOnInit(): void {
+    this.pageaccesscontrol = this.pageaccess.getAccessData();
     debugger;
     this.dtOptions = {
       pagingType: 'full_numbers'
@@ -97,6 +104,7 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.agentService.getAgent().subscribe(result => {
       debugger;
       if (result != null) {
+        this.agent=[];
         this.agent.push({id:'',name: "--Select Agent--"});
         result.forEach(element => {
           this.agent.push({id : element.userId , name : element.firstname+' '+element.lastname+' '+element.middlename})
@@ -113,12 +121,13 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     })
   }
 
-  resultfun(result:any){
-    debugger;
+  resultfun(result:any) {
     result=JSON.parse(result);
     this.agentService.addAgentfund(result).then(resultagent => {
-      if (result != null) {
-        debugger;
+      debugger;
+      if (resultagent.status==200) {
+        this.dtTrigger = new Subject();
+        this.toastrService.success('Fund update success !','Success',this.config);
         this.ngOnInit();
       }
       else

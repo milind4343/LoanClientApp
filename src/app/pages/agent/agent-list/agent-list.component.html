@@ -6,7 +6,7 @@
         <nb-card-body>
           <div *ngIf="pageView === 'List'">
             <div class="col-md-8" style="float: right;">
-                <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()"> Fund Transafer </button>
+                <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()" *ngIf="pageaccesscontrol.isadd" > Fund Transafer </button>
                 <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="registration()"> Add Agent </button>
                 <!-- routerLink='/pages/agent/register' -->
             </div>
@@ -30,7 +30,7 @@
                     <td>{{cust.mobile}}</td>
                     <td>
                       <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status" [ngModelOptions]="{standalone: true}"  [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)"></ui-switch>
-                      <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="Edit Role" (click)="editAgent(cust.userId)"></i></span>
+                      <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="View agent" (click)="editAgent(cust.userId)"></i></span>
                       <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History" (click)="fetchFundHistory(cust.userId)"></i></span>
                     </td>
                   </tr>

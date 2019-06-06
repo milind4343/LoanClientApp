@@ -5,7 +5,7 @@
               <div class="col-sm-4"> 
                  <div class="form-group">
                   <label for="inputFirstname" class="col-form-label">FirstName</label>
-                <input type="firstname" name="Firstname"  #Firstname="ngModel" [(ngModel)]="user.firstname" class="form-control" id="inputfirstname" placeholder="FirstName" maxlength="50" required >
+                <input type="firstname" name="Firstname"  #Firstname="ngModel" [(ngModel)]="user.firstname" class="form-control" id="inputfirstname" placeholder="FirstName" maxlength="50" required>
                 <p class="error-message" *ngIf="Firstname.invalid && submitted && Firstname.errors.required">Required!</p>
               </div>
               </div>
@@ -30,7 +30,7 @@
             <div class="row">
               <label class="col-sm-1">Gender</label>
               <div class="col-sm-3">
-                <nb-radio-group [(ngModel)]="user.gender" name="Gender">
+                <nb-radio-group [(ngModel)]="user.gender" name="Gender" >
                     <nb-radio 
                       [value]="'Male'">
                       Male
@@ -69,7 +69,7 @@
 
                   <div class="col-sm-4">
                     <label for="inputAlternate" class="col-form-label">Alternate No</label>
-                      <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel" [(ngModel)]="user.phone" name="Phone" maxlength="25" required>
+                      <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel" [(ngModel)]="user.phone" name="Phone" maxlength="25" required >
                       <p class="error-message" *ngIf="Phone.invalid && submitted && Phone.errors.required">Required!</p>
                   </div>
           </div>
@@ -96,7 +96,7 @@
 
               <div class="col-sm-4">
                 <label class="col-sm-2">City</label>
-                  <select class="form-control" (change)="onCitySelect(user.cityId)" #cityId="ngModel" [(ngModel)]="user.cityId" name="cityId" [disabled]="!(user.stateId!==0)" required>
+                  <select class="form-control" (change)="onCitySelect(user.cityId)" #cityId="ngModel" [(ngModel)]="user.cityId" name="cityId" [disabled]="!(user.stateId!==0)">
                       <option *ngFor="let cityval of city" value="{{cityval.id}}">
                           {{cityval.name}}
                       </option>
