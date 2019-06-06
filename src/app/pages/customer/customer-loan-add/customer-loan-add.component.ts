@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, EventEmitter, Output, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Agent }from '../../agent/agent-list/agent';
 import { NbDateService } from '@nebular/theme';
