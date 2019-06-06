@@ -1,32 +1,40 @@
-<nb-card-body>
-          <div *ngIf="pageView === 'List'">
-            <div class="col-md-8" style="float: right;">
-                <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="backtoagentlist()"> Cancle </button>
-                <h4 class="text-danger">{{agentName}}</h4>
-            </div>
-            <div></div>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-              <thead>
-                  <tr>
-                    <th>Fund Amount</th>
-                    <th>Remark</th>
-                    <th>Deposit Date</th>
-                    <th>Deposit by</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let fund of fundHistorylist">
-                    <td><span>₽</span>{{fund.fundamount}}</td>
-                    <td>{{fund.remark}}</td>
-                    <td> {{fund.createddate | date:'dd-MM-yyyy hh:mm'}}</td>
-                    <td>{{fund.depositby}}</td>
-                    <td>
-                    <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status" [ngModelOptions]="{standalone: true}"  [(ngModel)]="fund.isreceive" (change)="isreceive(fund)" [disabled]="(fund.isreceive) || pageaccesscontrol.isedit" ></ui-switch>
-                  </td>
-                  </tr>
-                </tbody>
-          </table>
-          </div>
- </nb-card-body>
- 
+<div class="row">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>Fund History</nb-card-header>
+      <nb-card-body>
+        <div *ngIf="pageView === 'History'" class="col-md-8" style="float: right;">
+          <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
+            (click)="backtoagentlist()">
+            Cancle </button>
+          <h4 class="text-danger">{{agentName}}</h4>
+        </div>
+        <div></div>
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Fund Amount</th>
+              <th>Remark</th>
+              <th>Deposit Date</th>
+              <th>Deposit by</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let fund of fundHistorylist">
+              <td><span>₽</span>{{fund.fundamount}}</td>
+              <td>{{fund.remark}}</td>
+              <td> {{fund.createddate | date:'dd-MM-yyyy hh:mm'}}</td>
+              <td>{{fund.depositby}}</td>
+              <td>
+                <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status"
+                  [ngModelOptions]="{standalone: true}" [(ngModel)]="fund.isreceive" (change)="isreceive(fund)"
+                  [disabled]="(fund.isreceive) || pageaccesscontrol.isedit"></ui-switch>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

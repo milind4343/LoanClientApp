@@ -31,7 +31,9 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
   
-  constructor(private pageaccess:PageAccessService,private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService) { }
+  constructor(private pageaccess:PageAccessService,private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService) {
+
+   }
 
   ngOnInit(): void {
     this.pageaccesscontrol = this.pageaccess.getAccessData();
@@ -39,9 +41,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-
-    this.pageView='List';
-    this.pageTitle='Agent List';
 
     this.agentService.getAgent().subscribe(result =>{
       debugger;
@@ -51,15 +50,15 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   }
 
   onPageChanged(eventValue :string) {
-    this.pageView = eventValue;
-    this.pageTitle='Agent List';
+    this.pageView = eventValue;   
+    this.pageTitle='All Agent List';
     this.dtTrigger = new Subject();
     this.ngOnInit();
   }
 
   registration(){
-    this.pageView='Edit';
-    this.pageTitle='Add Agent';
+    this.pageView='Add';
+    this.pageTitle='Fill Agent Details';
     this.userid=0;
   }
 
@@ -92,7 +91,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     debugger;
     this.userid=userId;
     this.pageView='History';
-    this.pageTitle='Fund History';
     // this.agentService.getAgentfund(userId).subscribe(result =>{
     //   debugger;
     //  this.fundHistorylist=result;

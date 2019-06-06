@@ -1,56 +1,60 @@
-<div class="row">
-    <div class="col-md-12">
-      <nb-card>        
-        <nb-card-header>{{pageTitle}} </nb-card-header>          
-        <!-- Agent List -->
-        <nb-card-body>
-          <div *ngIf="pageView === 'List'">
-            <div class="col-md-8" style="float: right;">
-                <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()" *ngIf="pageaccesscontrol.isadd" > Fund Transafer </button>
-                <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="registration()"> Add Agent </button>
-                <!-- routerLink='/pages/agent/register' -->
-            </div>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-              <thead>
-                  <tr>
-                    <th>FirstName</th>
-                    <th>LastName</th>
-                    <th>Wallet Amount</th>
-                    <th>Email</th>
-                    <th>Contact</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let cust of agentlist">
-                    <td>{{cust.firstname}}</td>
-                    <td>{{cust.lastname}}</td>
-                    <td><span>₽</span> {{cust.walletamount}}</td>
-                    <td>{{cust.emailId}}</td>
-                    <td>{{cust.mobile}}</td>
-                    <td>
-                      <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status" [ngModelOptions]="{standalone: true}"  [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)"></ui-switch>
-                      <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="View agent" (click)="editAgent(cust.userId)"></i></span>
-                      <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History" (click)="fetchFundHistory(cust.userId)"></i></span>
-                    </td>
-                  </tr>
-                </tbody>
-          </table>
+<div class="row" *ngIf="pageView !== 'History'">
+  <div class="col-md-12">
+    <nb-card>
+      <nb-card-header>{{pageTitle}}</nb-card-header>
+      <!-- Agent List -->
+      <nb-card-body>
+        <div *ngIf="pageView === 'List'">
+          <div class="col-md-8" style="float: right;">
+            <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()"
+              *ngIf="pageaccesscontrol.isadd"> Fund Transafer </button>
+            <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
+              (click)="registration()"> Add Agent </button>
+            <!-- routerLink='/pages/agent/register' -->
           </div>
-          <div *ngIf="pageView === 'Edit'">
-              <ngx-registration
-              [userId]="userid"
-              (onPageChange)="onPageChanged($event)">
-            </ngx-registration>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead>
+              <tr>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Wallet Amount</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cust of agentlist">
+                <td>{{cust.firstname}}</td>
+                <td>{{cust.lastname}}</td>
+                <td><span>₽</span> {{cust.walletamount}}</td>
+                <td>{{cust.emailId}}</td>
+                <td>{{cust.mobile}}</td>
+                <td>
+                  <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)">
+                  </ui-switch>
+                  <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="View agent"
+                      (click)="editAgent(cust.userId)"></i></span>
+                  <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History"
+                      (click)="fetchFundHistory(cust.userId)"></i></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div *ngIf="pageView === 'Add' || pageView === 'Edit'">
+            <ngx-registration [userId]="userid" (onPageChange)="onPageChanged($event)"></ngx-registration>
           </div>
 
-          <div *ngIf="pageView === 'History'">
-              <ngx-agent-fundhistory
-              [userId]="userid"
-              (onPageChange)="onPageChanged($event)">
-            </ngx-agent-fundhistory>
-          </div>
-        </nb-card-body>
-      </nb-card>
-    </div>
+      </nb-card-body>
+    </nb-card>
   </div>
+</div>
+
+
+<div *ngIf="pageView === 'History'">
+  <ngx-agent-fundhistory [userId]="userid" (onPageChange)="onPageChanged($event)">
+  </ngx-agent-fundhistory>
+</div>

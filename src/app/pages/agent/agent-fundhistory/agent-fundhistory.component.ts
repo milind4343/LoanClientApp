@@ -4,6 +4,7 @@ import { AgentService } from '../agent.service';
 import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
 import { PageAccessService } from '../../../commonServices/getpageaccess.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-agent-fundhistory',
@@ -25,7 +26,7 @@ export class AgentFundhistoryComponent implements OnInit {
   fundHistorylist:any[];
   agentName:string;
   pageaccesscontrol:any={};
-  constructor(private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService,private pageAccessService: PageAccessService) { }
+  constructor(private router : Router, private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService,private pageAccessService: PageAccessService) { }
 
   ngOnInit(): void {
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
@@ -37,7 +38,14 @@ export class AgentFundhistoryComponent implements OnInit {
     this.pageView='List';
     this.pageTitle='Agent List';
 
-    this.agentService.getAgentfund(this.userId).subscribe(result =>{
+    let IsAdmin = false;
+    debugger;
+    let routerurl = this.router.url;
+    if(routerurl == "/pages/agent/history"){
+      IsAdmin = true;
+    }
+    
+    this.agentService.getAgentfund(this.userId, IsAdmin).subscribe(result =>{
       debugger;
      this.fundHistorylist=result.lstFundVM;
      this.agentName=result.agentName;

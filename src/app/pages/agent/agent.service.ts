@@ -12,8 +12,9 @@ export class AgentService {
 
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
+  private token = 'Bearer ' + localStorage.getItem('jwt');
   
-  private headers = new Headers({ 'Content-Type': 'application/json' })
+  private headers = new Headers({ 'Content-Type': 'application/json' ,'Authorization': this.token})
 
   constructor(private http: Http, private httpclient: HttpClient) {
 
@@ -66,12 +67,13 @@ export class AgentService {
   }
 
 
-  getAgentfund(userId){
-    return this.http.get(this.agentUrl + '/getAgentfund?userId='+userId,{ headers: this.headers }).map(res=>res.json());
+  getAgentfund(userId, IsAgent){
+    debugger;
+    return this.http.get(this.agentUrl + '/getAgentfund/'+ userId + '/'+IsAgent,{ headers: this.headers }).map(res=>res.json());
   }
   
 
-  isreceivefund(agentfundId,isreceive){
+  isreceivefund(agentfundId, isreceive){
     return this.http.get(this.agentUrl + '/isreceivefund/'+agentfundId+"/"+isreceive,{ headers: this.headers }).map(res=>res.json());
   }
 
