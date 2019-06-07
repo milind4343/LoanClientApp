@@ -46,9 +46,9 @@ export class AgentFundhistoryComponent implements OnInit {
     }
     
     this.agentService.getAgentfund(this.userId, IsAdmin).subscribe(result =>{
-      debugger;
-     this.fundHistorylist=result.lstFundVM;
-     this.agentName=result.agentName;
+     debugger;
+     this.fundHistorylist = result.lstFundVM;
+     this.agentName = result.agentName;
      this.dtTrigger.next();
     });
 
