@@ -163,8 +163,6 @@
       </div>
     </div>
   </div>
-
-
   
   <!-- <nb-card size="small">
     <nb-card-header>
@@ -187,11 +185,10 @@
     </div>
   </div>
 
-  <!-- *ngIf="showInstallments == true" -->
-  <div class="row"> 
+  <div class="row" > 
       <div class="col-sm-12">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-              <thead>
+              <thead *ngIf="showInstallments">
                   <tr>
                     <th>ID</th>
                     <th>Instalment Date</th>
