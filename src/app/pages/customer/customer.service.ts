@@ -52,4 +52,8 @@ export class CustomerService {
     //return
   }
 
+  assignloan(loanrequest:any):Observable<any>{
+    return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.headers });
+  }
+
 }

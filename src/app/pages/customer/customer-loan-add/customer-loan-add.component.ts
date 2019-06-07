@@ -30,7 +30,7 @@ export class CustomerLoanAddComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   showInstallments: boolean = false;
-
+  formData: FormData = new FormData();
   constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) {
    
   }    
@@ -90,10 +90,15 @@ export class CustomerLoanAddComponent implements OnInit {
   assignloan(loan:any,form:any)
   {
     debugger;
-    if(form.valid)
-    {
-
-    }
+   // loan.tenure= this.tenure;
+    this.formData = new FormData();
+    this.formData.append('loandetail', JSON.stringify(this.loan));
+    // if(form.valid)
+    // {
+      this.customerService.assignloan(this.formData).subscribe(result=>{
+        debugger;
+      })
+    // }
   }
 
   changeenddate(startdate:any){
@@ -102,69 +107,72 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   tenurecalculation(data:any) {
-
-    if(this.installmenttenure.length > 0) {
-      this.rerender();
-    }
-    this.installmenttenure = [];
-    
-    let interestAnnual:any;
-    let loanamount=+data.loanamount;
-    interestAnnual=+(data.loanamount*data.interest)/100;
-  
-    let finalAmount=0;
-    let interestDaily=+((+interestAnnual/365).toFixed(2));
-    let durationInterest=+((+interestDaily*45).toFixed(2));
-    if(data.interestpayat=="AtEnd"){      
-      // finalAmount=(loanamount)+(durationInterest);
-      finalAmount=(loanamount);
-      this.loan.paymentamount=finalAmount;
-    }
-    else{
-      debugger;
-      finalAmount=(loanamount);
-      this.loan.paymentamount=(finalAmount)-(durationInterest);
-    }
-    this.loan.interestamout=+(durationInterest);
-
-    let date =  data.startdate;
-    if(data.paymentperiodicity=="Weekly") {
-      this.loan.totalinstallments=6;
-      let weeklyinstallment=+(finalAmount/6).toFixed(2);
-
-      this.tenure=[];
-      for(let i=0;i<6;i++)
-      {
-        if(i !== 0) 
-          date=  this.dateService.addDay(date,7);
-          this.tenure.push({
-          srno:i+1,
-          installmentdate:date,
-          installmentamount:weeklyinstallment
-        })
-      }
-    }
-    else
+    debugger;
+    if(data.loanamount!=undefined && data.interest!="")
     {
-      this.loan.totalinstallments=45;
-      let dailyinstallment=+(finalAmount/45).toFixed(2);
-
-      this.tenure=[];
+        if(this.installmenttenure.length > 0) {
+          this.rerender();
+        }
+        this.installmenttenure = [];
+        
+        let interestAnnual:any;
+        let loanamount=+data.loanamount;
+        interestAnnual=+(data.loanamount*data.interest)/100;
       
-      for(let i=0;i<45;i++) {
-        if(i !== 0) 
-          date=  this.dateService.addDay(date,1);
-          this.tenure.push({
-          srno:i+1,
-          installmentdate:date,
-          installmentamount:dailyinstallment
-        })
+        let finalAmount=0;
+        let interestDaily=+((+interestAnnual/365).toFixed(2));
+        let durationInterest=+((+interestDaily*45).toFixed(2));
+        if(data.interestpayat=="AtEnd"){      
+          // finalAmount=(loanamount)+(durationInterest);
+          finalAmount=(loanamount);
+          this.loan.paymentamount=finalAmount;
+        }
+        else{
+          debugger;
+          finalAmount=(loanamount);
+          this.loan.paymentamount=(finalAmount)-(durationInterest);
+        }
+        this.loan.interestamout=+(durationInterest);
+
+        let date =  data.startdate;
+        if(data.paymentperiodicity=="Weekly") {
+          this.loan.totalinstallments=6;
+          let weeklyinstallment=+(finalAmount/6).toFixed(2);
+
+          this.tenure=[];
+          for(let i=0;i<6;i++)
+          {
+            if(i !== 0) 
+              date=  this.dateService.addDay(date,7);
+              this.tenure.push({
+              srno:i+1,
+              installmentdate:date,
+              installmentamount:weeklyinstallment
+            })
+          }
+        }
+        else
+        {
+          this.loan.totalinstallments=45;
+          let dailyinstallment=+(finalAmount/45).toFixed(2);
+
+          this.tenure=[];
+          
+          for(let i=0;i<45;i++) {
+            if(i !== 0) 
+              date=  this.dateService.addDay(date,1);
+              this.tenure.push({
+              srno:i+1,
+              installmentdate:date,
+              installmentamount:dailyinstallment
+            })
+          }
+        }
+        this.dtTrigger.next();
+        this.installmenttenure = this.tenure;    
+        //this.loan.paymentamount = finalAmount;   
+        this.showInstallments = true;   
       }
-    }
-    this.dtTrigger.next();
-    this.installmenttenure = this.tenure;    
-    //this.loan.paymentamount = finalAmount;   
-    this.showInstallments = true;   
   }
 
 

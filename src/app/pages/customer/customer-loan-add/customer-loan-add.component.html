@@ -26,7 +26,7 @@
         <label for="inputLoanAmount">Loan Amount</label>
         <span class="text-danger" *ngIf="loanamount.invalid && submitted && loanamount.errors.required"> * required</span>
         <input type="text" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
-          id="inputLoanAmount" placeholder="₱ 10000" required>
+          id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required>
       </div>
     </div>
     <div class="col-sm-3">
@@ -34,7 +34,7 @@
           <label for="interest">Interest</label>
          
           <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
-          <select id="interest" class="form-control" #interest="ngModel" [(ngModel)]="loan.interest" name="interest" required >
+          <select id="interest" class="form-control" #interest="ngModel" (change)="tenurecalculation(loan)" [(ngModel)]="loan.interest" name="interest" required >
             <option value="">
               --- Select Interest ---
             </option>
@@ -82,7 +82,7 @@
         <div class="form-group">
           <label for="periodicity">Instalment Period</label>
           <div class="demo-radio">
-            <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
+            <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
               <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
               <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
             </nb-radio-group>
@@ -93,7 +93,7 @@
         <div class="form-group">
           <label for="inputPassword2">Interest Type</label>
           <div class="demo-radio">
-            <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat">
+            <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat" (ngModelChange)="tenurecalculation(loan)">
               <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
               <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
             </nb-radio-group>
