@@ -60,9 +60,8 @@ export class CustomerAddComponent implements OnInit {
     debugger;
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
-      this.customer = result[0];
-      debugger;
-      this.imgUrl = 'data:image/png;base64,' + result[0].profileImageCode;
+      this.customer = result[0];      
+      this.imgUrl = result[0].profileImageURL;
       this.onStateSelect(this.customer.stateId);
       this.onCitySelect(this.customer.cityId);
     })

@@ -18,6 +18,6 @@ export class Customer {
     company:string;
     profileImage: any;
     remarks : string;
-    profileImageCode: string;
+    profileImageURL: string;
     isActive: boolean;
 }
