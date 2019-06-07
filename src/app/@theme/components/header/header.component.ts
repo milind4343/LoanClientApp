@@ -16,8 +16,8 @@ export class HeaderComponent implements OnInit {
 
   @Input() position = 'normal';
 
-  user: any;
-
+  profilename: any;
+  profileImage:any;
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
@@ -34,8 +34,14 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {
       debugger;
       //result.picture = 'assets/images/nick.png';
-      this.user.profileImage = 'data:image/png;base64,' + result.profileImageCode;
-      this.user = result;
+      if(result.profileImageURL==null)
+      {
+        this.profileImage='assets/images/nick.png';
+      }
+      else{
+      this.profileImage = result.profileImageURL;
+      }
+      this.profilename = result.firstname +' '+ result.middlename+' '+result.lastname;
     },error => {  
         this.exceptionHandler.handleExcption(error);
     })

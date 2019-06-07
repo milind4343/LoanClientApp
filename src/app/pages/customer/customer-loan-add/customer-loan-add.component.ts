@@ -121,6 +121,7 @@ export class CustomerLoanAddComponent implements OnInit {
       this.loan.paymentamount=finalAmount;
     }
     else{
+      debugger;
       finalAmount=(loanamount);
       this.loan.paymentamount=(finalAmount)-(durationInterest);
     }
@@ -162,7 +163,7 @@ export class CustomerLoanAddComponent implements OnInit {
     }
     this.dtTrigger.next();
     this.installmenttenure = this.tenure;    
-    this.loan.paymentamount = finalAmount;   
+    //this.loan.paymentamount = finalAmount;   
     this.showInstallments = true;   
   }
 
