@@ -28,16 +28,8 @@ export class HeaderComponent implements OnInit {
     // this.userService.getUsers()
     //   .subscribe((users: any) => this.user = users.nick);
    
-    this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {
-      debugger;
-      //result.picture = 'assets/images/nick.png';
-      if(result.profileImageURL==null)
-      {
-        this.profileImage='assets/images/user-placeholder.png';
-      }
-      else{
-      this.profileImage = result.profileImageURL;
-      }
+    this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {      
+      this.profileImage = result.profileImageURL==null ? "assets/images/user-placeholder.png" :result.profileImageURL; 
       this.profilename = result.firstname +' '+ result.middlename+' '+result.lastname;
     },error => {  
         this.exceptionHandler.handleExcption(error);
