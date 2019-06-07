@@ -18,8 +18,10 @@ export class AgentFundhistoryComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
   
-  //pageTitle : string = "Fund History";
-  //pageView : string = "History";
+  pageTitle : string = "Agent List";
+  pageView : string = "List";
+  IsAgent = false;
+
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
@@ -42,14 +44,14 @@ export class AgentFundhistoryComponent implements OnInit {
     // this.pageTitle='Fund History';
 
 
-    let IsAdmin = false;
+    this.IsAgent = false;
     debugger;
     let routerurl = this.router.url;
     if(routerurl == "/pages/agent/history"){
-      IsAdmin = true;
+      this.IsAgent = true;
     }
     
-    this.agentService.getAgentfund(this.userId, IsAdmin).subscribe(result =>{
+    this.agentService.getAgentfund(this.userId, this.IsAgent).subscribe(result =>{
      debugger;
      this.fundHistorylist = result.lstFundVM;
      this.agentName = result.agentName;
