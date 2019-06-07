@@ -1,7 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
 import { NbMenuService, NbSidebarService } from '@nebular/theme';
-import { UserData } from '../../../@core/data/users';
 import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
@@ -22,7 +20,6 @@ export class HeaderComponent implements OnInit {
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
-              private userService: UserData,
               private analyticsService: AnalyticsService,
               private layoutService: LayoutService,private authenticationService:AuthenticationService,private exceptionHandler:ExceptionHandler) {
   }
@@ -36,7 +33,7 @@ export class HeaderComponent implements OnInit {
       //result.picture = 'assets/images/nick.png';
       if(result.profileImageURL==null)
       {
-        this.profileImage='assets/images/nick.png';
+        this.profileImage='assets/images/user-placeholder.png';
       }
       else{
       this.profileImage = result.profileImageURL;
