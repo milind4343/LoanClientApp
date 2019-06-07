@@ -1,6 +1,7 @@
+
 <form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
   <div class="row">
-    <div class="col-sm-3">
+    <!-- <div class="col-sm-3">
       <div class="form-group">
         <label for="agentId">Agent</label>
         <select id="agentId" class="form-control" #userid [(ngModel)]="loan.agentid" name="agentid" required>
@@ -9,7 +10,7 @@
           </option>
         </select>
       </div>
-    </div>
+    </div> -->
     <div class="col-sm-3">
       <div class="form-group">
         <label for="loanType">Loan Type</label>
@@ -31,6 +32,7 @@
     <div class="col-sm-3">
         <div class="form-group">
           <label for="interest">Interest</label>
+         
           <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
           <select id="interest" class="form-control" #interest="ngModel" [(ngModel)]="loan.interest" name="interest" required >
             <option value="">
@@ -78,7 +80,7 @@
     
     <div class="col-sm-3">
         <div class="form-group">
-          <label for="periodicity">Payment Periodicity</label>
+          <label for="periodicity">Instalment Period</label>
           <div class="demo-radio">
             <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
               <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
@@ -89,7 +91,7 @@
       </div>
     <div class="col-sm-3">
         <div class="form-group">
-          <label for="inputPassword2">Interest Payment</label>
+          <label for="inputPassword2">Interest Type</label>
           <div class="demo-radio">
             <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat">
               <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
@@ -118,7 +120,7 @@
       </div>
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="paymentAmount">Payment Amount</label>
+        <label for="paymentAmount">Actual Loan Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
@@ -129,13 +131,13 @@
   <div class="row">
       <div class="col-sm-3">
           <div class="form-group">
-            <label for="repayingstuff">Re-Paying Stuff</label>
+            <label for="repayingstuff">Mortgage</label>
             <input type="text" class="form-control" id="repayingstuff" name="repayingstuff" placeholder="Re-Paying stuff">
           </div>
         </div>
       <div class="col-sm-3">
           <div class="form-group">
-            <label for="repayingstuffDoc">Re-Paying Stuff Doc</label>
+            <label for="repayingstuffDoc">Mortgage Document</label>
             <input class="form-control" type="file" name="image" />
           </div>
         </div>
@@ -175,6 +177,7 @@
   <div class="row">
     <div class="col-sm-3"></div>
     <div class="button-container">
+      
       <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
     </div>
     <div class="button-container">

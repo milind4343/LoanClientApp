@@ -18,8 +18,8 @@ export class AgentFundhistoryComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
   
-  pageTitle : string = "Agent List";
-  pageView : string = "List";
+  //pageTitle : string = "Fund History";
+  //pageView : string = "History";
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
@@ -35,8 +35,12 @@ export class AgentFundhistoryComponent implements OnInit {
       pagingType: 'full_numbers'
     };
 
-    this.pageView='List';
-    this.pageTitle='Agent List';
+    // this.pageView='List';
+    // this.pageTitle='Agent List';
+
+    // this.pageView='History';
+    // this.pageTitle='Fund History';
+
 
     let IsAdmin = false;
     debugger;

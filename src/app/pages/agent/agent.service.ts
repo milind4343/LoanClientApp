@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers } from "@angular/http";
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Agent } from '../agent/agent-list/agent';
 import { Observable } from 'rxjs';
@@ -10,24 +10,21 @@ import { Observable } from 'rxjs';
 })
 export class AgentService {
 
+  private token = "Bearer " + localStorage.getItem('jwt');
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
-  private token = 'Bearer ' + localStorage.getItem('jwt');
-  
-  private headers = new Headers({ 'Content-Type': 'application/json' ,'Authorization': this.token})
+  private headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
+  private headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
 
   constructor(private http: Http, private httpclient: HttpClient) {
-
   }
-  
+
   register(model:any){
     return this.http.post(this.agentUrl+'/registration',JSON.stringify(model),{ headers: this.headers })
     .map(res => res.json())
       .toPromise();
   }
 
-  //getState(){
-    //return this.http.get(this.agentUrl+'/getstate',{ headers: this.headers })
   getState(){
     return this.http.get(this.commonUrl+'/getstate',{ headers: this.headers })
     .map(res => res.json())
@@ -46,10 +43,9 @@ export class AgentService {
       .toPromise();
   }
 
-
   getAgent(): Observable<Agent[]>{
     // return this.httpclient.get<Agent[]>(this.agentUrl + '/getAgent');
-    return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent');
+    return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent',{ headers: this.headerClient });
   }
 
   editAgent(agentId){
@@ -60,30 +56,17 @@ export class AgentService {
     return this.http.get(this.agentUrl + '/changeStatus/'+ userId+"/"+isActive ,{ headers: this.headers });
   }
 
-
   addAgentfund(model:any) {
     return this.http.post(this.agentUrl+'/addAgentfund',JSON.stringify(model),{ headers: this.headers })
       .toPromise();
   }
 
-
   getAgentfund(userId, IsAgent){
     debugger;
     return this.http.get(this.agentUrl + '/getAgentfund/'+ userId + '/'+IsAgent,{ headers: this.headers }).map(res=>res.json());
   }
-  
 
   isreceivefund(agentfundId, isreceive){
     return this.http.get(this.agentUrl + '/isreceivefund/'+agentfundId+"/"+isreceive,{ headers: this.headers }).map(res=>res.json());
   }
-
-
-  
-  // getAgent(){
-  //   return this.http.get(this.agentUrl+'/getAgent',{ headers: this.headers })
-  //   .map(res => res.json())
-  //     .toPromise();
-  // }
-
-  
 }

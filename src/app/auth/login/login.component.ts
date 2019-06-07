@@ -50,15 +50,19 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
           localStorage.setItem("jwt","");               
           localStorage.setItem("encryptkey","");
           setTimeout(()=>{
+            debugger;
             localStorage.setItem("jwt", result.token);
             this.router.navigate(['dashboard']);
             this.loader.loader = false;
           },500);
          }
-         else 
-         {
+         else if(result.statuscode == 2){
             this.loader.loader = false;
-            this.toastrService.danger(result.message,"Error",this.config);
+            this.toastrService.danger(result.message,"Inactive User",this.config);
+         }
+         else{
+          this.loader.loader = false;
+          this.toastrService.danger(result.message,"Error",this.config);
          }
       }
     }).catch(err => {

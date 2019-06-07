@@ -42,7 +42,7 @@ export class CustomerLoanAddComponent implements OnInit {
     };
 
     this.setdefaultvalue();
-    this.agentbind();
+    //this.agentbind();
     this.loantypebind();
   }
 
@@ -116,10 +116,14 @@ export class CustomerLoanAddComponent implements OnInit {
     let interestDaily=+((+interestAnnual/365).toFixed(2));
     let durationInterest=+((+interestDaily*45).toFixed(2));
     if(data.interestpayat=="AtEnd"){      
-      finalAmount=(loanamount)+(durationInterest);
+      // finalAmount=(loanamount)+(durationInterest);
+      finalAmount=(loanamount);
+      this.loan.paymentamount=finalAmount;
     }
     else{
+      debugger;
       finalAmount=(loanamount);
+      this.loan.paymentamount=(finalAmount)-(durationInterest);
     }
     this.loan.interestamout=+(durationInterest);
 
@@ -159,7 +163,7 @@ export class CustomerLoanAddComponent implements OnInit {
     }
     this.dtTrigger.next();
     this.installmenttenure = this.tenure;    
-    this.loan.paymentamount = finalAmount;   
+    //this.loan.paymentamount = finalAmount;   
     this.showInstallments = true;   
   }
 
@@ -169,6 +173,11 @@ export class CustomerLoanAddComponent implements OnInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
+    this.installmenttenure =this.tenure;
+    // this.installmenttenure = {
+    //   tenure:this.tenure
+    // }
+  
   }
 
   cancelForm() {

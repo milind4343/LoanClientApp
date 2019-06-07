@@ -3,7 +3,7 @@
     <nb-card>
       <nb-card-header>Fund History</nb-card-header>
       <nb-card-body>
-        <div *ngIf="pageView === 'History'" class="col-md-8" style="float: right;">
+        <div class="col-md-8" style="float: right;">
           <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
             (click)="backtoagentlist()">
             Cancle </button>
@@ -17,7 +17,7 @@
               <th>Remark</th>
               <th>Deposit Date</th>
               <th>Deposit by</th>
-              <th>Action</th>
+              <th>Is Receive</th>
             </tr>
           </thead>
           <tbody>

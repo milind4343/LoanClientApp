@@ -20,7 +20,7 @@
       <div class="form-group">
         <label for="input-lastname">Last Name</label>
         <span class="text-danger" *ngIf="lastname.invalid && submitted && lastname.errors.required"> * required</span>
-        <input type="text" [(ngModel)]="customer.lastname" name="lastname" class="form-control" id="input-lastname"
+        <input type="text" [(ngModel)]="customer.lastname" name="lastname" #lastname class="form-control" id="input-lastname"
           #lastname= "ngModel" placeholder="Last Name" required>
       </div>
     </div>
