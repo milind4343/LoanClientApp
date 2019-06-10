@@ -49,7 +49,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     };
 
     this.customerservice.getCustomers().subscribe(result => {
-      debugger;
       this.customerlist = result;
       this.dtTrigger.next();
     },

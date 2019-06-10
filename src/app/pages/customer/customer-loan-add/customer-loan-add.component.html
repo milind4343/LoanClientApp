@@ -154,7 +154,7 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="document">Upload Document</label>
-        <input class="form-control" type="file" name="image" />
+        <input class="form-control" type="file" name="loanDoc" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
       </div>
     </div>
     <div class="col-sm-6">
@@ -166,13 +166,7 @@
     </div>
   </div>
   
-  <!-- <nb-card size="small">
-    <nb-card-header>
-      Select Uploaded Documents
-    </nb-card-header>
-    <nb-card-body>
-    </nb-card-body>
-  </nb-card> -->
+ 
 
   <div class="row">
     <div class="col-sm-3"></div>
@@ -185,6 +179,34 @@
     </div>
     <div class="button-container">
       <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <nb-card>
+        <nb-card-header>
+          Select Documents To Upload
+        </nb-card-header>      
+        <nb-card-body>    
+          <div class="row">
+              <div class="col-sm-3" *ngFor="let file of objDoc">
+                  <pre>{{file | json}}</pre>
+                  <nb-checkbox name="cbkView" [(ngModel)]="file.isChecked">
+                    <i class="fa fa-file-alt fa-3x" title="doc"></i>             
+                    <p>{{file.filedata.name}}</p>      
+                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="file.docType" required>
+                        <option value="">--- Select Doc Type ---</option>
+                        <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
+                      </select>      
+                  </nb-checkbox>                  
+                  <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
+                </div>
+          </div>     
+              
+        </nb-card-body>
+      </nb-card>
     </div>
   </div>
 

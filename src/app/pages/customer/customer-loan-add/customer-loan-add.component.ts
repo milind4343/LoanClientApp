@@ -15,6 +15,8 @@ export class CustomerLoanAddComponent implements OnInit {
   @Input() editUserID: number;
   @Output() callParent = new EventEmitter<string>();
   
+
+
   max: Date;
   min:Date;
   agentlist: Agent[] = [];
@@ -30,6 +32,12 @@ export class CustomerLoanAddComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   showInstallments: boolean = false;
+
+  objDoc: any = [];
+  formData = new FormData();
+  selectedDocs : any = [];
+  docTypeList: any = [];
+  filesToUpload : File[];
 
   constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) {
    
@@ -47,7 +55,6 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   setdefaultvalue(){
-    debugger;
     this.min = new Date();
     this.max = this.dateService.addDay(this.min, 44);
     
@@ -76,7 +83,6 @@ export class CustomerLoanAddComponent implements OnInit {
 
   loantypebind(){
   this.customerService.getloantype().subscribe(result => {
-    debugger;
     if (result != null) {
       this.loantypelist.push({id:'',name: "--Select LoanType--"});
       result.forEach(element => {
@@ -90,10 +96,18 @@ export class CustomerLoanAddComponent implements OnInit {
   assignloan(loan:any,form:any)
   {
     debugger;
-    if(form.valid)
-    {
-
+    this.objDoc = this.objDoc.filter(q=>q.isChecked === true);
+    for(let i=0;i< this.objDoc.length; i++) {
+          this.formData.append("UploadDoc[" + i + "].filedata", this.objDoc[i].filedata);
+          this.formData.append("UploadDoc[" + i + "].docType", this.objDoc[i].docType);
+          this.formData.append("UploadDoc[" + i + "].isChecked", this.objDoc[i].isChecked);
     }
+   
+    //this.customerService.uploadLoanDoc(this.formData).subscribe(result=>{
+    this.customerService.uploadLoanDoc(this.formData).subscribe(result=>{
+      console.log(result);
+
+    });
   }
 
   changeenddate(startdate:any){
@@ -173,7 +187,7 @@ export class CustomerLoanAddComponent implements OnInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.installmenttenure =this.tenure;
+    this.installmenttenure = this.tenure;
     // this.installmenttenure = {
     //   tenure:this.tenure
     // }
@@ -184,6 +198,52 @@ export class CustomerLoanAddComponent implements OnInit {
     this.editUserID = 0;
     this.callParent.emit('List');
   }
+
+  selectedDoc(fileInput: any){
+    debugger;
+    this.filesToUpload = fileInput;
+    if(fileInput.length === 0)
+    return;
+    this.getAllDocTypes();
+    for(let f of fileInput){
+      let file = <File>f;
+      this.objDoc.push({filedata:file, docType :''});           
+    }
+  
+    //var reader = new FileReader();      
+    }
+   
+
+    checkedCB(isChecked: boolean, fileData: any){
+      debugger;
+      if(isChecked){
+        this.selectedDocs.push(fileData);
+        //this.formData.append("files",fileData, fileData.name);
+      }
+      else
+      {
+       // if(this.selectedDocs[])
+        this.selectedDocs.remove();
+      }
+    }
+
+    removeFile(data: any){
+      debugger;
+      this.objDoc = this.objDoc.filter( q=>q.filedata.name!== data.filedata.name);
+
+    }
+
+    getAllDocTypes(){
+      this.customerService.getDocType().subscribe(res=>{
+        if(res!=null){
+          res.forEach(item => {
+            this.docTypeList.push({name : item.type, id : item.documentTypeId});
+          });
+       
+        }
+      });
+    }
+  
 
 }
 
