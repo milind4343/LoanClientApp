@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../customer.service';
 import { Agent }from '../../agent/agent-list/agent';
-import { NbDateService } from '@nebular/theme';
+import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+
 
 @Component({
   selector: 'ngx-customer-loan-add',
@@ -18,7 +19,7 @@ export class CustomerLoanAddComponent implements OnInit {
   max: Date;
   min:Date;
   agentlist: Agent[] = [];
-  loan:any=[];
+  loan:any={};
   agent:any=[];
   loantypelist:any=[];
   submitted:boolean=false;
@@ -31,7 +32,11 @@ export class CustomerLoanAddComponent implements OnInit {
   dtElement: DataTableDirective;
   showInstallments: boolean = false;
   formData: FormData = new FormData();
-  constructor(private customerService: CustomerService,private dateService: NbDateService<Date>) {
+  config = {
+    position: NbGlobalPhysicalPosition.TOP_RIGHT
+  };
+ 
+  constructor(private customerService: CustomerService,private dateService: NbDateService<Date>, private toastrService: NbToastrService,) {
    
   }    
 
@@ -40,10 +45,15 @@ export class CustomerLoanAddComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 5
     };
-
+     
+    // this.loan={};
+    // this.loan.tenure=[];
+    // this.installmenttenure=[];
+    this.loan.customerid=this.editUserID;
     this.setdefaultvalue();
     //this.agentbind();
     this.loantypebind();
+    
   }
 
   setdefaultvalue(){
@@ -82,25 +92,39 @@ export class CustomerLoanAddComponent implements OnInit {
       result.forEach(element => {
         this.loantypelist.push({id : element.loantypeid , name : element.loantype})
       });
-      this.loan.loantypeid = '';
-    }
-  });
+      //this.loan.loantypeid = '';
+     }
+    });
   }
 
   assignloan(loan:any,form:any)
   {
-    debugger;
-   // loan.tenure= this.tenure;
+   //loan.tenure=this.tenure;
+    var finaldata= JSON.stringify(loan)
     this.formData = new FormData();
-    this.formData.append('loandetail', JSON.stringify(this.loan));
-    // if(form.valid)
-    // {
-      this.customerService.assignloan(this.formData).subscribe(result=>{
+    this.formData.append('loandetail', finaldata);
+     if(form.valid)
+     {
+      this.customerService.assignloan(this.formData).subscribe(result => {
         debugger;
-      })
-    // }
+        if (result.success) {
+          // this.tenure=[];
+          // this.loan={};
+          // this.installmenttenure=[];
+          // this.ngOnInit();
+          this.toastrService.success('Loan assigned !','Success',this.config);
+          this.editUserID = 0;
+          this.callParent.emit('List');
+        }
+        else {
+         
+        }
+      },err => {
+       
+      });
+     }
   }
-
+ 
   changeenddate(startdate:any){
     debugger;
     this.loan.enddate= this.dateService.addDay(startdate, 44);
@@ -132,7 +156,7 @@ export class CustomerLoanAddComponent implements OnInit {
           finalAmount=(loanamount);
           this.loan.paymentamount=(finalAmount)-(durationInterest);
         }
-        this.loan.interestamout=+(durationInterest);
+        this.loan.interestamount=+(durationInterest);
 
         let date =  data.startdate;
         if(data.paymentperiodicity=="Weekly") {
@@ -168,6 +192,7 @@ export class CustomerLoanAddComponent implements OnInit {
             })
           }
         }
+        this.loan.tenure= this.tenure;
         this.dtTrigger.next();
         this.installmenttenure = this.tenure;    
         //this.loan.paymentamount = finalAmount;   

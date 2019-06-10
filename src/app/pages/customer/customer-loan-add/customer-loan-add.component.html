@@ -1,5 +1,6 @@
 
 <form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
+  <input type="hidden" name="customerid" [(ngModel)]="loan.customerid" >
   <div class="row">
     <!-- <div class="col-sm-3">
       <div class="form-group">
@@ -14,8 +15,9 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="loanType">Loan Type</label>
-        <select id="loanType" class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required>
-          <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
+        <span class="text-danger" *ngIf="loantypeid.invalid && submitted && loantypeid.errors.required"> * required</span>
+        <select id="loanType" class="form-control" #loantypeid="ngModel" [(ngModel)]="loan.loantypeid" name="loantypeid" required>
+          <option *ngFor="let loantype of loantypelist">
             {{loantype.name}}
           </option>
         </select>
@@ -65,7 +67,7 @@
       <div class="form-group">
         <label for="startDate">Loan Start Date</label>
         <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
-          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" required>
+          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" [readonly]="true"  required>
         <nb-datepicker #startdate [min]="min"></nb-datepicker>
       </div>
     </div>
@@ -114,7 +116,7 @@
     <div class="col-sm-3">
         <div class="form-group">
           <label for="inputInterestAmount">Interest Amount</label>
-          <input type="text" class="form-control" #interestamout [(ngModel)]="loan.interestamout" name="interestamout"
+          <input type="text" class="form-control" #interestamount [(ngModel)]="loan.interestamount" name="interestamount"
             id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
         </div>
       </div>
@@ -125,8 +127,6 @@
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
     </div>
-   
-   
   </div>
   <div class="row">
       <div class="col-sm-3">
@@ -160,7 +160,7 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="document">Remarks</label>
-        <textarea rows="2" class="form-control" id="remarks" name="remarks" placeholder="Remarks"
+        <textarea rows="2" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
           [(ngModel)]="loan.remarks" #remarks></textarea>
       </div>
     </div>
