@@ -21,7 +21,6 @@ export class CustomerService {
   constructor(private httpclient: HttpClient) { }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
-    debugger;
     return this.httpclient.get<Customer[]>(this.customerUrl + '/list/' + userID, {headers : this.headers});
   }
 
@@ -54,6 +53,19 @@ export class CustomerService {
 
   assignloan(loanrequest:any):Observable<any>{
     return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.headers });
+  }
+  uploadLoanDoc(formdata: FormData){
+    return this.httpclient.post(this.customerUrl + '/UploadLoanDoc', formdata, {headers : this.headers});
+  }
+
+  getDocType(): Observable<any[]>{
+    return this.httpclient.get<any[]>(this.commonUrl + '/getdocumenttypes');
+  }
+
+  getUplodedDoc(userId: number): Observable<any>{
+    debugger;
+    return this.httpclient.get<any>(this.customerUrl + '/getuploadedloandoc/' + userId,  {headers : this.headers});
+
   }
 
   getCustomerLoan(userID: number = 0): Observable<any>{

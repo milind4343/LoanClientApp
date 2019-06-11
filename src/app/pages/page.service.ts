@@ -8,11 +8,9 @@ import { environment } from '../../environments/environment';
 export class PageService {
 
   headers:any;
-  private master = environment.domain + '/api/menu';
-  
+  private master = environment.domain + '/api/menu';  
 
   constructor(private http: Http) { }
-
 
   getMenuList() {
     let token = 'Bearer'+' '+localStorage.getItem('jwt');

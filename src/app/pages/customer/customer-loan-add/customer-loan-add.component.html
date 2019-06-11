@@ -1,4 +1,3 @@
-
 <form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
   <input type="hidden" name="customerid" [(ngModel)]="loan.customerid" >
   <div class="row">
@@ -66,8 +65,8 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="startDate">Loan Start Date</label>
-        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
-          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" [readonly]="true"  required>
+        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startDate
+          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startDate">
         <nb-datepicker #startdate [min]="min"></nb-datepicker>
       </div>
     </div>
@@ -144,7 +143,7 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="document">Document</label>
-        <select class="form-control" name="interest" required>
+        <select class="form-control" name="document">
           <option value="0">
             --Select Document Type--
           </option>
@@ -154,7 +153,7 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="document">Upload Document</label>
-        <input class="form-control" type="file" name="image" />
+        <input class="form-control" type="file" name="loanDoc" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
       </div>
     </div>
     <div class="col-sm-6">
@@ -165,19 +164,10 @@
       </div>
     </div>
   </div>
-  
-  <!-- <nb-card size="small">
-    <nb-card-header>
-      Select Uploaded Documents
-    </nb-card-header>
-    <nb-card-body>
-    </nb-card-body>
-  </nb-card> -->
 
   <div class="row">
     <div class="col-sm-3"></div>
-    <div class="button-container">
-      
+    <div class="button-container">      
       <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
     </div>
     <div class="button-container">
@@ -185,6 +175,34 @@
     </div>
     <div class="button-container">
       <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+    </div>
+  </div>
+
+  <br/>
+  <div class="row">
+    <div class="col-sm-12">
+      <nb-card>
+        <nb-card-header>
+          Select Documents To Upload
+        </nb-card-header>      
+        <nb-card-body>    
+          <div class="row">             
+              <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">                  
+                    <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x" title="doc"></i></a>
+                    <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
+                    <p>{{file.filename}}</p> 
+                  </nb-checkbox>
+                    <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
+                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
+                        <option value="">- - Select Document Type - -</option>
+                        <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
+                    </select>     
+                  <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
+                </div>
+          </div>     
+              
+        </nb-card-body>
+      </nb-card>
     </div>
   </div>
 
