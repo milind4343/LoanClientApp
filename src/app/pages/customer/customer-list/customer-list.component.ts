@@ -128,4 +128,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.editUserID = userId;
   }
 
+
+  // loanHistory(userId: number){
+  //   this.pageView = "LoanHistory";
+  //   this.pageTitle = "Loan History";
+  //   this.editUserID = userId;
+  // }
+
+
 }

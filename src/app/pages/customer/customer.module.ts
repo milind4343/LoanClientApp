@@ -9,10 +9,12 @@ import { DataTablesModule } from 'angular-datatables';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
+import { CustomerInstalmentHistoryComponent } from './customer-instalment-history/customer-instalment-history.component';
 
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent],
+  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent, CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

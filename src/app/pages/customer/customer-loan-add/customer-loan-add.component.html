@@ -17,7 +17,7 @@
         <label for="loanType">Loan Type</label>
         <span class="text-danger" *ngIf="loantypeid.invalid && submitted && loantypeid.errors.required"> * required</span>
         <select id="loanType" class="form-control" #loantypeid="ngModel" [(ngModel)]="loan.loantypeid" name="loantypeid" required>
-          <option *ngFor="let loantype of loantypelist">
+          <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
             {{loantype.name}}
           </option>
         </select>
@@ -189,24 +189,23 @@
   </div>
 
   <div class="row" > 
-      <div class="col-sm-12">
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-              <thead *ngIf="showInstallments">
-                  <tr>
+    <div class="col-sm-12">
+        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+            <thead *ngIf="showInstallments">
+                <tr>
                     <th>ID</th>
                     <th>Instalment Date</th>
                     <th>Instalment  Amount</th>
-                  </tr>
+                </tr>
                 </thead>
                 <tbody>
-                    <!-- *ngFor="let cust of customerlist" -->
-                  <tr *ngFor="let tenure of installmenttenure">
+                <tr *ngFor="let tenure of installmenttenure">
                     <td>{{tenure.srno}}</td>
                     <td>{{tenure.installmentdate | date:'dd-MM-yyyy'}}</td>
                     <td>{{tenure.installmentamount}}</td>           
                   </tr>
                 </tbody>
-          </table>
-      </div>
+           </table>
+     </div>
     </div>
 </form>

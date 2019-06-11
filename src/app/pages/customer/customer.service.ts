@@ -56,4 +56,13 @@ export class CustomerService {
     return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.headers });
   }
 
+  getCustomerLoan(userID: number = 0): Observable<any>{
+    debugger;
+    return this.httpclient.get<any>(this.customerUrl + '/loanlist/' + userID, {headers : this.headers});
+  }
+
+  getLoanInstallments(customerLoanId:number=0):Observable<any>{
+    debugger;
+    return this.httpclient.get<any>(this.customerUrl + '/installmentlist/' + customerLoanId, {headers : this.headers});
+  }
 }

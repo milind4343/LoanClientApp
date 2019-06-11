@@ -41,8 +41,11 @@
                     <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
                         <i class="fa fa-plus-circle" title="Add Loan">loan</i>
                     </button>
+                    <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? loanHistory(cust.userID) : ''" title="Loan History">
+                        <i class="fa fa-history" title="Loan History"></i>
+                    </button> -->
                     <span style="margin-left:5px;">
-                      <ui-switch size="small"  *ngIf="pageaccesscontrol.isedit"  name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
+                      <ui-switch size="small" *ngIf="pageaccesscontrol.isedit"  name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
                     </span>                    
                   </td>
                 </tr>
@@ -55,7 +58,9 @@
         <div *ngIf="pageView === 'AddLoan'">
           <ngx-customer-loan-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-add>
         </div>
-        
+        <!-- <div *ngIf="pageView === 'LoanHistory'">
+            <ngx-customer-loan-history [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-history>
+        </div> -->
       </nb-card-body>
     </nb-card>
   </div>
