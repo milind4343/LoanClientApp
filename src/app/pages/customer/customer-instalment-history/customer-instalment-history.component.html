@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12">
+       
+      <nb-card>    
+        
+          <nb-card-header>{{pageTitle}}  
+            <span style="text-align: center;"><h4>{{clientname}}</h4></span>
+              <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
+            </nb-card-header>  
+           
+        <nb-card-body>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+              <thead>
+                  <tr>
+                    <th style="display: none">transactionId</th>
+                    <th>Instalment Amount</th>
+                    <th>Instalment Date</th>
+                    <th>Is Paid</th>
+                    <!-- <th>Action</th> -->
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let instalment of installmenthstorylist"> 
+                    <td style="display: none">{{instalment.transactionid}}</td>
+                    <td>₱ {{instalment.installmentamount}}</td>
+                    <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
+                    <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
+                    
+                    <!-- <td>
+                        <button class="icon-btn"   style="cursor: pointer;" (click)="installmentlist(loanhistory.customerLoanId)"  title="Installments">
+                            <i class="fa fa-history" title="Installments"></i>
+                        </button>
+                    </td> -->
+                  </tr>
+                </tbody>
+          </table>
+        </nb-card-body>
+      </nb-card>
+    </div>
+</div>
+

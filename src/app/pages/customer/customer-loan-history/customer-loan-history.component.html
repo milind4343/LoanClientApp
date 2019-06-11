@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- <h1 class="title">{{pageTitle}}</h1> -->
+        <!-- <div class="form-group" *ngIf="pageView === 'List'"> -->
+            <!-- <button nbButton status="primary" class="btn-demo" > Add Customer </button> -->
+        <!-- </div>  -->
+      <nb-card>           
+        <nb-card-header *ngIf="pageView === 'List' || pageView === 'List'">{{pageTitle}}</nb-card-header>
+        <nb-card-body>
+        
+        <div *ngIf="pageView === 'List' || pageView === 'List'">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+              <thead>
+                  <tr>
+                    <th style="display: none">LoanId</th>
+                    <th>Customer Name</th>
+                    <th>Loan Amount</th>
+                    <th>Interest</th>
+                    <th>Interest Type</th>
+                    <!-- <th>Interest Amount</th> -->
+                    <th>No. of installments</th>
+                    <th>Payment Amount</th>
+                    <th>Assigned By</th>
+                    <th>Is Paid</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let loanhistory of loanhstorylist">                   
+                    <td style="display: none">{{loanhistory.customerLoanId}}</td>
+                    <td>{{loanhistory.customername}}</td>
+                    <td>₱ {{loanhistory.loanAmount}}</td>
+                    <td>{{loanhistory.interest}}</td>
+                    <td>{{loanhistory.interestpayat}}</td>
+                    <!-- <td>{{loanhistory.interestamount}}</td> -->
+                    <td>{{loanhistory.totalinstallments}}</td>
+                    <td>₱ {{loanhistory.paymentamount}}</td>
+                    <td>{{loanhistory.createdbyname}}</td>
+                    <td>{{(loanhistory.ispaid)==false?'UnPaid':'Paid'}}</td>
+                    <td>
+                        <button class="icon-btn"   style="cursor: pointer;" (click)="installmentlist(loanhistory.customerLoanId,loanhistory.customername ,loanhistory.customerLoanId)"  title="Installments">
+                            <i class="fas fa-money-bill-alt" title="Installments"></i>
+                        </button>
+                    </td>
+                  </tr>
+                </tbody>
+          </table>
+        </div>
+        <div *ngIf="pageView === 'LoanInstallment'">
+            <ngx-customer-instalment-history [editloanID]="editloanID" [clientname]="clientname" (callParent)="callParent($event)"></ngx-customer-instalment-history>
+        </div> 
+        </nb-card-body>
+      </nb-card>
+    </div>
+</div>
+
+
+  
