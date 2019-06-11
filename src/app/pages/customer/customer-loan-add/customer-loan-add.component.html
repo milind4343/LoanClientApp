@@ -1,5 +1,5 @@
-
 <form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
+  <input type="hidden" name="customerid" [(ngModel)]="loan.customerid" >
   <div class="row">
     <!-- <div class="col-sm-3">
       <div class="form-group">
@@ -14,7 +14,8 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="loanType">Loan Type</label>
-        <select id="loanType" class="form-control" #loantypeid [(ngModel)]="loan.loantypeid" name="loantypeid" required>
+        <span class="text-danger" *ngIf="loantypeid.invalid && submitted && loantypeid.errors.required"> * required</span>
+        <select id="loanType" class="form-control" #loantypeid="ngModel" [(ngModel)]="loan.loantypeid" name="loantypeid" required>
           <option *ngFor="let loantype of loantypelist" value="{{loantype.id}}">
             {{loantype.name}}
           </option>
@@ -26,7 +27,7 @@
         <label for="inputLoanAmount">Loan Amount</label>
         <span class="text-danger" *ngIf="loanamount.invalid && submitted && loanamount.errors.required"> * required</span>
         <input type="text" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
-          id="inputLoanAmount" placeholder="₱ 10000" required>
+          id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required>
       </div>
     </div>
     <div class="col-sm-3">
@@ -34,7 +35,7 @@
           <label for="interest">Interest</label>
          
           <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
-          <select id="interest" class="form-control" #interest="ngModel" [(ngModel)]="loan.interest" name="interest" required >
+          <select id="interest" class="form-control" #interest="ngModel" (change)="tenurecalculation(loan)" [(ngModel)]="loan.interest" name="interest" required >
             <option value="">
               --- Select Interest ---
             </option>
@@ -64,8 +65,8 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="startDate">Loan Start Date</label>
-        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startdate
-          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startdate" required>
+        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startDate
+          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startDate">
         <nb-datepicker #startdate [min]="min"></nb-datepicker>
       </div>
     </div>
@@ -82,7 +83,7 @@
         <div class="form-group">
           <label for="periodicity">Instalment Period</label>
           <div class="demo-radio">
-            <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity">
+            <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
               <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
               <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
             </nb-radio-group>
@@ -93,7 +94,7 @@
         <div class="form-group">
           <label for="inputPassword2">Interest Type</label>
           <div class="demo-radio">
-            <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat">
+            <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat" (ngModelChange)="tenurecalculation(loan)">
               <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
               <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
             </nb-radio-group>
@@ -114,7 +115,7 @@
     <div class="col-sm-3">
         <div class="form-group">
           <label for="inputInterestAmount">Interest Amount</label>
-          <input type="text" class="form-control" #interestamout [(ngModel)]="loan.interestamout" name="interestamout"
+          <input type="text" class="form-control" #interestamount [(ngModel)]="loan.interestamount" name="interestamount"
             id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
         </div>
       </div>
@@ -125,8 +126,6 @@
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
     </div>
-   
-   
   </div>
   <div class="row">
       <div class="col-sm-3">
@@ -144,7 +143,7 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="document">Document</label>
-        <select class="form-control" name="interest" required>
+        <select class="form-control" name="document">
           <option value="0">
             --Select Document Type--
           </option>
@@ -160,18 +159,15 @@
     <div class="col-sm-6">
       <div class="form-group">
         <label for="document">Remarks</label>
-        <textarea rows="2" class="form-control" id="remarks" name="remarks" placeholder="Remarks"
+        <textarea rows="2" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
           [(ngModel)]="loan.remarks" #remarks></textarea>
       </div>
     </div>
   </div>
-  
- 
 
   <div class="row">
     <div class="col-sm-3"></div>
-    <div class="button-container">
-      
+    <div class="button-container">      
       <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
     </div>
     <div class="button-container">
@@ -190,17 +186,17 @@
           Select Documents To Upload
         </nb-card-header>      
         <nb-card-body>    
-          <div class="row">
-              <div class="col-sm-3" *ngFor="let file of objDoc">
-                  <pre>{{file | json}}</pre>
-                  <nb-checkbox name="cbkView" [(ngModel)]="file.isChecked">
-                    <i class="fa fa-file-alt fa-3x" title="doc"></i>             
-                    <p>{{file.filedata.name}}</p>      
-                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="file.docType" required>
-                        <option value="">--- Select Doc Type ---</option>
+          <div class="row">             
+              <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">                  
+                    <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x" title="doc"></i></a>
+                    <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
+                    <p>{{file.filename}}</p> 
+                  </nb-checkbox>
+                    <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
+                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
+                        <option value="">- - Select Document Type - -</option>
                         <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
-                      </select>      
-                  </nb-checkbox>                  
+                    </select>     
                   <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
                 </div>
           </div>     

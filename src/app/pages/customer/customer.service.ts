@@ -51,12 +51,21 @@ export class CustomerService {
     //return
   }
 
+  assignloan(loanrequest:any):Observable<any>{
+    return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.headers });
+  }
   uploadLoanDoc(formdata: FormData){
     return this.httpclient.post(this.customerUrl + '/UploadLoanDoc', formdata, {headers : this.headers});
   }
 
   getDocType(): Observable<any[]>{
     return this.httpclient.get<any[]>(this.commonUrl + '/getdocumenttypes');
+  }
+
+  getUplodedDoc(userId: number): Observable<any>{
+    debugger;
+    return this.httpclient.get<any>(this.customerUrl + '/getuploadedloandoc/' + userId,  {headers : this.headers});
+
   }
 
 }
