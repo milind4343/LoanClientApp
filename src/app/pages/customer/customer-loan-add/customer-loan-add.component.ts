@@ -93,11 +93,11 @@ export class CustomerLoanAddComponent implements OnInit {
   loantypebind() {
     this.customerService.getloantype().subscribe(result => {
       if (result != null) {
-        this.loantypelist.push({ id: '', name: "--Select LoanType--" });
+        this.loantypelist.push({ id: '', name: "- - Select - -" });
         result.forEach(element => {
           this.loantypelist.push({ id: element.loantypeid, name: element.loantype })
         });
-        //this.loan.loantypeid = '';
+        this.loan.loantypeid = '';
       }
     });
   }

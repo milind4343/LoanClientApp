@@ -30,14 +30,13 @@
           id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required>
       </div>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <div class="form-group">
-          <label for="interest">Interest</label>
-         
+          <label for="interest">Interest</label>         
           <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
           <select id="interest" class="form-control" #interest="ngModel" (change)="tenurecalculation(loan)" [(ngModel)]="loan.interest" name="interest" required >
             <option value="">
-              --- Select Interest ---
+              - - 0% - -
             </option>
             <option value="15">
               15%
@@ -60,131 +59,82 @@
           </select>
         </div>
       </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="startDate">Loan Start Date</label>
-        <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startDate
-          [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startDate">
-        <nb-datepicker #startdate [min]="min"></nb-datepicker>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="endDate">Loan End Date</label>
-        <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
-          [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
-        <nb-datepicker #enddate></nb-datepicker>
-      </div>
-    </div>
-    
-    <div class="col-sm-3">
-        <div class="form-group">
-          <label for="periodicity">Instalment Period</label>
-          <div class="demo-radio">
-            <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity" [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
-              <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
-              <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
-            </nb-radio-group>
-          </div>
-        </div>
-      </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-          <label for="inputPassword2">Interest Type</label>
-          <div class="demo-radio">
-            <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat" (ngModelChange)="tenurecalculation(loan)">
-              <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
-              <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
-            </nb-radio-group>
-          </div>
-        </div>
-      </div>
-  </div>
 
+      <div class="col-sm-2">
+          <div class="form-group">
+            <label for="startDate">Loan Start Date</label>
+            <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate" #startDate
+              [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startDate">
+            <nb-datepicker #startdate [min]="min"></nb-datepicker>
+          </div>
+        </div>
+        <div class="col-sm-2">
+          <div class="form-group">
+            <label for="endDate">Loan End Date</label>
+            <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
+              [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
+            <nb-datepicker #enddate></nb-datepicker>
+          </div>
+        </div>
+  </div>
   <div class="row">
-     
     <div class="col-sm-3">
+      <div class="form-group">
+        <label for="periodicity">Instalment Period</label>
+        <div class="demo-radio">
+          <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity"
+            [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
+            <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
+            <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="inputPassword2">Interest Type</label>
+        <div class="demo-radio">
+          <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat"
+            (ngModelChange)="tenurecalculation(loan)">
+            <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
+            <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
+          </nb-radio-group>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
       <div class="form-group">
         <label for="totalInstallments">Total Instalments</label>
-        <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments" #totalinstallments
-          [(ngModel)]="loan.totalinstallments" placeholder="Total Installments" [disabled]="true">
+        <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments"
+          #totalinstallments [(ngModel)]="loan.totalinstallments" placeholder="Total Installments" [disabled]="true">
       </div>
     </div>
-    <div class="col-sm-3">
-        <div class="form-group">
-          <label for="inputInterestAmount">Interest Amount</label>
-          <input type="text" class="form-control" #interestamount [(ngModel)]="loan.interestamount" name="interestamount"
-            id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
-        </div>
+    <div class="col-sm-2">
+      <div class="form-group">
+        <label for="inputInterestAmount">Interest Amount</label>
+        <input type="text" class="form-control" #interestamount [(ngModel)]="loan.interestamount" name="interestamount"
+          id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
       </div>
-    <div class="col-sm-3">
+    </div>
+    <div class="col-sm-2">
       <div class="form-group">
         <label for="paymentAmount">Actual Loan Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
-    </div>
+    </div>  
   </div>
-  <div class="row">
-      <div class="col-sm-3">
-          <div class="form-group">
-            <label for="repayingstuff">Mortgage</label>
-            <input type="text" class="form-control" id="repayingstuff" name="repayingstuff" placeholder="Re-Paying stuff">
-          </div>
-        </div>
-      <div class="col-sm-3">
-          <div class="form-group">
-            <label for="repayingstuffDoc">Mortgage Document</label>
-            <input class="form-control" type="file" name="image" />
-          </div>
-        </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="document">Document</label>
-        <select class="form-control" name="document">
-          <option value="0">
-            --Select Document Type--
-          </option>
-        </select>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="document">Upload Document</label>
-        <input class="form-control" type="file" name="loanDoc" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="form-group">
-        <label for="document">Remarks</label>
-        <textarea rows="2" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
-          [(ngModel)]="loan.remarks" #remarks></textarea>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="button-container">      
-      <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
-    </div>
-    <div class="button-container">
-      <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
-    </div>
-    <div class="button-container">
-      <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
-    </div>
-  </div>
-
-  <br/>
   <div class="row">
     <div class="col-sm-12">
       <nb-card>
         <nb-card-header>
-          Select Documents To Upload
-        </nb-card-header>      
+          <div class="form-group row">
+            <label for="document" class="col-sm-3 col-form-label">Select Documents To Upload :</label>
+            <div class="col-sm-4">
+              <input type="file" name="loanDoc" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
+            </div>
+          </div>
+        </nb-card-header>
         <nb-card-body>    
           <div class="row">             
               <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">                  
@@ -194,7 +144,7 @@
                   </nb-checkbox>
                     <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
                     <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
-                        <option value="">- - Select Document Type - -</option>
+                        <option value="">- - Choose - -</option>
                         <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
                     </select>     
                   <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
@@ -205,6 +155,28 @@
       </nb-card>
     </div>
   </div>
+  <div class="row">   
+    <div class="col-sm-12">
+      <div class="form-group">
+        <label for="document">Remarks</label>
+        <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
+          [(ngModel)]="loan.remarks" #remarks></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="button-container">      
+        <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info" (click)="tenurecalculation(loan);">Preview Installments</button>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
+      </div>
+      <div class="button-container">
+        <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+      </div>
+    </div>
 
   <div class="row" > 
     <div class="col-sm-12">
