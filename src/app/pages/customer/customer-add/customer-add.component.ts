@@ -57,11 +57,14 @@ export class CustomerAddComponent implements OnInit {
   }
 
   getCustomer(userID: number) {
-    debugger;
+  
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
       this.customer = result[0];      
-      this.imgUrl = result[0].profileImageURL;
+      debugger;
+      if(result[0].profileImageURL != null){
+        this.imgUrl = result[0].profileImageURL;
+      }      
       this.onStateSelect(this.customer.stateId);
       this.onCitySelect(this.customer.cityId);
     })
@@ -92,7 +95,7 @@ export class CustomerAddComponent implements OnInit {
         position: this.position,
         preventDuplicates: this.preventDuplicates
       };
-
+debugger;
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{
@@ -160,11 +163,9 @@ export class CustomerAddComponent implements OnInit {
         this.city = [];
       }
     });
-
   }
 
   onCitySelect(cityId: string) {
-
     this.agentservice.getArea(cityId).then(result => {
       if (result != null && result.length > 0) {
         result.forEach(e => {
@@ -178,7 +179,6 @@ export class CustomerAddComponent implements OnInit {
         this.areacode = [];
       }
     });
-
   }
 
   cancelForm() {

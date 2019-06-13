@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 import { CustomerService } from '../customer.service';
 import { Subject } from 'rxjs';
 
@@ -20,7 +19,7 @@ export class CustomerInstalmentHistoryComponent implements OnInit {
   dtTrigger: any = new Subject();
   pageTitle = "Instalments";
 
-  constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService) { }
+  constructor(private customerservice: CustomerService) { }
 
   ngOnInit() {
     

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../customer.service';
-import { Agent } from '../../agent/agent-list/agent';
+import { Agent } from '../../agent/agent';
 import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';

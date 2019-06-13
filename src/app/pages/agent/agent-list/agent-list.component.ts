@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 //import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
-import{ Agent  }from './agent';
+import{ Agent  }from '../agent';
 import { AgentService } from '../agent.service';
 import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';

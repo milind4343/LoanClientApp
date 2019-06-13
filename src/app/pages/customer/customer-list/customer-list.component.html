@@ -1,60 +1,76 @@
 <div class="row">
   <div class="col-md-12">
-      <h1 class="title">{{pageTitle}}</h1>
-      <div class="form-group" *ngIf="pageView === 'List'">
-          <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd"> Add Customer </button>
-      </div> 
-    <nb-card>             
+    <h1 class="title">{{pageTitle}}</h1>
+    <div class="form-group" *ngIf="pageView === 'List'">
+      <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd"> Add
+        Customer </button>
+    </div>
+    <nb-card>
       <!-- <nb-card-header>{{pageTitle}}</nb-card-header> -->
       <nb-card-body>
+        <div class="form-group row" *ngIf="pageView === 'List'">
+          <div class="col-sm-4">
+            <label for="agent">Agent</label>
+            <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
+            name="agent" (change)="onAgentSelect(agentId)">              
+              <option value="">- - Choose Agent - -</option>
+              <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+            </select>
+          </div>
+        </div>
         <div *ngIf="pageView === 'List'">
-          
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
             <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>FirstName</th>
-                  <th>LastName</th>
-                  <th>Gender</th>
-                  <th>Email</th>
-                  <th>Contact</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let cust of customerlist">                
-                  <td>{{cust.userID}}</td>
-                  <td>{{cust.firstname}}</td>
-                  <td>{{cust.lastname}}</td>
-                  <td>{{cust.gender}}</td>
-                  <td>{{cust.emailId}}</td>
-                  <td>{{cust.mobile}}</td>
-                  <td>
-                    
-                    <!-- <i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i> -->
-                    <button class="icon-btn" *ngIf="pageaccesscontrol.isedit" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="Edit Customer">
-                      <i class="fa fa-edit" aria-hidden="true"></i>
-                    </button>  
-                    <button class="icon-btn" *ngIf="!pageaccesscontrol.isedit" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''" title="View Customer">
-                      <i class="fa fa-eye" aria-hidden="true"></i>
-                    </button>     
-                    <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
-                        <i class="fa fa-plus-circle" title="Add Loan">loan</i>
-                    </button>
-                    <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? loanHistory(cust.userID) : ''" title="Loan History">
+              <tr>
+                <th>ID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Contact</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let cust of customerlist">
+                <td>{{cust.userID}}</td>
+                <td>{{cust.firstname}}</td>
+                <td>{{cust.lastname}}</td>
+                <td>{{cust.gender}}</td>
+                <td>{{cust.emailId}}</td>
+                <td>{{cust.mobile}}</td>
+                <td>
+
+                  <!-- <i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i> -->
+                  <button class="icon-btn" *ngIf="pageaccesscontrol.isedit" [disabled]="!cust.isActive"
+                    style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''"
+                    title="Edit Customer">
+                    <i class="fa fa-edit" aria-hidden="true"></i>
+                  </button>
+                  <button class="icon-btn" *ngIf="!pageaccesscontrol.isedit" [disabled]="!cust.isActive"
+                    style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''"
+                    title="View Customer">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                  </button>
+                  <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive"
+                    style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
+                    <i class="fa fa-plus-circle" title="Add Loan">loan</i>
+                  </button>
+                  <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? loanHistory(cust.userID) : ''" title="Loan History">
                         <i class="fa fa-history" title="Loan History"></i>
                     </button> -->
-                    <span style="margin-left:5px;">
-                      <ui-switch size="small" *ngIf="pageaccesscontrol.isedit"  name="active" [(ngModel)]="cust.isActive" color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
-                    </span>                    
-                  </td>
-                </tr>
-              </tbody>
-        </table>
+                  <span style="margin-left:5px;">
+                    <ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
+                      color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
         <div *ngIf="pageView === 'Add' || pageView === 'Edit'">
-            <ngx-customer-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-add>
-        </div>  
+          <ngx-customer-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-add>
+        </div>
         <div *ngIf="pageView === 'AddLoan'">
           <ngx-customer-loan-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-add>
         </div>

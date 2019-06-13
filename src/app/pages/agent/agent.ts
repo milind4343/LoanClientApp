@@ -1,4 +1,5 @@
 export class Agent {
+  
   userId: number;
   firstname: string;
   lastname: string;
