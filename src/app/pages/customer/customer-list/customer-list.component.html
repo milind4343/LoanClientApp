@@ -8,7 +8,7 @@
     <nb-card>
       <!-- <nb-card-header>{{pageTitle}}</nb-card-header> -->
       <nb-card-body>
-        <div class="form-group row" *ngIf="pageView === 'List'">
+        <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
           <div class="col-sm-4">
             <label for="agent">Agent</label>
             <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 

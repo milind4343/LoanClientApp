@@ -10,6 +10,7 @@ import { ToasterConfig } from 'angular2-toaster';
 import { NbToastStatus } from '@nebular/theme/components/toastr/model';
 import { Agent } from '../../agent/agent';
 import { DataTableDirective } from 'angular-datatables';
+import { AuthenticationService } from '../../../commonServices/authentication.service';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   agentId: string;
   editUserID: number;
   names: string[];
+  roleId: number;
 
   config: ToasterConfig;
   status = NbToastStatus.PRIMARY;
@@ -41,23 +43,29 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
   
-  constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService, 
+  constructor(private authservice: AuthenticationService,private pageAccessService: PageAccessService, private customerservice: CustomerService, 
     private dialogService: NbDialogService, private handleError: ExceptionHandler, private toastrService: NbToastrService) {
+
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 3,
+        //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        //dom: 'Blfrtip'     
+      };
+      this.pageaccesscontrol = this.pageAccessService.getAccessData();
+      this.authservice.getLoggedInUserDetail().subscribe(res=>{
+      if(res!= null){
+        this.roleId = res.roleId;
+        if(this.roleId ==1){
+          this.getAllAgents();
+        }
+      }
+      });
+     
   }
 
   ngOnInit(): void {
-    debugger;
-    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
-    
-    this.getAllAgents();
-
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 3,
-      //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-      //dom: 'Blfrtip'     
-    };
-
+    debugger;  
     this.customerservice.getCustomers().subscribe(result => {
       this.customerlist = result;
       this.dtTrigger.next();
