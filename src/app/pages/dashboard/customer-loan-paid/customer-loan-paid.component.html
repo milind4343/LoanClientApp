@@ -1,0 +1,86 @@
+<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
+  <nb-card>
+      <nb-card-header><h3>{{loan.customername}} - Loan No.{{loan.customerloanid}} - Installment No.{{loan.installno}}</h3></nb-card-header>
+      <nb-card-body>
+        <div class="row">      
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="inputpaymentAmount">Actual Loan Amount</label>
+              <input type="text" class="form-control" name="paymentamount" id="inputpaymentamount" #paymentamount="ngModel"
+                [(ngModel)]="loan.loanamount" placeholder="Loan Amount" [disabled]="true">
+            </div>
+          </div>
+           <div class="col-sm-3">
+            <div class="form-group">
+              <label for="loanType">Installment Date</label>
+              <input id="insallDate" class="form-control" nbInput placeholder="Installment Date" [disabled]="true"
+                [nbDatepicker]="installmentdate" #installmentdate="ngModel" [(ngModel)]="loan.installmentdate" name="installmentdate">
+              <nb-datepicker #installmentdate></nb-datepicker>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="inputInterestAmount">Installment Amount</label>
+              <input type="text" class="form-control" #installmentAmount="ngModel" [(ngModel)]="loan.installmentamount" name="installmentAmount" placeholder="₱ 10000" [disabled]="true">
+            </div>
+          </div> 
+          <div class="col-sm-3">
+              <div class="form-group">
+                <label>Paid Amount</label>
+                <span class="text-danger" *ngIf="paidamount1.invalid && paidamount1.errors.required && submitted"> * required</span>
+                <input class="form-control" #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1" placeholder="Enter Paid Amount" required>
+              </div>
+            </div>
+        </div>
+        <div class="row">      
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="paymenttype">Payment Type</label>
+              <span class="text-danger" *ngIf="submitted && paymenttype.invalid && paymenttype.errors.required"> * required</span>
+              <div class="demo-radio">                    
+                  <nb-radio-group name="paymenttype" #paymenttype="ngModel" [(ngModel)]="loan.paymentmethodid" required>
+                  <nb-radio style="display: inline-block;" [value]="1">cash</nb-radio>
+                  <nb-radio style="display: inline-block;" [value]="2">cheque</nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="chequenum">Cheque No.</label>
+              <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> * required</span>
+              <input type="text" class="form-control" #chequenum="ngModel" [(ngModel)]="loan.chequeno" name="chequenum" id="ChequeNo"
+                placeholder="Enter Cheque No." [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="bankName">Bank Name</label>
+              <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> * required</span>                
+              <input type="text" class="form-control" #bankName="ngModel" [(ngModel)]="loan.bankname" name="bankName"
+                placeholder="Enter Bank Name" [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null" required>
+            </div>
+          </div>
+          <div class="col-sm-3">
+            <div class="form-group">
+              <label for="document">Remarks</label>
+              <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" 
+              placeholder="Enter Remarks" [(ngModel)]="loan.remarks" #remarks></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="button-container">
+            <button type="submit" class="btn btn-primary">Mark As Paid</button>
+          </div>
+          <div class="button-container">
+            <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+          </div>
+        </div>
+    
+      </nb-card-body>
+    </nb-card>
+
+</form>
+

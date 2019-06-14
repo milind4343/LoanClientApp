@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { CustomerService } from '../customer.service';
-import { CustomerLoan } from '../customer-loan';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { CustomerService } from '../../customer/customer.service';
+import { CustomerLoan } from '../../customer/customer-loan';
 import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 
 @Component({
@@ -8,7 +8,11 @@ import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
   templateUrl: './customer-loan-paid.component.html',
   styleUrls: ['./customer-loan-paid.component.scss']
 })
+
 export class CustomerLoanPaidComponent implements OnInit {
+
+  @Input() editTxnID: number;
+  @Output() callParent = new EventEmitter<string>();
 
   loan: CustomerLoan = new CustomerLoan();
   config = {
@@ -18,7 +22,7 @@ export class CustomerLoanPaidComponent implements OnInit {
   constructor(private customerservice: CustomerService, private toastrService: NbToastrService) { }
 
   ngOnInit() {
-    this.getInstallmentDtl(766);
+    this.getInstallmentDtl(this.editTxnID);
   }
 
   getInstallmentDtl(txnId: number){    
@@ -37,10 +41,10 @@ export class CustomerLoanPaidComponent implements OnInit {
   }
 
   markpaid(form:any){
-    //console.log(JSON.stringify(data));
     if(form.valid){
       this.customerservice.markinstallmentpaid(this.loan).subscribe(res=>{
         if(res.success){
+          this.cancelForm();
           this.toastrService.success('Mark As Paid Successfully !', 'Success', this.config);
         }
         else
@@ -48,10 +52,12 @@ export class CustomerLoanPaidComponent implements OnInit {
           this.toastrService.danger('Something went wrong !', 'Error', this.config);
         }
       });
-    }
-    
+    }    
   }
 
-
+  cancelForm(){
+    this.editTxnID = 0;
+    this.callParent.emit('List');
+  }
 
 }

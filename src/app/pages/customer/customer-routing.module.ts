@@ -5,7 +5,6 @@ import { CustomerComponent } from './customer.component';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
 import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
-import { CustomerLoanPaidComponent } from './customer-loan-paid/customer-loan-paid.component';
 
 const routes: Routes = [{
   path: '',
@@ -24,9 +23,6 @@ const routes: Routes = [{
   {
     path: 'assignedloan',
     component: CustomerLoanHistoryComponent
-  },{
-    path: 'loan-paid',
-    component: CustomerLoanPaidComponent
   }]
 }];
 

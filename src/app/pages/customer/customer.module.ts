@@ -11,11 +11,9 @@ import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.
 import { UiSwitchModule } from 'ngx-toggle-switch';
 import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
 import { CustomerInstalmentHistoryComponent } from './customer-instalment-history/customer-instalment-history.component';
-import { CustomerLoanPaidComponent } from './customer-loan-paid/customer-loan-paid.component';
-
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent, CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent, CustomerLoanPaidComponent],
+  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent, CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

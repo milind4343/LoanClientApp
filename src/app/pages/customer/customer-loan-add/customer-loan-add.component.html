@@ -1,5 +1,5 @@
 <form class="form-horizontal" #loanform="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
-  <input type="hidden" name="customerid" [(ngModel)]="loan.customerid">
+  <input type="hidden" name="customerid" [(ngModel)]="loan.customerid" >
   <div class="row">
     <!-- <div class="col-sm-3">
       <div class="form-group">
@@ -63,7 +63,6 @@
         </select>
       </div>
     </div>
-
     <div class="col-sm-2">
       <div class="form-group">
         <label for="startDate">Loan Start Date</label>
@@ -81,7 +80,6 @@
       </div>
     </div>
   </div>
-
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
@@ -95,7 +93,6 @@
         </div>
       </div>
     </div>
-
     <div class="col-sm-3">
       <div class="form-group">
         <label for="inputPassword2">Interest Type</label>
@@ -108,8 +105,7 @@
         </div>
       </div>
     </div>
-
-    <div class="col-sm-3">
+    <div class="col-sm-2">
       <div class="form-group">
         <label for="paymentAmount">Loan Re-Payment Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount"
@@ -130,15 +126,14 @@
           id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
       </div>
     </div>
-    <div class="col-sm-2">
+    <!-- <div class="col-sm-2">
       <div class="form-group">
         <label for="paymentAmount">Actual Loan Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount"
           #paymentamount [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
-    </div>
+    </div>   -->
   </div>
-
 
   <div class="row">
     <div class="col-sm-12">
@@ -151,34 +146,33 @@
             </div>
           </div>
         </nb-card-header>
-        <nb-card-body>
-          <div class="row">
-            <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">
-              <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x"
-                  title="doc"></i></a>
-              <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
-                <p>{{file.filename}}</p>
-              </nb-checkbox>
-              <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
-              <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType"
-                name="docType{{i}}" required>
-                <option value="">- - Choose - -</option>
-                <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>
-              </select>
-              <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
-            </div>
-          </div>
-
+        <nb-card-body>    
+          <div class="row">             
+              <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">                  
+                    <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x" title="doc"></i></a>
+                    <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
+                    <p>{{file.filename}}</p> 
+                  </nb-checkbox>
+                    <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
+                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
+                        <option value="">- - Choose - -</option>
+                        <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
+                    </select>     
+                  <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
+                </div>
+          </div>     
+              
         </nb-card-body>
       </nb-card>
     </div>
   </div>
-  <div class="row">
+
+  <div class="row">   
     <div class="col-sm-12">
       <div class="form-group">
         <label for="document">Remarks</label>
-        <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks"
-          placeholder="Remarks" [(ngModel)]="loan.remarks" #remarks></textarea>
+        <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
+          [(ngModel)]="loan.remarks" #remarks></textarea>
       </div>
     </div>
   </div>
