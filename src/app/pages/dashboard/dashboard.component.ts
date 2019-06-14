@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter, Input} from '@angular/core';
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 
@@ -10,7 +10,7 @@ import { DashboardService } from './dashboard.service';
 
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  editTxnID: number;
+  @Input() editTxnID: number;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
   user:any;
 

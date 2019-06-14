@@ -74,7 +74,7 @@ export class CustomerLoanAddComponent implements OnInit {
     this.loan.interest = '';
     this.loan.interest = '';
     this.loan.paymentperiodicity = 'Daily';
-    this.loan.interestpayat = 'AtEnd';
+    this.loan.interestpayat = 'Daily';
   }
 
   agentbind() {
