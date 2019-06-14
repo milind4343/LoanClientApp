@@ -1,8 +1,6 @@
 import {Component, OnDestroy, OnInit, Output, EventEmitter} from '@angular/core';
-import { NbThemeService } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
-import {Router} from '@angular/router';
 
 @Component({
   selector: 'ngx-dashboard',
