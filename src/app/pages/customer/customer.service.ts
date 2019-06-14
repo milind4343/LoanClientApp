@@ -3,7 +3,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { Customer } from './customer';
-import { Agent }from '../agent/agent-list/agent'
+import { Agent } from '../agent/agent'
+import { CustomerLoan } from './customer-loan';
 
 
 @Injectable({
@@ -15,8 +16,9 @@ export class CustomerService {
   private customerUrl = environment.domain + '/api/customer';
   private commonUrl = environment.domain + '/api/common';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
-  private headers = new HttpHeaders({'Authorization': this.token})
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
 
+  private multipartheaders = new HttpHeaders({'Authorization': this.token})
 
   constructor(private httpclient: HttpClient) { }
 
@@ -34,7 +36,7 @@ export class CustomerService {
 
   //registerCustomer(req : Customer) {
     registerCustomer(formdata : any) : Observable<any> {
-    return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.headers });
+    return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.multipartheaders });
     // .map(res => res.json())
     // .toPromise();
   }
@@ -63,18 +65,28 @@ export class CustomerService {
   }
 
   getUplodedDoc(userId: number): Observable<any>{
-    debugger;
     return this.httpclient.get<any>(this.customerUrl + '/getuploadedloandoc/' + userId,  {headers : this.headers});
 
   }
 
   getCustomerLoan(userID: number = 0): Observable<any>{
-    debugger;
     return this.httpclient.get<any>(this.customerUrl + '/loanlist/' + userID, {headers : this.headers});
   }
 
   getLoanInstallments(customerLoanId:number=0):Observable<any>{
-    debugger;
     return this.httpclient.get<any>(this.customerUrl + '/installmentlist/' + customerLoanId, {headers : this.headers});
   }
+
+  getInstallmentData(id: number): Observable<any>{
+    return this.httpclient.get<any>(this.customerUrl + '/getinstallment/' + id, {headers : this.headers});
+  }
+
+  markinstallmentpaid(data: CustomerLoan): Observable<any> {
+    return this.httpclient.post<any>(this.customerUrl + '/markpaid', JSON.stringify(data), {headers : this.headers})
+  }
+
+  getCustomerbyAgent(agentId: number):Observable<Customer[]>{
+    return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headers});
+  }
+
 }

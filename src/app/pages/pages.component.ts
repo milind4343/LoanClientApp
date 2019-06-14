@@ -36,14 +36,17 @@ export class PagesComponent implements OnInit {
   //   }
   // }
 
+
   ngOnInit() {
     //this.menu = MENU_ITEMS;
     if (this.activeLinks === undefined || this.activeLinks.length === 0) {
       let item = localStorage.getItem("encryptkey");
+
       if (item == "" || item == null) {
         this.loader.loader = true;
         this.pageService.getMenuList().then((result) => {
           if (result !== null) {
+            debugger;
             this.activeLinks = new Array<ActiveLink>();
             this.activeLinks.push({ home: true, icon: "nb-home", link: '/pages/dashboard', title: 'Dashboard' });
             for (let i = 0; i < result.length; i++) {
@@ -54,7 +57,8 @@ export class PagesComponent implements OnInit {
               else {
                 let subActiveLinks = [];
                 result[i].children.forEach(element => {
-                  subActiveLinks.push({ link: element.routelink, title: element.title, isadd:result[i].isadd,isedit:result[i].isedit, isdelete:result[i].isdelete, ischangestatus:result[i].ischangestatus  });
+                  //subActiveLinks.push({ link: element.routelink, title: element.title, isadd:result[i].isadd,isedit:result[i].isedit, isdelete:result[i].isdelete, ischangestatus:result[i].ischangestatus  });
+                  subActiveLinks.push({ link: element.routelink, title: element.title, isadd:element.isadd,isedit:element.isedit, isdelete:element.isdelete, ischangestatus:element.ischangestatus  });
                 });
                 this.activeLinks.push({ home: result[i].home, icon: result[i].iconname, link: result[i].routelink, title: result[i].title, children: subActiveLinks });
               }

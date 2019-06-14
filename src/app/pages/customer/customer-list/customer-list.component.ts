@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CustomerService } from '../customer.service';
 import { Customer } from '../customer';
@@ -9,6 +8,9 @@ import { ExceptionHandler } from '../../../commonServices/exceptionhandler.servi
 import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 import { ToasterConfig } from 'angular2-toaster';
 import { NbToastStatus } from '@nebular/theme/components/toastr/model';
+import { Agent } from '../../agent/agent';
+import { DataTableDirective } from 'angular-datatables';
+import { AuthenticationService } from '../../../commonServices/authentication.service';
 
 
 @Component({
@@ -20,12 +22,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   pageTitle: string = "Customer List";
   pageView: string = "List";
-  dtOptions: DataTables.Settings = {};
   customerlist: Customer[] = [];
-  dtTrigger: any = new Subject();
+  agentlist : Agent[] = [];
+  agentId: string;
   editUserID: number;
-
   names: string[];
+  roleId: number;
 
   config: ToasterConfig;
   status = NbToastStatus.PRIMARY;
@@ -35,19 +37,35 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
   pageaccesscontrol:any={};
-  constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService, 
+
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: any = new Subject();
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  
+  constructor(private authservice: AuthenticationService,private pageAccessService: PageAccessService, private customerservice: CustomerService, 
     private dialogService: NbDialogService, private handleError: ExceptionHandler, private toastrService: NbToastrService) {
+
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 3,
+        //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
+        //dom: 'Blfrtip'     
+      };
+      this.pageaccesscontrol = this.pageAccessService.getAccessData();
+      this.authservice.getLoggedInUserDetail().subscribe(res=>{
+      if(res!= null){
+        this.roleId = res.roleId;
+        if(this.roleId ==1){
+          this.getAllAgents();
+        }
+      }
+      });
+     
   }
 
   ngOnInit(): void {
-    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 3,
-      //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-      //dom: 'Blfrtip'     
-    };
-
+    debugger;  
     this.customerservice.getCustomers().subscribe(result => {
       this.customerlist = result;
       this.dtTrigger.next();
@@ -56,7 +74,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         console.log(error);
         this.handleError.handleExcption(error);
       });
-
   }
 
   ngOnDestroy(): void {
@@ -83,7 +100,6 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.dtTrigger = new Subject();
     this.ngOnInit();
   }
-
 
   onSwitchChange(cust: any) {
     debugger;
@@ -127,6 +143,33 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.editUserID = userId;
   }
 
+  getAllAgents(){
+    this.customerservice.getAgent().subscribe(res=>{
+      if(res !== null){
+        debugger;
+        this.agentlist = res;
+        this.agentId= '';
+      }
+    });
+  }
+
+  onAgentSelect(agentId: number){
+    this.rerender();
+    this.customerlist = [];
+    this.customerservice.getCustomerbyAgent(agentId).subscribe(res=>{
+      if(res!== null){       
+        this.customerlist = res;
+        this.dtTrigger.next();
+      }
+    });
+  }
+
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+  }
 
   // loanHistory(userId: number){
   //   this.pageView = "LoanHistory";

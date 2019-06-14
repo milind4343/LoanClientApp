@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CustomerService } from '../customer.service';
-import { Agent } from '../../agent/agent-list/agent';
+import { Agent } from '../../agent/agent';
 import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
@@ -93,11 +93,11 @@ export class CustomerLoanAddComponent implements OnInit {
   loantypebind() {
     this.customerService.getloantype().subscribe(result => {
       if (result != null) {
-        this.loantypelist.push({ id: '', name: "--Select LoanType--" });
+        this.loantypelist.push({ id: '', name: "- - Select - -" });
         result.forEach(element => {
           this.loantypelist.push({ id: element.loantypeid, name: element.loantype })
         });
-        //this.loan.loantypeid = '';
+        this.loan.loantypeid = '';
       }
     });
   }
