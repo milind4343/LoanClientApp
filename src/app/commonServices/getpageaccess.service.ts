@@ -16,6 +16,7 @@ export class PageAccessService {
     getAccessData() : any{
         let routerurl = this.router.url;
         let item = localStorage.getItem("encryptkey");
+        if(item !== null && item !== "") {
         item = this.EncrDecr.get(environment.encryptkey,item);
         let menulist = JSON.parse(item);
         if(routerurl !== "/" && routerurl !== "/auth/login" && menulist.length > 0) { 
@@ -35,6 +36,11 @@ export class PageAccessService {
           } 
           this.router.navigate(['/pages/miscellaneous/401']);
         }
+      }
+      else
+      {
+        this.router.navigate(['/auth/login']);
+      }
     }
 
 }

@@ -54,7 +54,7 @@ export class CustomerService {
   }
 
   assignloan(loanrequest:any):Observable<any>{
-    return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.headers });
+    return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.multipartheaders });
   }
   uploadLoanDoc(formdata: FormData){
     return this.httpclient.post(this.customerUrl + '/UploadLoanDoc', formdata, {headers : this.headers});

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 //import { PageAccessService } from '../../commonServices/getpageaccess.service';
 
 @Component({
@@ -7,9 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerComponent implements OnInit {
   constructor() { }
-
+  
   ngOnInit() {
-    
   }
 
 }

@@ -21,11 +21,13 @@ import { PlayerComponent } from './rooms/player/player.component';
 import { TrafficComponent } from './traffic/traffic.component';
 import { TrafficChartComponent } from './traffic/traffic-chart.component';
 import { DashboardService } from './dashboard.service';
-
+import { DataTablesModule } from 'angular-datatables';
+import { CustomerLoanPaidComponent } from './customer-loan-paid/customer-loan-paid.component';
 @NgModule({
   imports: [
     ThemeModule,
     NgxEchartsModule,
+    DataTablesModule
   ],
   declarations: [
     DashboardComponent,
@@ -45,6 +47,7 @@ import { DashboardService } from './dashboard.service';
     SolarComponent,
     TrafficComponent,
     TrafficChartComponent,
+    CustomerLoanPaidComponent,
   ],
   providers: [
     DashboardService
