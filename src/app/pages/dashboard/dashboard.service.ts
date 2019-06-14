@@ -1,5 +1,4 @@
 import { Injectable } from "@angular/core";
-import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { environment } from '../../../environments/environment';
@@ -11,12 +10,8 @@ export class DashboardService {
 
   private token = "Bearer " + localStorage.getItem('jwt');
   private customerUrl = environment.domain + '/api/customer';
-  private commonUrl = environment.domain + '/api/common';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
   private headers = new HttpHeaders({'Authorization': this.token})
-
-
-
 
   constructor(private httpclient: HttpClient) {
 
