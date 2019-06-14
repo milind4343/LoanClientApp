@@ -96,7 +96,7 @@
           <div class="demo-radio">
             <nb-radio-group name="interestpayat" name="interestpayat" [(ngModel)]="loan.interestpayat" (ngModelChange)="tenurecalculation(loan)">
               <nb-radio style="display: inline-block;" [value]="'UpFront'">Up-Front</nb-radio>
-              <nb-radio style="display: inline-block;" [value]="'AtEnd'">At End</nb-radio>
+              <nb-radio style="display: inline-block;" [value]="'AtEnd'">Daily</nb-radio>
             </nb-radio-group>
           </div>
         </div>
@@ -119,9 +119,17 @@
             id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
         </div>
       </div>
-    <div class="col-sm-3">
+    <!-- <div class="col-sm-3">
       <div class="form-group">
         <label for="paymentAmount">Actual Loan Amount</label>
+        <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
+          [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
+      </div>
+    </div> -->
+
+    <div class="col-sm-3">
+      <div class="form-group">
+        <label for="paymentAmount">Loan Re-Payment Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount" #paymentamount
           [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
