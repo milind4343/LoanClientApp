@@ -18,7 +18,6 @@ export class DashboardService {
   }
 
   getLoanInstallments(customerLoanId:number=0):Observable<any>{
-    debugger;
     return this.httpclient.get<any>(this.customerUrl + '/installmentlist/' + customerLoanId, {headers : this.headers});
   }
 
