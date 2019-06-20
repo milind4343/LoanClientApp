@@ -86,6 +86,7 @@ export class CustomerService {
   }
 
   getCustomerbyAgent(agentId: number):Observable<Customer[]>{
+    debugger;
     return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headers});
   }
 

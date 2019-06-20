@@ -7,7 +7,17 @@
       <nb-card>           
         <nb-card-header *ngIf="pageView === 'List' || pageView === 'List'">{{pageTitle}}</nb-card-header>
         <nb-card-body>
-        
+
+        <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
+          <div class="col-sm-4">
+            <label for="agent">Agent</label>
+            <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" name="agent" (change)="onAgentSelect(agentId)">
+              <option value="0">- - Choose Agent - -</option>
+              <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+            </select>
+          </div>
+        </div>
+
         <div *ngIf="pageView === 'List' || pageView === 'List'">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
               <thead>

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 import { CustomerService } from '../customer.service';
+import { DataTableDirective } from 'angular-datatables';
+import { AuthenticationService } from '../../../commonServices/authentication.service';
+import { Agent } from '../../agent/agent';
 
 @Component({
   selector: 'ngx-customer-loan-history',
@@ -9,23 +12,39 @@ import { CustomerService } from '../customer.service';
   styleUrls: ['./customer-loan-history.component.scss']
 })
 export class CustomerLoanHistoryComponent implements OnInit {
+  
   pageTitle: string = "Assigned Loan List";
   pageView: string = "List";
   editloanID: number;
   clientname:string;
   editUserID:number;
+  pageaccesscontrol:any = {};
+  loanhstorylist:any = [];
+  roleId: number;
+  agentlist : Agent[] = [];
+  agentId: string;
+  
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
-  pageaccesscontrol:any={};
-  loanhstorylist:any=[];
-  constructor(private pageAccessService: PageAccessService, private customerservice: CustomerService) { }
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+
+  constructor(private authservice: AuthenticationService, private pageAccessService: PageAccessService, private customerservice: CustomerService) { }
 
   ngOnInit() : void{
-    this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
+    this.pageaccesscontrol = this.pageAccessService.getAccessData();
+    this.authservice.getLoggedInUserDetail().subscribe(res => {
+      if (res != null) {
+        this.roleId = res.roleId;
+        if (this.roleId == 1) {
+          this.getAllAgents();
+        }
+      }
+    });
+
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-
     this.customerservice.getCustomerLoan(this.editUserID).subscribe(result => {
       debugger;
       this.loanhstorylist = result;
@@ -52,4 +71,34 @@ export class CustomerLoanHistoryComponent implements OnInit {
     this.dtTrigger = new Subject();
     this.ngOnInit();
   }
+
+  onAgentSelect(agentId: number){
+    debugger;
+    this.rerender();
+    this.loanhstorylist = [];
+    this.customerservice.getCustomerLoan(agentId).subscribe(res=>{
+      if(res!== null){       
+        this.loanhstorylist = res;
+        this.dtTrigger.next();
+      }
+    });
+  }
+
+  rerender(): void {
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+  }
+
+  getAllAgents(){
+    this.customerservice.getAgent().subscribe(res=>{
+      if(res !== null){
+        debugger;
+        this.agentlist = res;
+        this.agentId= '0';
+      }
+    });
+  }
+
+
 }
