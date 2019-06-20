@@ -47,6 +47,12 @@
                     title="Edit Customer">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                   </button>
+                  <button class="icon-btn" *ngIf="pageaccesscontrol.isview" [disabled]="!cust.isActive"
+                  style="cursor: pointer;" (click)="cust.isActive ? loanhistory(cust.userID) : ''"
+                  title="Edit Customer">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+
                   <button class="icon-btn" *ngIf="!pageaccesscontrol.isedit" [disabled]="!cust.isActive"
                     style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''"
                     title="View Customer">
@@ -74,6 +80,10 @@
         <div *ngIf="pageView === 'AddLoan'">
           <ngx-customer-loan-add [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-add>
         </div>
+        <!-- <div *ngIf="pageView === 'AddLoan'">
+          <ngx-customer-loan-history [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-history>
+        </div> -->
+        
         <!-- <div *ngIf="pageView === 'LoanHistory'">
             <ngx-customer-loan-history [editUserID]="editUserID" (callParent)="callParent($event)"></ngx-customer-loan-history>
         </div> -->

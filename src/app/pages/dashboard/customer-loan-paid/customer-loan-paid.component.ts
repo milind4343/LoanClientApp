@@ -14,6 +14,7 @@ export class CustomerLoanPaidComponent implements OnInit {
   @Input() editTxnID: number;
   @Output() callParent = new EventEmitter<string>();
 
+  submitted: boolean = false;
   loan: CustomerLoan = new CustomerLoan();
   submitted: boolean = false;
   config = {

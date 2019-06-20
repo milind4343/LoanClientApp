@@ -13,7 +13,7 @@ import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-l
 import { CustomerInstalmentHistoryComponent } from './customer-instalment-history/customer-instalment-history.component';
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent, CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
+  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent,CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
   imports: [
     CommonModule,
     CustomerRoutingModule,

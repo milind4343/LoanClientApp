@@ -74,7 +74,7 @@ export class CustomerLoanAddComponent implements OnInit {
     this.loan.interest = '';
     this.loan.interest = '';
     this.loan.paymentperiodicity = 'Daily';
-    this.loan.interestpayat = 'AtEnd';
+    this.loan.interestpayat = 'Daily';
   }
 
   agentbind() {
@@ -161,15 +161,16 @@ export class CustomerLoanAddComponent implements OnInit {
       let finalAmount = 0;
       let interestDaily = +((+interestAnnual / 365).toFixed(2));
       let durationInterest = +((+interestDaily * 45).toFixed(2));
-      if (data.interestpayat == "AtEnd") {
-        // finalAmount=(loanamount)+(durationInterest);
-        finalAmount = (loanamount);
+      if (data.interestpayat == "Daily") {
+         finalAmount=(loanamount)+(durationInterest);
+        //finalAmount = (loanamount);
         this.loan.paymentamount = finalAmount;
       }
       else {
         debugger;
         finalAmount = (loanamount);
-        this.loan.paymentamount = (finalAmount) - (durationInterest);
+        // this.loan.paymentamount = (finalAmount) - (durationInterest);
+        this.loan.paymentamount = (loanamount);
       }
       this.loan.interestamount = +(durationInterest);
 

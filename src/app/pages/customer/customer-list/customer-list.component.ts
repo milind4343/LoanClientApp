@@ -60,8 +60,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
           this.getAllAgents();
         }
       }
-      });
-     
+    });
   }
 
   ngOnInit(): void {
@@ -93,6 +92,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.pageTitle = 'Update Customer Detail';
     this.editUserID = userId;
   }
+
+  // loanhistory(userId: number){
+  //   this.pageView = 'LoanHistory';
+  //   //this.pageTitle = 'Update Customer Detail';
+  //   this.editUserID = userId;
+  // }
 
   callParent(event: any) {
     this.pageView = event;
@@ -154,8 +159,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   onAgentSelect(agentId: number){
+    debugger;
     this.rerender();
     this.customerlist = [];
+ 
     this.customerservice.getCustomerbyAgent(agentId).subscribe(res=>{
       if(res!== null){       
         this.customerlist = res;
