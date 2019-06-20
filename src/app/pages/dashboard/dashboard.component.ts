@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    debugger;
     this.authservice.getLoggedInUserDetail().subscribe(res=>{
       if(res!= null){
         debugger;

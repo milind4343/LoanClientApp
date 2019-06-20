@@ -12,17 +12,19 @@ import { CustomerLoan } from './customer-loan';
 })
 export class CustomerService {
 
-  private token = "Bearer " + localStorage.getItem('jwt');
+  private token;
   private customerUrl = environment.domain + '/api/customer';
   private commonUrl = environment.domain + '/api/common';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
-  private headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
+  private headers;
 
   private multipartheaders = new HttpHeaders({'Authorization': this.token})
 
   constructor(private httpclient: HttpClient) { }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<Customer[]>(this.customerUrl + '/list/' + userID, {headers : this.headers});
   }
 
@@ -36,6 +38,8 @@ export class CustomerService {
 
   //registerCustomer(req : Customer) {
     registerCustomer(formdata : any) : Observable<any> {
+      this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.multipartheaders });
     // .map(res => res.json())
     // .toPromise();
@@ -49,14 +53,20 @@ export class CustomerService {
     return this.httpclient.get<any[]>(this.commonUrl + '/getloantype');
   }
   changeStatus(id: number){
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get(this.customerUrl + '/changeStatus/'+ id, {headers: this.headers});
     //return
   }
 
   assignloan(loanrequest:any):Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.multipartheaders });
   }
   uploadLoanDoc(formdata: FormData){
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.post(this.customerUrl + '/UploadLoanDoc', formdata, {headers : this.headers});
   }
 
@@ -65,28 +75,39 @@ export class CustomerService {
   }
 
   getUplodedDoc(userId: number): Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/getuploadedloandoc/' + userId,  {headers : this.headers});
 
   }
 
   getCustomerLoan(userID: number = 0): Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/loanlist/' + userID, {headers : this.headers});
   }
 
   getLoanInstallments(customerLoanId:number=0):Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/installmentlist/' + customerLoanId, {headers : this.headers});
   }
 
   getInstallmentData(id: number): Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/getinstallment/' + id, {headers : this.headers});
   }
 
   markinstallmentpaid(data: CustomerLoan): Observable<any> {
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.post<any>(this.customerUrl + '/markpaid', JSON.stringify(data), {headers : this.headers})
   }
 
   getCustomerbyAgent(agentId: number):Observable<Customer[]>{
-    debugger;
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headers});
   }
 
