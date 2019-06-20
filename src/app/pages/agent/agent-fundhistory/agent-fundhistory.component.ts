@@ -5,8 +5,6 @@ import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@neb
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
 import { PageAccessService } from '../../../commonServices/getpageaccess.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../auth/auth.service';
-import { NbAuthService } from '@nebular/auth';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Agent } from '../agent';

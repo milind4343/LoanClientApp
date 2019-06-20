@@ -16,7 +16,6 @@ export class CustomerLoanPaidComponent implements OnInit {
 
   submitted: boolean = false;
   loan: CustomerLoan = new CustomerLoan();
-  submitted: boolean = false;
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
