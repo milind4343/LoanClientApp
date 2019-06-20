@@ -39,6 +39,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         debugger;
         this.roleId = res.roleId;
         if(this.roleId ==1){
+          this.dueinstallmenthstorylist = [];
         }
         else
         {
