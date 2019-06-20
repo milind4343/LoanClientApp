@@ -148,7 +148,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
       if(res !== null){
         debugger;
         this.agentlist = res;
-        this.agentId= '';
+        this.agentId= '0';
       }
     });
   }

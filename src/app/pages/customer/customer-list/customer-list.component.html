@@ -13,7 +13,7 @@
             <label for="agent">Agent</label>
             <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
             name="agent" (change)="onAgentSelect(agentId)">              
-              <option value="">- - Choose Agent - -</option>
+              <option value="0">- - Choose Agent - -</option>
               <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
           </div>
