@@ -3,13 +3,26 @@
     <nb-card>
       <nb-card-header>Fund History</nb-card-header>
       <nb-card-body>
-        <div *ngIf="!IsAgent" class="col-md-8" style="float: right;">
+          
+
+        <div *ngIf="!IsAgent" class="col-md-12" style="float: right;">
+         
           <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
             (click)="backtoagentlist()">
             Cancle </button>
-          <h4 class="text-danger">{{agentName}}</h4>
+
+            <label for="agent">Agent</label>
+                <select class="form-control col-md-4" [(ngModel)]="agentId" #agent="ngModel" 
+                name="agent" (change)="onAgentSelect(agentId)">              
+                  <option value="0">- - Choose Agent - -</option>
+                  <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+            </select>
+            <br>
         </div>
-        <div></div>
+        <!-- <h4  *ngIf="IsAgent" class="text-danger">{{agentName}}</h4> -->
+        <br/>
+        
+        
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
           <thead>
             <tr>

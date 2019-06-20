@@ -42,13 +42,13 @@
   </div>
 </div> -->
 
-<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List'">
+<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List' && roleId!=1">
   <div class="row">
     <div class="col-md-12">
       
       <nb-card>
           <nb-card-header>
-              <h3>Uncomming Installments To Be Paid</h3>
+              <h3>Upcomming Installments To Be Paid</h3>
           </nb-card-header>
         <!-- <nb-card-header>{{pageTitle}}  
                 <span style="text-align: center;"><h4>{{clientname}}</h4></span>
@@ -59,6 +59,7 @@
             <thead>
               <tr>
                 <th style="display: none">transactionId</th>
+                <th>Customer Name</th>
                 <th>Loan Id</th>
                 <th>Instalment Amount</th>
                 <th>Instalment Date</th>
@@ -69,6 +70,7 @@
             <tbody>
               <tr *ngFor="let instalment of dueinstallmenthstorylist">
                 <td style="display: none">{{instalment.transactionid}}</td>
+                <td>{{instalment.customername}}</td>
                 <td>{{instalment.customerloanid}}</td>
                 <td>₱ {{instalment.installmentamount}}</td>
                 <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>

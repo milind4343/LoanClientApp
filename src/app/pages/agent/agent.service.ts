@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Agent } from '../agent/agent';
 import { Observable } from 'rxjs';
+import { Customer } from '../customer/customer';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ export class AgentService {
   private token = "Bearer " + localStorage.getItem('jwt');
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
+  private customerUrl = environment.domain + '/api/customer';
   private headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
   private headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
 
@@ -61,12 +63,18 @@ export class AgentService {
       .toPromise();
   }
 
-  getAgentfund(userId, IsAgent){
+  // getAgentfund(userId, IsAgent){
+  getAgentfund(IsAgent,AgentId){
     debugger;
-    return this.http.get(this.agentUrl + '/getAgentfund/'+ userId + '/'+IsAgent,{ headers: this.headers }).map(res=>res.json());
+    // return this.http.get(this.agentUrl + '/getAgentfund/'+ userId + '/'+IsAgent,{ headers: this.headers }).map(res=>res.json());
+    return this.http.get(this.agentUrl + '/getAgentfund/'+IsAgent+"/"+AgentId,{ headers: this.headers }).map(res=>res.json());
   }
 
   isreceivefund(agentfundId, isreceive){
     return this.http.get(this.agentUrl + '/isreceivefund/'+agentfundId+"/"+isreceive,{ headers: this.headers }).map(res=>res.json());
+  }
+
+  getCustomerbyAgent(agentId: number):Observable<Customer[]>{
+    return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headerClient});
   }
 }
