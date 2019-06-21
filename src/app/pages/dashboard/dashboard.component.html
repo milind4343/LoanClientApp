@@ -41,12 +41,13 @@
     <ngx-security-cameras></ngx-security-cameras>
   </div>
 </div> -->
-<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List' && roleId!=1">
+<h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
+<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List' && roleId==2">
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12">      
       <nb-card>
           <nb-card-header>
-              <h3>Upcomming Installments To Be Paid</h3>
+              <h4>Upcomming Installments To Be Paid</h4>
           </nb-card-header>
         <!-- <nb-card-header>{{pageTitle}}  
                 <span style="text-align: center;"><h4>{{clientname}}</h4></span>
@@ -87,6 +88,8 @@
     </div>
   </div>
 </div>
+
+
 <div *ngIf="pageView === 'paid'">
     <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
 </div>
