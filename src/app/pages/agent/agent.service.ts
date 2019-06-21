@@ -77,4 +77,13 @@ export class AgentService {
   getCustomerbyAgent(agentId: number):Observable<Customer[]>{
     return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headerClient});
   }
+
+  getAgentVBDetail(agentId:number):Observable<any>{
+    return this.httpclient.get<any>(this.agentUrl + '/getVB/'+ agentId, {headers: this.headerClient});
+  }
+
+  markAgentVBPaid(vb:any):Observable<any>{
+    return this.httpclient.post(this.agentUrl + '/paidVB', JSON.stringify(vb), {headers: this.headerClient})
+  }
+
 }

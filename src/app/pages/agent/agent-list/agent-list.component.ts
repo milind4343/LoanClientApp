@@ -135,4 +135,17 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+  gotoVB(agentId:number){
+    debugger;
+    this.userid = agentId;
+    this.pageView='VB';
+  }
+
+  callParent(event: any) {
+    this.pageView = event;
+    this.dtTrigger = new Subject();
+    this.ngOnInit();
+  }
+
 }

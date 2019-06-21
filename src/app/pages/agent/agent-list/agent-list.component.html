@@ -1,4 +1,4 @@
-<div class="row" *ngIf="pageView !== 'History'">
+<div class="row" *ngIf="pageView !== 'History' && pageView !== 'VB'">
   <div class="col-md-12">
     <nb-card>
       <nb-card-header>{{pageTitle}}</nb-card-header>
@@ -38,6 +38,7 @@
                       (click)="editAgent(cust.userId)"></i></span>
                   <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History"
                       (click)="fetchFundHistory(cust.userId)"></i></span>
+                  <button style="margin-left:10px;" type="button" shape="rectangle" status="success" nbButton size="xsmall" (click)="gotoVB(cust.userId)">VB</button>
                 </td>
               </tr>
             </tbody>
@@ -46,7 +47,7 @@
 
         <div *ngIf="pageView === 'Add' || pageView === 'Edit'">
             <ngx-registration [userId]="userid" (onPageChange)="onPageChanged($event)"></ngx-registration>
-          </div>
+        </div>
 
       </nb-card-body>
     </nb-card>
@@ -57,4 +58,9 @@
 <div *ngIf="pageView === 'History'">
   <ngx-agent-fundhistory [userId]="userid" (onPageChange)="onPageChanged($event)">
   </ngx-agent-fundhistory>
+</div>
+
+<div *ngIf="pageView === 'VB'">
+    <ngx-agent-vb-paid [userid]="userid" (callParent)="callParent($event);">      
+    </ngx-agent-vb-paid>
 </div>
