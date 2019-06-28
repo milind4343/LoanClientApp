@@ -17,7 +17,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
+
+  dtOptionsVB: DataTables.Settings = {};
+  dtTriggerVB: any = new Subject();
+  
   dueinstallmenthstorylist: any[] = [];
+  vbtansferlist:any[]=[];
 
   roleId:number;
   pageView: string = "List";
@@ -41,6 +46,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         this.roleId = res.roleId;
         if(this.roleId ==1){
           this.dueinstallmenthstorylist = [];
+         
         }
         else
         {
@@ -55,6 +61,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
               //this.handleError.handleExcption(error);
           });
         }
+
+        this.dashboardservice.getvbtranslist().subscribe(result => {
+          debugger;
+           this.vbtansferlist=result;
+           this.dtTriggerVB.next();
+        },
+          error => {
+            console.log(error);
+            //this.handleError.handleExcption(error);
+        });
+       
       }
       });
     

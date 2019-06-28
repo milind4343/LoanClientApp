@@ -6,21 +6,22 @@ import { Customer } from './customer';
 import { Agent } from '../agent/agent'
 import { CustomerLoan } from './customer-loan';
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class CustomerService {
 
-  private token;
+  private token: string = "";
   private customerUrl = environment.domain + '/api/customer';
   private commonUrl = environment.domain + '/api/common';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
-  private headers;
+  private headers: HttpHeaders;
+  private multipartheaders: HttpHeaders;
 
-  private multipartheaders = new HttpHeaders({'Authorization': this.token})
-
-  constructor(private httpclient: HttpClient) { }
+  constructor(private httpclient: HttpClient) { 
+   
+  }
 
   getCustomers(userID: number = 0): Observable<Customer[]>{
     this.token = "Bearer " + localStorage.getItem('jwt');
@@ -35,35 +36,32 @@ export class CustomerService {
   //   //.then(res => res.json().data as Customer[]);
   // } 
 
-
-  //registerCustomer(req : Customer) {
-    registerCustomer(formdata : any) : Observable<any> {
+  registerCustomer(formdata : any) : Observable<any> {
       this.token = "Bearer " + localStorage.getItem('jwt');
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
-    return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.multipartheaders });
-    // .map(res => res.json())
-    // .toPromise();
+      this.multipartheaders = new HttpHeaders({'Authorization': this.token})
+      return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.multipartheaders });
   }
 
-  getAgent(): Observable<Agent[]>{
+  getAgent(): Observable<Agent[]> {    
     return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent');
   }
 
-  getloantype(): Observable<any[]>{
+  getloantype(): Observable<any[]> {
     return this.httpclient.get<any[]>(this.commonUrl + '/getloantype');
   }
+
   changeStatus(id: number){
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get(this.customerUrl + '/changeStatus/'+ id, {headers: this.headers});
-    //return
   }
 
   assignloan(loanrequest:any):Observable<any>{
     this.token = "Bearer " + localStorage.getItem('jwt');
-    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
+    this.multipartheaders = new HttpHeaders({'Authorization': this.token})
     return this.httpclient.post(this.customerUrl + '/assign', loanrequest, { headers : this.multipartheaders });
   }
+  
   uploadLoanDoc(formdata: FormData){
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
@@ -78,7 +76,6 @@ export class CustomerService {
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/getuploadedloandoc/' + userId,  {headers : this.headers});
-
   }
 
   getCustomerLoan(userID: number = 0): Observable<any>{

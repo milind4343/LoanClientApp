@@ -1,0 +1,67 @@
+<h4 style="color: red;text-align: center">Available VB Balance : {{vb.paidAmount}} ₱</h4>
+<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
+  <nb-card>
+      <nb-card-header>Agent VB mark as paid</nb-card-header>
+      <nb-card-body>         
+          <div class="form-group row">
+              <label for="amount" class="col-sm-2 col-form-label">VB Amount</label>
+              <div class="col-sm-4">
+                  <input type="text" class="form-control" #amount="ngModel" [(ngModel)]="vb.paidAmount" name="amount" placeholder="₱ 10000" >
+                  <!-- [disabled]="true" -->
+              </div>              
+          </div>
+        
+          <div class="form-group row">
+              <label for="paymenttype" class="col-sm-2 col-form-label">Payment Type</label>
+              <div class="col-sm-4">
+                  <span class="text-danger" *ngIf="submitted && paymenttype.invalid && paymenttype.errors.required"> * required</span>
+                  <div class="demo-radio">                    
+                    <nb-radio-group name="paymenttype" #paymenttype="ngModel" [(ngModel)]="vb.paymentmethodid" required>
+                      <nb-radio style="display: inline-block;" [value]="1">cash</nb-radio>
+                      <nb-radio style="display: inline-block;" [value]="2">cheque</nb-radio>
+                    </nb-radio-group>
+                  </div>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="chequenum" class="col-sm-2 col-form-label">Cheque No.</label>
+              <div class="col-sm-4">
+                  <span class="text-danger" *ngIf="vb.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> * required</span>
+                  <input type="text" class="form-control" #chequenum="ngModel" [(ngModel)]="vb.chequeno" name="chequenum" id="ChequeNo"
+                    placeholder="Enter Cheque No." [disabled]="vb.paymentmethodid === 1 || vb.paymentmethodid === null" required>
+              </div>
+          </div>
+
+          <div class="form-group row">
+              <label for="bankName" class="col-sm-2 col-form-label">Bank Name</label>
+              <div class="col-sm-4">
+                  <span class="text-danger" *ngIf="vb.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> * required</span>                
+                  <input type="text" class="form-control" #bankName="ngModel" [(ngModel)]="vb.bankname" name="bankName"
+                    placeholder="Enter Bank Name" [disabled]="vb.paymentmethodid === 1 || vb.paymentmethodid === null" required>
+              </div>
+          </div>
+          
+          <div class="form-group row">
+              <label for="document" class="col-sm-2 col-form-label">Remarks</label>
+              <div class="col-sm-4">
+                  <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="vb.remarks" 
+                  placeholder="Enter Remarks" [(ngModel)]="vb.remarks" #remarks></textarea>
+              </div>
+          </div> 
+         
+        <div class="row">
+          <div class="col-sm-4"></div>
+          <div class="button-container">
+            <button type="submit" class="btn btn-primary" [disabled]="vb.paidAmount === 0">Mark As Paid</button>
+          </div>
+          <!-- <div class="button-container">
+            <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+          </div> -->
+        </div>
+    
+      </nb-card-body>
+    </nb-card>
+
+</form>
+

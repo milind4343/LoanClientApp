@@ -11,9 +11,9 @@ import { Customer } from '../customer/customer';
 })
 export class AgentService {
 
-  private token;
-  private headers;
-  private headerClient;
+  private token: string = "";
+  private headers: Headers;
+  private headerClient:HttpHeaders;
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
   private customerUrl = environment.domain + '/api/customer';
@@ -110,4 +110,20 @@ export class AgentService {
  
     return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headerClient});
   }
+
+  // getAgentVBDetail(agentId:number):Observable<any>{
+  //   return this.httpclient.get<any>(this.agentUrl + '/getVB/'+ agentId, {headers: this.headerClient});
+  // }
+
+  getAgentVBDetail():Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
+ 
+    return this.httpclient.get<any>(this.agentUrl + '/getVB',{headers: this.headerClient});
+  }
+
+  markAgentVBPaid(vb:any):Observable<any>{
+    return this.httpclient.post(this.agentUrl + '/paidVB', JSON.stringify(vb), {headers: this.headerClient})
+  }
+
 }
