@@ -88,6 +88,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   }
 
   editCustomer(userId: number) {
+    debugger;
     this.pageView = 'Edit';
     this.pageTitle = 'Update Customer Detail';
     this.editUserID = userId;

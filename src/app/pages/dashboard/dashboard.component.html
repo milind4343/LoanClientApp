@@ -1,21 +1,71 @@
-<!-- <div class="row">
-  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
-    <ngx-status-card [title]="statusCard.title"
-                     [type]="statusCard.type">
-      <i [ngClass]="statusCard.iconClass"></i>
-    </ngx-status-card>
-  </div>
-</div>
+<h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
 
 <div class="row">
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-temperature></ngx-temperature>
-  </div>
+ <!--   <div class="col-lg-6" *ngIf='res'>      *ngIf="res!==undefined" 
+        <nb-card>
+          <nb-card-header>Bar</nb-card-header>
+          <nb-card-body>
+            <ngx-chartjs-bar [res]="res"></ngx-chartjs-bar>
+          </nb-card-body>
+        </nb-card>        
+</div> -->
 
-  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6">
-    <ngx-electricity></ngx-electricity>
-  </div>
+<div class="col-lg-6">
+    <nb-card>
+        <!-- <nb-card-header>Bar</nb-card-header> -->
+            <nb-card-body>
+                <form class="form-horizontal" #form="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
+                <div class="row" *ngIf="pageView === 'List'">
+                    <div class="col-sm-4" *ngIf="roleId === 1">
+                      <label for="agent">Agent</label>
+                      <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
+                      name="agent" (change)="onAgentSelect(agentId)">              
+                        <option value="0">- - Choose - -</option>
+                        <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="startDate">From Date</label>
+                                <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
+                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
+                                <nb-datepicker #startdate [min]="min"></nb-datepicker>
+                              </div>                           
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="endDate">To Date</label>
+                            <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate
+                              [(ngModel)]="balance.toDate" name="enddate" [disabled]="true">
+                            <nb-datepicker #enddate></nb-datepicker>
+                          <!-- <label for="endDate">To Date</label>
+                          <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="toDate" #toDate
+                            [(ngModel)]="balance.toDate" name="toDate" [disabled]="true">
+                          <nb-datepicker #enddate></nb-datepicker> -->
+                        </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <div class="form-group">                          
+                          <button type="button" class="btn btn-primary" status="warning" nbButton size="medium" (click)="submitted=true;getChartData(balance)">Assign</button>
+                        </div>
+                      </div>
+                  </div>
+
+                </form>
+            
+                <h5 *ngIf="showlbl">No Data Found !</h5>
+                <div class="col-lg-12" *ngIf='res'>
+                  <ngx-chartjs [child1]="res"></ngx-chartjs>                  
+                </div>
+              
+            </nb-card-body>
+    </nb-card>
+        
+    
 </div>
+      
 
 <div class="row">
   <div class="col-xxxl-9 col-xl-12">
@@ -124,11 +174,13 @@
   </div>
 </div>
 
-
-<div *ngIf="pageView === 'paid'">
+<div class="col-lg-6">
+  <div *ngIf="pageView === 'paid'">
     <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
+  </div>
 </div>
 
+</div> 
 
 
 

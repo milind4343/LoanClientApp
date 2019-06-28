@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AgentService } from '../agent.service';
-import { NbToastrService } from '@nebular/theme/components/toastr/toastr.service';
-import { NbGlobalPhysicalPosition } from '@nebular/theme';
+import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-agent-vb-paid',
@@ -10,31 +9,30 @@ import { NbGlobalPhysicalPosition } from '@nebular/theme';
 })
 export class AgentVbPaidComponent implements OnInit {
 
-  // @Input() userid : number;
-  // @Output() callParent = new EventEmitter<string>();
+  @Input() userid : number;
+  @Output() callParent = new EventEmitter<string>();
+  
+  submitted: boolean = false;
+
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
-  vb:any={};
-  pageView: string;
-  submitted:boolean= false;
+
+  private vb:any={};
 
   constructor(private agentservice: AgentService, private toastrService: NbToastrService) { }
 
   ngOnInit() {
-    debugger;
-    // console.log(this.userid);
-    // this.getVBDetail(this.userid);
-    this.getVBDetail();
+    console.log(this.userid);
+    this.getVBDetail(this.userid);
   }
 
-  getVBDetail(){
-    debugger;
-    this.agentservice.getAgentVBDetail().subscribe(res=>{
+  getVBDetail(agentId:number){
+    this.agentservice.getAgentVBDetail(agentId).subscribe(res=>{
       if(res!=null){
         console.log(res);
         this.vb.paidAmount = res;
-        //this.vb.agentId = agentId;
+        this.vb.agentId = agentId;
       }
     });
   }
@@ -44,8 +42,7 @@ export class AgentVbPaidComponent implements OnInit {
     if(form.valid){
       this.agentservice.markAgentVBPaid(this.vb).subscribe(res=>{
         if(res.success){
-         this.vb.paidAmount=0;
-          //this.cancelForm();
+          this.cancelForm();
           this.toastrService.success('Mark As Paid Successfully !', 'Success', this.config);
         }
         else
@@ -56,8 +53,8 @@ export class AgentVbPaidComponent implements OnInit {
     }    
   }  
  
-  // cancelForm(){
-  //   this.userid = 0;
-  //   this.callParent.emit('List');
-  // }
+  cancelForm(){
+    this.userid = 0;
+    this.callParent.emit('List');
+  }
 }

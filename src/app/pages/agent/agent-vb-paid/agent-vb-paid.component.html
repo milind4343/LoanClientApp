@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 <h4 style="color: red;text-align: center">Available VB Balance : {{vb.paidAmount}} ₱</h4>
+=======
+>>>>>>> remotes/origin/chitra-dev
 <form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
   <nb-card>
       <nb-card-header>Agent VB mark as paid</nb-card-header>
@@ -6,8 +9,12 @@
           <div class="form-group row">
               <label for="amount" class="col-sm-2 col-form-label">VB Amount</label>
               <div class="col-sm-4">
+<<<<<<< HEAD
                   <input type="text" class="form-control" #amount="ngModel" [(ngModel)]="vb.paidAmount" name="amount" placeholder="₱ 10000" >
                   <!-- [disabled]="true" -->
+=======
+                  <input type="text" class="form-control" #amount="ngModel" [(ngModel)]="vb.paidAmount" name="amount" placeholder="₱ 10000" [disabled]="true">
+>>>>>>> remotes/origin/chitra-dev
               </div>              
           </div>
         
@@ -55,9 +62,15 @@
           <div class="button-container">
             <button type="submit" class="btn btn-primary" [disabled]="vb.paidAmount === 0">Mark As Paid</button>
           </div>
+<<<<<<< HEAD
           <!-- <div class="button-container">
             <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
           </div> -->
+=======
+          <div class="button-container">
+            <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
+          </div>
+>>>>>>> remotes/origin/chitra-dev
         </div>
     
       </nb-card-body>

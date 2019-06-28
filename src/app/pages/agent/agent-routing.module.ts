@@ -28,10 +28,6 @@ const routes: Routes = [{
     component: AgentFundhistoryComponent
   },
   {
-    path: 'vb',
-    component: AgentVbPaidComponent
-  },
-  {
     path:'vb',
     component: AgentVbPaidComponent
   }],

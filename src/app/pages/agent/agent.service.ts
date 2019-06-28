@@ -111,6 +111,7 @@ export class AgentService {
     return this.httpclient.get<Customer[]>(this.customerUrl + '/getcustomersbyagent/' + agentId, {headers : this.headerClient});
   }
 
+<<<<<<< HEAD
   // getAgentVBDetail(agentId:number):Observable<any>{
   //   return this.httpclient.get<any>(this.agentUrl + '/getVB/'+ agentId, {headers: this.headerClient});
   // }
@@ -120,6 +121,10 @@ export class AgentService {
     this.headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
  
     return this.httpclient.get<any>(this.agentUrl + '/getVB',{headers: this.headerClient});
+=======
+  getAgentVBDetail(agentId:number):Observable<any>{
+    return this.httpclient.get<any>(this.agentUrl + '/getVB/'+ agentId, {headers: this.headerClient});
+>>>>>>> remotes/origin/chitra-dev
   }
 
   markAgentVBPaid(vb:any):Observable<any>{

@@ -41,6 +41,9 @@ export class CustomerAddComponent implements OnInit {
 
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
     private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {
+      
+      debugger;
+      console.log(this.editUserID);
       this.imgUrl = "assets/images/user-placeholder.png";
   }
 

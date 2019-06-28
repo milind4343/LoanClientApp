@@ -2,6 +2,10 @@ import {Component, OnDestroy, OnInit, Output, EventEmitter, Input} from '@angula
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { AuthenticationService } from '../../commonServices/authentication.service';
+import { ChartsService } from '../charts/charts.service';
+import { CustomerService } from '../customer/customer.service';
+import { Agent } from '../agent/agent';
+import { NbDateService } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -13,7 +17,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   @Input() editTxnID: number;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
-  user:any;
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
@@ -24,14 +27,28 @@ export class DashboardComponent implements OnInit, OnDestroy {
   dueinstallmenthstorylist: any[] = [];
   vbtansferlist:any[]=[];
 
+  agentlist : Agent[] = [];
+  agentId: string;
+  user:any;
   roleId:number;
   pageView: string = "List";
+  chartData: any = {};
+  res:any;
+  balance: any = {};
+  showlbl:boolean = false;
 
-  constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService) {
+  constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
+    private chartService: ChartsService, private customerservice: CustomerService, private dateService: NbDateService<Date>) {
+    
+    //debugger;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
     };
+
+    // this.chartData.toDate = "2019-06-27";
+    // this.chartData.fromDate = "2019-06-15";
+    // this.chartData.agentId = "2";
   }
 
   ngOnDestroy() {
@@ -40,26 +57,33 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     debugger;
+<<<<<<< HEAD
     this.authservice.getLoggedInUserDetail().subscribe(res=>{
       if(res!= null){
+=======
+    this.authservice.getLoggedInUserDetail().subscribe(res => {
+      if (res != null) {
+>>>>>>> remotes/origin/chitra-dev
         debugger;
         this.roleId = res.roleId;
-        if(this.roleId ==1){
+        if (this.roleId == 1) {
           this.dueinstallmenthstorylist = [];
+<<<<<<< HEAD
          
+=======
+          this.getAllAgents();         
+>>>>>>> remotes/origin/chitra-dev
         }
-        else
-        {
+        else {
+          this.balance.agentId = res.userId;
           this.dueinstallmenthstorylist = [];
           this.dashboardservice.getLoanInstallments(0).subscribe(result => {
-            debugger;
-             this.dueinstallmenthstorylist = result;
-             this.dtTrigger.next();
+            this.dueinstallmenthstorylist = result;
+            this.dtTrigger.next();
           },
             error => {
-              console.log(error);
               //this.handleError.handleExcption(error);
-          });
+            });
         }
 
         this.dashboardservice.getvbtranslist().subscribe(result => {
@@ -73,9 +97,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         });
        
       }
-      });
-    
-  
+    });
   }
 
   receiptpay(transactionid:number)
@@ -89,6 +111,42 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.pageView = event;
     this.dtTrigger = new Subject();
     this.ngOnInit();
+  }
+
+  changeenddate(startdate: any) {
+    this.balance.toDate = this.dateService.addDay(startdate, 6);
+  }
+
+  getAllAgents(){
+    this.customerservice.getAgent().subscribe(res=>{
+      if(res !== null){
+        debugger;
+        this.agentlist = res;
+        this.agentId= '0';
+      }
+    });
+  }
+
+  getChartData(req:any){
+    console.log(req);
+    this.showlbl = false;
+    this.res = undefined;
+    this.chartService.getChartData(req).subscribe(res=>{
+      debugger;
+      if(res.length > 0){        
+        this.res = res;
+      }
+      else
+      {        
+        this.showlbl = true;
+      }
+      
+    });
+  }
+
+  onAgentSelect(agentId: number){
+    debugger;
+   this.balance.agentId = agentId;
   }
 
 }
