@@ -26,6 +26,10 @@ const routes: Routes = [{
     path: 'customer',
     loadChildren: './customer/customer.module#CustomerModule',
   },
+  // {
+  //   path: 'charts',
+  //   loadChildren: './charts/charts.module#ChartsModule',
+  // },
   {
     path: '',
     redirectTo: 'dashboard',

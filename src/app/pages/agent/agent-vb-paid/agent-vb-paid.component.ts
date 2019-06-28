@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AgentService } from '../agent.service';
+import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-agent-vb-paid',
@@ -7,15 +8,19 @@ import { AgentService } from '../agent.service';
   styleUrls: ['./agent-vb-paid.component.scss']
 })
 export class AgentVbPaidComponent implements OnInit {
-  [x: string]: any;
 
   @Input() userid : number;
   @Output() callParent = new EventEmitter<string>();
   
-  private vb:any={};
-  private pageView: string;
+  submitted: boolean = false;
 
-  constructor(private agentservice: AgentService) { }
+  config = {
+    position: NbGlobalPhysicalPosition.TOP_RIGHT
+  };
+
+  private vb:any={};
+
+  constructor(private agentservice: AgentService, private toastrService: NbToastrService) { }
 
   ngOnInit() {
     console.log(this.userid);

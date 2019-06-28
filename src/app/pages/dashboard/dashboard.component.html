@@ -1,98 +1,65 @@
-<!-- <div class="row">
-  <div class="col-xxxl-3 col-md-6" *ngFor="let statusCard of statusCards">
-    <ngx-status-card [title]="statusCard.title"
-                     [type]="statusCard.type">
-      <i [ngClass]="statusCard.iconClass"></i>
-    </ngx-status-card>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-temperature></ngx-temperature>
-  </div>
-
-  <div class="col-xxxl-9 col-xxl-8 col-lg-7 col-md-6">
-    <ngx-electricity></ngx-electricity>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xxxl-9 col-xl-12">
-    <ngx-rooms></ngx-rooms>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
-    <ngx-contacts></ngx-contacts>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-solar [chartValue]="solarValue"></ngx-solar>
-
-    <ngx-kitten></ngx-kitten>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-md-5">
-    <ngx-traffic></ngx-traffic>
-    <ngx-weather></ngx-weather>
-  </div>
-
-  <div class="col-xxxl-6 col-xxl-12 col-md-7">
-    <ngx-security-cameras></ngx-security-cameras>
-  </div>
-</div> -->
 <h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
-<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List' && roleId!=1">
-  <div class="row">
-    <div class="col-md-12">      
-      <nb-card>
-          <nb-card-header>
-              <h4>Upcomming Installments To Be Paid</h4>
-          </nb-card-header>
-        <!-- <nb-card-header>{{pageTitle}}  
-                <span style="text-align: center;"><h4>{{clientname}}</h4></span>
-                  <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
-                </nb-card-header>   -->
-        <nb-card-body>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-            <thead>
-              <tr>
-                <th style="display: none">transactionId</th>
-                <th>Customer Name</th>
-                <th>Loan Id</th>
-                <th>Instalment Amount</th>
-                <th>Instalment Date</th>
-                <th>Is Paid</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let instalment of dueinstallmenthstorylist">
-                <td style="display: none">{{instalment.transactionid}}</td>
-                <td>{{instalment.customername}}</td>
-                <td>{{instalment.customerloanid}}</td>
-                <td>₱ {{instalment.installmentamount}}</td>
-                <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
-                <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
-                <td>
-                  <button class="icon-btn" style="cursor: pointer;" (click)="receiptpay(instalment.transactionid)"
-                    title="Installments">
-                    <i class="fa fa-history" title="Installments"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>        
-        </nb-card-body>
-      </nb-card>
+
+<div class="row">
+    <div class="col-lg-6">     <!-- *ngIf="res!==undefined" -->   
+        <nb-card>
+          <nb-card-header>Bar</nb-card-header>
+          <nb-card-body>
+            <ngx-chartjs-bar [res]="res"></ngx-chartjs-bar>
+          </nb-card-body>
+        </nb-card>        
     </div>
-  </div>
+
+      <!-- <div class="col-lg-6">
+        <ngx-chartjs></ngx-chartjs>
+      </div> -->
+
+<div class="col-lg-6" *ngIf="pageView === 'List' && roleId!=1">
+  <nb-card>
+    <nb-card-header>
+      <h4>Upcomming Installments To Be Paid</h4>
+    </nb-card-header>
+    <!-- <nb-card-header>{{pageTitle}}  
+            <span style="text-align: center;"><h4>{{clientname}}</h4></span>
+              <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
+            </nb-card-header>   -->
+    <nb-card-body>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th style="display: none">transactionId</th>
+            <th>Customer Name</th>
+            <th>Loan Id</th>
+            <th>Instalment Amount</th>
+            <th>Instalment Date</th>
+            <th>Is Paid</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let instalment of dueinstallmenthstorylist">
+            <td style="display: none">{{instalment.transactionid}}</td>
+            <td>{{instalment.customername}}</td>
+            <td>{{instalment.customerloanid}}</td>
+            <td>₱ {{instalment.installmentamount}}</td>
+            <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
+            <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
+            <td>
+              <button class="icon-btn" style="cursor: pointer;" (click)="receiptpay(instalment.transactionid)"
+                title="Installments">
+                <i class="fa fa-history" title="Installments"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+  </nb-card>
 </div>
+
+</div> 
 
 
 <div *ngIf="pageView === 'paid'">
-    <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
+  <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
 </div>
-
-
-

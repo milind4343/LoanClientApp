@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 
 import { NgxEchartsModule } from 'ngx-echarts';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ChartModule } from 'angular2-chartjs';
 
 import { ThemeModule } from '../../@theme/theme.module';
 import { DashboardComponent } from './dashboard.component';
@@ -23,11 +25,19 @@ import { TrafficChartComponent } from './traffic/traffic-chart.component';
 import { DashboardService } from './dashboard.service';
 import { DataTablesModule } from 'angular-datatables';
 import { CustomerLoanPaidComponent } from './customer-loan-paid/customer-loan-paid.component';
+
+import { ChartjsComponent } from '../charts/chartjs/chartjs.component';
+import { ChartjsBarComponent } from '../charts/chartjs/chartjs-bar.component';
+import { ChartjsPieComponent } from '../charts/chartjs/chartjs-pie.component';
+//import { ChartjsBarComponent } from './chartjs-bar.component';
+
 @NgModule({
   imports: [
     ThemeModule,
     NgxEchartsModule,
-    DataTablesModule
+    DataTablesModule,
+    ChartModule,
+    NgxChartsModule    
   ],
   declarations: [
     DashboardComponent,
@@ -48,6 +58,9 @@ import { CustomerLoanPaidComponent } from './customer-loan-paid/customer-loan-pa
     TrafficComponent,
     TrafficChartComponent,
     CustomerLoanPaidComponent,
+    ChartjsBarComponent,
+    ChartjsComponent,
+    ChartjsPieComponent
   ],
   providers: [
     DashboardService
