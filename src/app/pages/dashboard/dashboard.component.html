@@ -10,9 +10,62 @@
         </nb-card>        
 </div> -->
 
-      <div class="col-lg-6" *ngIf='res'>
-        <ngx-chartjs [child1]="res"></ngx-chartjs>
-      </div>
+<div class="col-lg-6">
+    <nb-card>
+        <!-- <nb-card-header>Bar</nb-card-header> -->
+            <nb-card-body>
+                <form class="form-horizontal" #form="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
+                <div class="row" *ngIf="pageView === 'List'">
+                    <div class="col-sm-4" *ngIf="roleId === 1">
+                      <label for="agent">Agent</label>
+                      <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
+                      name="agent" (change)="onAgentSelect(agentId)">              
+                        <option value="0">- - Choose - -</option>
+                        <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+                      </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <label for="startDate">From Date</label>
+                                <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
+                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
+                                <nb-datepicker #startdate [min]="min"></nb-datepicker>
+                              </div>                           
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="endDate">To Date</label>
+                            <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate
+                              [(ngModel)]="balance.toDate" name="enddate" [disabled]="true">
+                            <nb-datepicker #enddate></nb-datepicker>
+                          <!-- <label for="endDate">To Date</label>
+                          <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="toDate" #toDate
+                            [(ngModel)]="balance.toDate" name="toDate" [disabled]="true">
+                          <nb-datepicker #enddate></nb-datepicker> -->
+                        </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <div class="form-group">                          
+                          <button type="button" class="btn btn-primary" status="warning" nbButton size="medium" (click)="submitted=true;getChartData(balance)">Assign</button>
+                        </div>
+                      </div>
+                  </div>
+
+                </form>
+            
+                <h5 *ngIf="showlbl">No Data Found !</h5>
+                <div class="col-lg-12" *ngIf='res'>
+                  <ngx-chartjs [child1]="res"></ngx-chartjs>                  
+                </div>
+              
+            </nb-card-body>
+    </nb-card>
+        
+    
+</div>
+      
 
 <div class="col-lg-6" *ngIf="pageView === 'List' && roleId!=1">
   <nb-card>

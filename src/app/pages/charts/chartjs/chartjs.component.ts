@@ -14,8 +14,7 @@ constructor(){
 }
 
 ngOnChanges() {
-  if(!!this.child1){         
-      //console.log(this.child1);     
+  if(!!this.child1){       
       this.data = this.child1;
   }
 }

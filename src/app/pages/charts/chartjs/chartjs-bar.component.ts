@@ -1,6 +1,5 @@
 import { Component, OnDestroy, Input, OnInit } from '@angular/core';
 import { NbThemeService, NbColorHelper } from '@nebular/theme';
-import { ChartsService } from '../charts.service';
 
 @Component({
   selector: 'ngx-chartjs-bar',
@@ -19,7 +18,7 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
  //chartData: any = {};
  custcolors: any;
 
-  constructor(private theme: NbThemeService, private chartService: ChartsService) {
+  constructor(private theme: NbThemeService) {
         
       // this.chartData.toDate = "2019-06-27";
       // this.chartData.fromDate = "2019-06-15";
@@ -93,14 +92,16 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
     let lblist = new Array<Number>();
     let vblist = new Array<Number>();
     let bblist = new Array<Number>();
     let name = new Array<string>();
 
+    console.log(this.child2);
+    
+    if(this.child2.length > 0){
       this.child2.forEach(element => {
-        
+        debugger;
         let dt = new Date(element.createdDate).toDateString();
         name.push(dt);
   
@@ -114,6 +115,8 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
       this.data.datasets.push({ data: lblist, label: 'LB', backgroundColor: NbColorHelper.hexToRgbA(this.custcolors.primaryLight, 0.8) });
       this.data.datasets.push({ data: vblist, label: 'VB', backgroundColor: NbColorHelper.hexToRgbA(this.custcolors.infoLight, 0.8) });
       this.data.datasets.push({ data: bblist, label: 'BB', backgroundColor: NbColorHelper.hexToRgbA(this.custcolors.successLight, 0.8) });    
+    }
+
   }
 
   ngOnDestroy(): void {
