@@ -30,9 +30,14 @@ export class AppComponent implements OnInit {
   onContecxtItemSelection(title : string){
     debugger;
     if(title == 'Log out'){
-      localStorage.removeItem('jwt');
-      localStorage.removeItem('encryptkey');
-      this.route.navigate(['/auth/login']);
+      this.loader.loader = true;
+      setTimeout(()=>{
+        localStorage.removeItem('jwt');
+        localStorage.removeItem('encryptkey');
+        this.route.navigate(['/auth/login']);
+        this.loader.loader = false;
+      },500);
+     
     }
 
   }

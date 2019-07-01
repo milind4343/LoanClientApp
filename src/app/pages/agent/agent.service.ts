@@ -17,7 +17,7 @@ export class AgentService {
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
   private customerUrl = environment.domain + '/api/customer';
- 
+
 
   constructor(private http: Http, private httpclient: HttpClient) {
   }
@@ -123,6 +123,8 @@ export class AgentService {
   }
 
   markAgentVBPaid(vb:any):Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
     return this.httpclient.post(this.agentUrl + '/paidVB', JSON.stringify(vb), {headers: this.headerClient})
   }
 

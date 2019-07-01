@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, Output, EventEmitter, Input} from '@angula
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { AuthenticationService } from '../../commonServices/authentication.service';
-import { ChartsService } from '../charts/charts.service';
 import { CustomerService } from '../customer/customer.service';
 import { Agent } from '../agent/agent';
 import { NbDateService } from '@nebular/theme';
@@ -18,6 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @Input() editTxnID: number;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
+  submitted: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
 
@@ -35,12 +35,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   chartData: any = {};
   res:any;
   balance: any = {};
+
   showlbl:boolean = false;
   showsearchlbl:boolean=false;
   searchresult:any;
   selectedAgentname:string;
+
   constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
-    private chartService: ChartsService, private customerservice: CustomerService, private dateService: NbDateService<Date>) {
+    private customerservice: CustomerService, private dateService: NbDateService<Date>) {
     
     //debugger;
     this.dtOptions = {
@@ -101,6 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   callParent(event: any) {
+    this.dtTriggerVB =  new Subject();
     this.pageView = event;
     this.dtTrigger = new Subject();
     this.ngOnInit();
@@ -121,13 +124,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getChartData(req:any){
-    debugger;
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
     this.showsearchlbl=true;
     this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
-    this.chartService.getChartData(req).subscribe(res=>{
+    if(this.selectedAgentname==undefined)
+    {
+      this.showsearchlbl=false;
+    }
+    this.dashboardservice.getChartData(req).subscribe(res=>{
       debugger;
       if(res.length > 0){        
         this.res = res;
@@ -136,23 +142,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
       {        
         this.showlbl = true;
       }
+      
     });
   }
 
-   onAgentSelect(agentId: number,val:any){
+  onAgentSelect(agentId: number,val:any){
     debugger;
     this.balance.agentId = agentId;
     
     if(+agentId!=+("0"))
     {
-      
-    this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
-    this.showsearchlbl=true;
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+      this.showsearchlbl=true;
     }
     else
     {
-      this.showsearchlbl=false;
+      this.selectedAgentname=undefined;
     }
+   
   }
 
 }
