@@ -18,7 +18,7 @@ export class AgentVbPaidComponent implements OnInit {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
 
-  private vb:any={};
+  vb:any={};
 
   constructor(private agentservice: AgentService, private toastrService: NbToastrService) { }
 

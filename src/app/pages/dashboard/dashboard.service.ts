@@ -10,6 +10,7 @@ export class DashboardService {
 
   private token = "Bearer " + localStorage.getItem('jwt');
   private customerUrl = environment.domain + '/api/customer';
+  private agentUrl = environment.domain + '/api/agent';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
   private headers = new HttpHeaders({'Authorization': this.token})
 
@@ -23,6 +24,12 @@ export class DashboardService {
 
   getinstallment(txnId:number=0):Observable<any>{
     return this.httpclient.get<any>(this.customerUrl + '/getinstallment/' + txnId, {headers : this.headers});
+  }
+
+  getChartData(data:any){    
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token});
+    return this.httpclient.post<any[]>(this.agentUrl +'/chartData', JSON.stringify(data),{ headers : this.headers });
   }
 
 }

@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit, Output, EventEmitter, Input} from '@angula
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { AuthenticationService } from '../../commonServices/authentication.service';
-import { ChartsService } from '../charts/charts.service';
 import { CustomerService } from '../customer/customer.service';
 import { Agent } from '../agent/agent';
 import { NbDateService } from '@nebular/theme';
@@ -18,6 +17,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   @Input() editTxnID: number;
   @Output() passEntry: EventEmitter<any> = new EventEmitter();
 
+  submitted: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
   dueinstallmenthstorylist: any[] = [];
@@ -33,7 +33,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   showlbl:boolean = false;
 
   constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
-    private chartService: ChartsService, private customerservice: CustomerService, private dateService: NbDateService<Date>) {
+    private customerservice: CustomerService, private dateService: NbDateService<Date>) {
     
     //debugger;
     this.dtOptions = {
@@ -106,7 +106,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
-    this.chartService.getChartData(req).subscribe(res=>{
+    this.dashboardservice.getChartData(req).subscribe(res=>{
       debugger;
       if(res.length > 0){        
         this.res = res;

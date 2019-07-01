@@ -20,7 +20,17 @@
     }
   }
 
-  .button-container {
-    margin: 1.25rem 0 0 1.25rem;
-  }
+  .button-container  {
+    display: block;
+    margin: 0;
+    margin-top: 24px;
+    border-radius: 0;
+    height: 44px;
+    width: 46px;
+    text-align: center;
+    padding: 0;
+    line-height: 44px;
 }
+ 
+}
+
