@@ -20,7 +20,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
+
+  dtOptionsVB: DataTables.Settings = {};
+  dtTriggerVB: any = new Subject();
+  
   dueinstallmenthstorylist: any[] = [];
+  vbtansferlist:any[]=[];
 
   agentlist : Agent[] = [];
   agentId: string;
@@ -71,6 +76,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
               //this.handleError.handleExcption(error);
             });
         }
+
+        this.dashboardservice.getvbtranslist().subscribe(result => {
+          debugger;
+           this.vbtansferlist=result;
+           this.dtTriggerVB.next();
+        },
+          error => {
+            console.log(error);
+            //this.handleError.handleExcption(error);
+        });
+       
       }
     });
   }

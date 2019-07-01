@@ -63,7 +63,6 @@
                 </div>              
             </nb-card-body>
     </nb-card>        
-</div>
       
 
 <div class="col-lg-6" *ngIf="pageView === 'List' && roleId!=1">
@@ -109,6 +108,42 @@
   </nb-card>
 </div>
 
+<div class="col-md-6">      
+  <nb-card>
+      <nb-card-header>
+          <h4>Agent Transfered VB Balance</h4>
+      </nb-card-header>
+    <!-- <nb-card-header>{{pageTitle}}  
+            <span style="text-align: center;"><h4>{{clientname}}</h4></span>
+              <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
+            </nb-card-header>   -->
+    <nb-card-body>
+      <table datatable [dtOptions]="dtOptionsVB" [dtTrigger]="dtTriggerVB" class="row-border hover">
+        <thead>
+          <tr>
+            <th>Agent Name</th>
+            <th>Paid Amount</th>
+            <th>Payment Type</th>
+            <th>Bank Name</th>
+            <th>Cheque No</th> 
+            <th>Paid Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vblist of vbtansferlist">
+            <td>{{vblist.agentname}}</td>
+            <td>₱ {{vblist.paidamount}}</td>
+            <td>{{(vblist.paymentmethodid==1)?'CASH':'CHEQUE'}}</td>
+            <td>{{vblist.bankname }}</td>
+            <td>{{vblist.chequeno}}</td>
+            <td> {{vblist.paiddate  | date:'dd-MM-yyyy'}}</td>
+          </tr>
+        </tbody>
+      </table>        
+    </nb-card-body>
+  </nb-card>
+</div>
+
 <div class="col-lg-6">
   <div *ngIf="pageView === 'paid'">
     <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
@@ -116,5 +151,8 @@
 </div>
 
 </div> 
+
+
+
 
 

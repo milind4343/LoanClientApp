@@ -25,6 +25,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
   }
 
   ngOnInit() {
+  
   }
 
 
@@ -45,6 +46,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit {
     debugger;
     this.loader.loader = true;
     this.authService.login(this.user).then(result => {
+      debugger
       if (result !== null) {
          if(result.statuscode == 1) {
           localStorage.setItem("jwt","");               

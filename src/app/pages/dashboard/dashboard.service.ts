@@ -8,21 +8,25 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class DashboardService {
 
-  private token = "Bearer " + localStorage.getItem('jwt');
+  private token: string = "";
   private customerUrl = environment.domain + '/api/customer';
   private agentUrl = environment.domain + '/api/agent';
   //private headers = new Headers({ 'Content-Type': 'application/json' })  'Content-Type': 'multipart/form-data',
-  private headers = new HttpHeaders({'Authorization': this.token})
+  private headers: HttpHeaders;
 
   constructor(private httpclient: HttpClient) {
 
   }
 
   getLoanInstallments(customerLoanId:number=0):Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/installmentlist/' + customerLoanId, {headers : this.headers});
   }
 
   getinstallment(txnId:number=0):Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
     return this.httpclient.get<any>(this.customerUrl + '/getinstallment/' + txnId, {headers : this.headers});
   }
 
@@ -31,5 +35,11 @@ export class DashboardService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token});
     return this.httpclient.post<any[]>(this.agentUrl +'/chartData', JSON.stringify(data),{ headers : this.headers });
   }
+  getvbtranslist():Observable<any>{
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})
+    return this.httpclient.get<any>(this.agentUrl + '/getvbtranslist', {headers : this.headers});
+  }
 
+ 
 }
