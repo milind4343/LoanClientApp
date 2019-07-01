@@ -11,10 +11,11 @@
         <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
           <div class="col-sm-4">
             <label for="agent">Agent</label>
-            <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" name="agent" (change)="onAgentSelect(agentId)">
+            <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" name="agent" (change)="onAgentSelect(agentId,this)">
               <option value="0">- - Choose Agent - -</option>
               <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
+            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple">{{searchresult}}</h5>
           </div>
         </div>
 

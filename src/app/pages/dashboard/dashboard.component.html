@@ -1,185 +1,147 @@
-<h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
+<!-- <h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2> -->
+
+<div class=col-lg-12>
+  <nb-card>
+    <!-- <nb-card-header>Bar</nb-card-header> -->
+        <nb-card-body>
+            <form class="form-horizontal" #form="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
+            <div class="row" *ngIf="pageView === 'List'">
+                <div class="col-sm-4" *ngIf="roleId === 1">
+                  <label for="agent">Agent</label>
+                  <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
+                  name="agent" (change)="onAgentSelect(agentId,this)">              
+                    <option value="0">- - Choose - -</option>
+                    <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+                  </select>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <label for="startDate">From Date</label>
+                            <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
+                              #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
+                            <nb-datepicker #startdate [min]="min"></nb-datepicker>
+                          </div>                           
+                    </div>
+                  </div>
+                  <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="endDate">To Date</label>
+                        <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate
+                          [(ngModel)]="balance.toDate" name="enddate" [disabled]="true">
+                        <nb-datepicker #enddate></nb-datepicker>
+                      <!-- <label for="endDate">To Date</label>
+                      <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="toDate" #toDate
+                        [(ngModel)]="balance.toDate" name="toDate" [disabled]="true">
+                      <nb-datepicker #enddate></nb-datepicker> -->
+                    </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">                          
+                      <button type="button" class="btn btn-primary button-container" status="warning" nbButton size="medium" (click)="submitted=true;getChartData(balance)">
+                        <i class="fa fa-search"></i>
+                      </button>
+                    </div>
+                  </div>
+              </div>
+              <h5 *ngIf="showsearchlbl" style="color: rebeccapurple">{{searchresult}}</h5>
+            </form>
+        
+            <h5 *ngIf="showlbl">No Data Found !</h5>
+            <div class="col-lg-12" *ngIf='res'>
+              <ngx-chartjs [child1]="res"></ngx-chartjs>                  
+            </div>
+          
+        </nb-card-body>
+  </nb-card>
+</div>
 
 <div class="row">
- <!--   <div class="col-lg-6" *ngIf='res'>      *ngIf="res!==undefined" 
-        <nb-card>
-          <nb-card-header>Bar</nb-card-header>
-          <nb-card-body>
-            <ngx-chartjs-bar [res]="res"></ngx-chartjs-bar>
-          </nb-card-body>
-        </nb-card>        
-</div> -->
 
-<div class="col-lg-6">
-    <nb-card>
-        <!-- <nb-card-header>Bar</nb-card-header> -->
-            <nb-card-body>
-                <form class="form-horizontal" #form="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
-                <div class="row" *ngIf="pageView === 'List'">
-                    <div class="col-sm-4" *ngIf="roleId === 1">
-                      <label for="agent">Agent</label>
-                      <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
-                      name="agent" (change)="onAgentSelect(agentId)">              
-                        <option value="0">- - Choose - -</option>
-                        <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
-                      </select>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <div class="form-group">
-                                <label for="startDate">From Date</label>
-                                <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
-                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
-                                <nb-datepicker #startdate [min]="min"></nb-datepicker>
-                              </div>                           
-                        </div>
-                      </div>
-                      <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="endDate">To Date</label>
-                            <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate
-                              [(ngModel)]="balance.toDate" name="enddate" [disabled]="true">
-                            <nb-datepicker #enddate></nb-datepicker>
-                          <!-- <label for="endDate">To Date</label>
-                          <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="toDate" #toDate
-                            [(ngModel)]="balance.toDate" name="toDate" [disabled]="true">
-                          <nb-datepicker #enddate></nb-datepicker> -->
-                        </div>
-                      </div>
-                      <div class="col-sm-2">
-                        <div class="form-group">                          
-                          <button type="button" class="btn btn-primary" status="warning" nbButton size="medium" (click)="submitted=true;getChartData(balance)">Assign</button>
-                        </div>
-                      </div>
-                  </div>
-
-                </form>
-            
-                <h5 *ngIf="showlbl">No Data Found !</h5>
-                <div class="col-lg-12" *ngIf='res'>
-                  <ngx-chartjs [child1]="res"></ngx-chartjs>                  
-                </div>
-              
-            </nb-card-body>
-    </nb-card>
-        
-    
-</div>
       
 
-<div class="row">
-  <div class="col-xxxl-9 col-xl-12">
-    <ngx-rooms></ngx-rooms>
-  </div>
+<div class="col-lg-6" *ngIf="pageView === 'List' && roleId!=1">
+  <nb-card>
+    <nb-card-header>
+      <h4>Upcomming Installments To Be Paid</h4>
+    </nb-card-header>
+    <nb-card-body>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
+        <thead>
+          <tr>
+            <th style="display: none">transactionId</th>
+            <th>Customer Name</th>
+            <th>Loan Id</th>
+            <th>Instalment Amount</th>
+            <th>Instalment Date</th>
+            <th>Is Paid</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let instalment of dueinstallmenthstorylist">
+            <td style="display: none">{{instalment.transactionid}}</td>
+            <td>{{instalment.customername}}</td>
+            <td>{{instalment.customerloanid}}</td>
+            <td>₱ {{instalment.installmentamount}}</td>
+            <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
+            <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
+            <td>
+              <button class="icon-btn" style="cursor: pointer;" (click)="receiptpay(instalment.transactionid)"
+                title="Installments">
+                <i class="fa fa-history" title="Installments"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </nb-card-body>
+  </nb-card>
+</div>
 
-  <div class="col-xxxl-3 col-xxl-4 col-lg-7 col-md-6">
-    <ngx-contacts></ngx-contacts>
-  </div>
+<div class="col-lg-6" *ngIf="pageView === 'List'">
+  
+    <nb-card>
+        <nb-card-header>
+            <h4>Agent Transfered VB Balance</h4>
+        </nb-card-header>
+      <!-- <nb-card-header>{{pageTitle}}  
+              <span style="text-align: center;"><h4>{{clientname}}</h4></span>
+                <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
+              </nb-card-header>   -->
+      <nb-card-body>
+        <table datatable [dtOptions]="dtOptionsVB" [dtTrigger]="dtTriggerVB" class="row-border hover">
+          <thead>
+            <tr>
+              <th>Agent Name</th>
+              <th>Paid Amount</th>
+              <th>Payment Type</th>
+              <th>Bank Name</th>
+              <th>Cheque No</th> 
+              <th>Paid Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let vblist of vbtansferlist">
+              <td>{{vblist.agentname}}</td>
+              <td>₱ {{vblist.paidamount}}</td>
+              <td>{{(vblist.paymentmethodid==1)?'CASH':'CHEQUE'}}</td>
+              <td>{{vblist.bankname }}</td>
+              <td>{{vblist.chequeno}}</td>
+              <td> {{vblist.paiddate  | date:'dd-MM-yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>        
+      </nb-card-body>
+    </nb-card>
 
-  <div class="col-xxxl-3 col-xxl-4 col-lg-5 col-md-6">
-    <ngx-solar [chartValue]="solarValue"></ngx-solar>
-
-    <ngx-kitten></ngx-kitten>
-  </div>
-
-  <div class="col-xxxl-3 col-xxl-4 col-md-5">
-    <ngx-traffic></ngx-traffic>
-    <ngx-weather></ngx-weather>
-  </div>
-
-  <div class="col-xxxl-6 col-xxl-12 col-md-7">
-    <ngx-security-cameras></ngx-security-cameras>
-  </div>
-</div> -->
-<h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
-<div col-xxxl-6 col-xxl-12 col-md-12 *ngIf="pageView === 'List' && roleId==2">
-  <div class="row">
-    <div class="col-md-6">      
-      <nb-card>
-          <nb-card-header>
-              <h4>Upcomming Installments To Be Paid</h4>
-          </nb-card-header>
-        <!-- <nb-card-header>{{pageTitle}}  
-                <span style="text-align: center;"><h4>{{clientname}}</h4></span>
-                  <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
-                </nb-card-header>   -->
-        <nb-card-body>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-            <thead>
-              <tr>
-                <th style="display: none">transactionId</th>
-                <th>Customer Name</th>
-                <th>Loan Id</th>
-                <th>Instalment Amount</th>
-                <th>Instalment Date</th>
-                <th>Is Paid</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let instalment of dueinstallmenthstorylist">
-                <td style="display: none">{{instalment.transactionid}}</td>
-                <td>{{instalment.customername}}</td>
-                <td>{{instalment.customerloanid}}</td>
-                <td>₱ {{instalment.installmentamount}}</td>
-                <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
-                <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
-                <td>
-                  <button class="icon-btn" style="cursor: pointer;" (click)="receiptpay(instalment.transactionid)"
-                    title="Installments">
-                    <i class="fa fa-history" title="Installments"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>        
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="col-md-6">      
-          <nb-card>
-              <nb-card-header>
-                  <h4>Agent Transfered VB Balance</h4>
-              </nb-card-header>
-            <!-- <nb-card-header>{{pageTitle}}  
-                    <span style="text-align: center;"><h4>{{clientname}}</h4></span>
-                      <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
-                    </nb-card-header>   -->
-            <nb-card-body>
-              <table datatable [dtOptions]="dtOptionsVB" [dtTrigger]="dtTriggerVB" class="row-border hover">
-                <thead>
-                  <tr>
-                    <th>Agent Name</th>
-                    <th>Paid Amount</th>
-                    <th>Payment Type</th>
-                    <th>Bank Name</th>
-                    <th>Cheque No</th> 
-                    <th>Paid Date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let vblist of vbtansferlist">
-                    <td>{{vblist.agentname}}</td>
-                    <td>₱ {{vblist.paidamount}}</td>
-                    <td>{{(vblist.paymentmethodid==1)?'CASH':'CHEQUE'}}</td>
-                    <td>{{vblist.bankname }}</td>
-                    <td>{{vblist.chequeno}}</td>
-                    <td> {{vblist.paiddate  | date:'dd-MM-yyyy'}}</td>
-                  </tr>
-                </tbody>
-              </table>        
-            </nb-card-body>
-          </nb-card>
-        </div>
-  </div>
 </div>
 
 <div class="col-lg-6">
-  <div *ngIf="pageView === 'paid'">
-    <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
-  </div>
+    <div *ngIf="pageView === 'paid'">
+      <ngx-customer-loan-paid [editTxnID]="editTxnID" (callParent)="callParent($event);"></ngx-customer-loan-paid>
+    </div>
 </div>
-
 </div> 
 
 

@@ -36,7 +36,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   res:any;
   balance: any = {};
   showlbl:boolean = false;
-
+  showsearchlbl:boolean=false;
+  searchresult:any;
+  selectedAgentname:string;
   constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
     private chartService: ChartsService, private customerservice: CustomerService, private dateService: NbDateService<Date>) {
     
@@ -57,22 +59,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     debugger;
-<<<<<<< HEAD
-    this.authservice.getLoggedInUserDetail().subscribe(res=>{
-      if(res!= null){
-=======
     this.authservice.getLoggedInUserDetail().subscribe(res => {
       if (res != null) {
->>>>>>> remotes/origin/chitra-dev
         debugger;
         this.roleId = res.roleId;
         if (this.roleId == 1) {
           this.dueinstallmenthstorylist = [];
-<<<<<<< HEAD
-         
-=======
           this.getAllAgents();         
->>>>>>> remotes/origin/chitra-dev
         }
         else {
           this.balance.agentId = res.userId;
@@ -128,9 +121,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getChartData(req:any){
+    debugger;
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
+    this.showsearchlbl=true;
+    this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
     this.chartService.getChartData(req).subscribe(res=>{
       debugger;
       if(res.length > 0){        
@@ -140,13 +136,23 @@ export class DashboardComponent implements OnInit, OnDestroy {
       {        
         this.showlbl = true;
       }
-      
     });
   }
 
-  onAgentSelect(agentId: number){
+   onAgentSelect(agentId: number,val:any){
     debugger;
-   this.balance.agentId = agentId;
+    this.balance.agentId = agentId;
+    
+    if(+agentId!=+("0"))
+    {
+      
+    this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+    this.showsearchlbl=true;
+    }
+    else
+    {
+      this.showsearchlbl=false;
+    }
   }
 
 }

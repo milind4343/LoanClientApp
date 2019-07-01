@@ -47,13 +47,8 @@
         </div>
         <div *ngIf="pageView === 'Add' || pageView === 'Edit'">
             <ngx-registration [userId]="userid" (onPageChange)="onPageChanged($event)"></ngx-registration>
-<<<<<<< .mine
         </div>
 
-=======
-        </div>
-
->>>>>>> .theirs
       </nb-card-body>
     </nb-card>
   </div>
@@ -63,18 +58,9 @@
 <div *ngIf="pageView === 'History'">
   <ngx-agent-fundhistory [userId]="userid" (onPageChange)="onPageChanged($event)">
   </ngx-agent-fundhistory>
-<<<<<<< .mine
-</div>
-
-<!-- <div *ngIf="pageView === 'VB'">
-    <ngx-agent-vb-paid [userid]="userid" (callParent)="callParent($event);">      
-    </ngx-agent-vb-paid>
-</div> -->
-=======
 </div>
 
 <div *ngIf="pageView === 'VB'">
     <ngx-agent-vb-paid [userid]="userid" (callParent)="callParent($event);">      
     </ngx-agent-vb-paid>
 </div>
->>>>>>> .theirs

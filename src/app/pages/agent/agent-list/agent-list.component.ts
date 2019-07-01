@@ -136,19 +136,11 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.dtTrigger.unsubscribe();
   }
 
-<<<<<<< HEAD
   // gotoVB(agentId:number){
   //   debugger;
   //   this.userid = agentId;
   //   this.pageView='VB';
   // }
-=======
-  gotoVB(agentId:number){
-    debugger;
-    this.userid = agentId;
-    this.pageView='VB';
-  }
->>>>>>> remotes/origin/chitra-dev
 
   callParent(event: any) {
     this.pageView = event;

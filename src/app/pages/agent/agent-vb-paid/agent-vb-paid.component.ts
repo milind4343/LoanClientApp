@@ -11,14 +11,14 @@ export class AgentVbPaidComponent implements OnInit {
 
   @Input() userid : number;
   @Output() callParent = new EventEmitter<string>();
-  
+  vb:any={};
   submitted: boolean = false;
 
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
 
-  private vb:any={};
+ 
 
   constructor(private agentservice: AgentService, private toastrService: NbToastrService) { }
 
@@ -28,7 +28,7 @@ export class AgentVbPaidComponent implements OnInit {
   }
 
   getVBDetail(agentId:number){
-    this.agentservice.getAgentVBDetail(agentId).subscribe(res=>{
+    this.agentservice.getAgentVBDetail().subscribe(res=>{
       if(res!=null){
         console.log(res);
         this.vb.paidAmount = res;
