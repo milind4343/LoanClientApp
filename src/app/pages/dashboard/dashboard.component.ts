@@ -79,6 +79,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
             error => {
               //this.handleError.handleExcption(error);
             });
+
+            
         }
 
         this.dashboardservice.getvbtranslist().subscribe(result => {
