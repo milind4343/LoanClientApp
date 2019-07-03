@@ -6,8 +6,7 @@
           <div class="form-group row">
               <label for="amount" class="col-sm-2 col-form-label">VB Amount</label>
               <div class="col-sm-4">
-                  <input type="text" class="form-control" #amount="ngModel" [(ngModel)]="vb.paidAmount" name="amount" placeholder="₱ 10000" >
-                  <!-- [disabled]="true" -->
+                  <input type="text" class="form-control" #amount="ngModel" [(ngModel)]="vb.paidAmount" name="amount" placeholder="₱ 10000" [disabled]="true">
               </div>              
           </div>
         

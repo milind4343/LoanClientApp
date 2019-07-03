@@ -38,6 +38,10 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   preventDuplicates = true;
   pageaccesscontrol:any={};
 
+  selectedAgentname:string;
+  showsearchlbl:boolean=true;
+  searchresult:string="Display Result for Agent: All";
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
   @ViewChild(DataTableDirective)
@@ -159,7 +163,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     });
   }
 
-  onAgentSelect(agentId: number){
+  onAgentSelect(agentId: number,val:any){
     debugger;
     this.rerender();
     this.customerlist = [];
@@ -170,6 +174,12 @@ export class CustomerListComponent implements OnInit, OnDestroy {
         this.dtTrigger.next();
       }
     });
+    this.showsearchlbl=true;
+    if(+agentId!=+("0"))
+    {
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+    }
+    this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }
 
 

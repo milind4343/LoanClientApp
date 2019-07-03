@@ -1,27 +1,35 @@
-import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Inject ,AfterViewChecked } from '@angular/core';
 import { NbLoginComponent, NbAuthService, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { LoaderService } from '../../commonServices/loader.service';
 import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 
-
 @ Component({
   selector: 'ngx-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent extends NbLoginComponent implements OnInit {
+export class LoginComponent extends NbLoginComponent implements OnInit , AfterViewChecked {
 
   //authService: any;
+  loginCounter:number=0;
   user: any = {};
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
 
   constructor(private authService: AuthService, service: NbAuthService, @Inject(NB_AUTH_OPTIONS) protected options = {}, cd: ChangeDetectorRef, 
-  router: Router, public loader: LoaderService, private toastrService : NbToastrService,) {
+  router: Router, public loader: LoaderService, private toastrService : NbToastrService) {
     super(service, options, cd, router);
+  }
+
+  ngAfterViewChecked() {
+    if(this.loginCounter == 0) {
+        let nbCard =  (<HTMLCollection>document.getElementsByTagName("nb-card"));
+        nbCard[0].setAttribute("class","login_page");
+        this.loginCounter = 1;
+    }
   }
 
   ngOnInit() {

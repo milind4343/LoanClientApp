@@ -12,11 +12,13 @@
           <div class="col-sm-4">
             <label for="agent">Agent</label>
             <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
-            name="agent" (change)="onAgentSelect(agentId)">              
+            name="agent" (change)="onAgentSelect(agentId,this)">              
               <option value="0">- - Choose Agent - -</option>
               <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
+            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;">{{searchresult}}</h5>
           </div>
+         
         </div>
         <div *ngIf="pageView === 'List'">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -47,11 +49,11 @@
                     title="Edit Customer">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                   </button>
-                  <button class="icon-btn" *ngIf="pageaccesscontrol.isview" [disabled]="!cust.isActive"
+                  <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isview" [disabled]="!cust.isActive"
                   style="cursor: pointer;" (click)="cust.isActive ? loanhistory(cust.userID) : ''"
                   title="Edit Customer">
                   <i class="fa fa-edit" aria-hidden="true"></i>
-                </button>
+                  </button> -->
 
                   <button class="icon-btn" *ngIf="!pageaccesscontrol.isedit" [disabled]="!cust.isActive"
                     style="cursor: pointer;" (click)="cust.isActive ? editCustomer(cust.userID) : ''"

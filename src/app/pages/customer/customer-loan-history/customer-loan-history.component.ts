@@ -23,6 +23,11 @@ export class CustomerLoanHistoryComponent implements OnInit {
   roleId: number;
   agentlist : Agent[] = [];
   agentId: string;
+
+
+  selectedAgentname:string;
+  showsearchlbl:boolean=true;
+  searchresult:string="Display Result for Agent: All";
   
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
@@ -72,7 +77,7 @@ export class CustomerLoanHistoryComponent implements OnInit {
     this.ngOnInit();
   }
 
-  onAgentSelect(agentId: number){
+  onAgentSelect(agentId: number,val:any){
     debugger;
     this.rerender();
     this.loanhstorylist = [];
@@ -82,6 +87,13 @@ export class CustomerLoanHistoryComponent implements OnInit {
         this.dtTrigger.next();
       }
     });
+
+    this.showsearchlbl=true;
+    if(+agentId!=+("0"))
+    {
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+    }
+    this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }
 
   rerender(): void {

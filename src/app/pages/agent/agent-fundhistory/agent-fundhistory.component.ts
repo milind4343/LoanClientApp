@@ -39,6 +39,10 @@ export class AgentFundhistoryComponent implements OnInit {
   agentlist : Agent[] = [];
   agentId: string;
 
+  selectedAgentname:string;
+  showsearchlbl:boolean=true;
+  searchresult:string="Display Result for Agent: All";
+
   constructor(private router : Router, private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService,private pageAccessService: PageAccessService,private authservice:AuthenticationService) { }
 
   ngOnInit(): void {
@@ -119,7 +123,7 @@ getAllAgents(){
       });
   }
 
-  onAgentSelect(agentId){
+  onAgentSelect(agentId,val:any){
     debugger;
     agentId=+agentId;
     this.rerender();
@@ -130,6 +134,13 @@ getAllAgents(){
         this.dtTrigger.next();
       }
     });
+
+    this.showsearchlbl=true;
+    if(+agentId!=+("0"))
+    {
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+    }
+    this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }
 
   backtoagentlist()

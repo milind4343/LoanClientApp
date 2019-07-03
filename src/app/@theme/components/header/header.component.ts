@@ -16,6 +16,7 @@ export class HeaderComponent implements OnInit {
 
   profilename: any;
   profileImage:any;
+  userRole:string;
   userMenu = [{ title: 'Profile' }, { title: 'Log out' }];
 
   constructor(private sidebarService: NbSidebarService,
@@ -28,9 +29,11 @@ export class HeaderComponent implements OnInit {
     // this.userService.getUsers()
     //   .subscribe((users: any) => this.user = users.nick);
    
-    this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {      
+    this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {     
+      debugger; 
       this.profileImage = result.profileImageURL==null ? "assets/images/user-placeholder.png" :result.profileImageURL; 
       this.profilename = result.firstname +' '+ result.middlename+' '+result.lastname;
+      this.userRole=(result.roleId==1)?"Welcome Admin":((result.roleId==2)?"Welcome Agent":"Welcome Customer");
     },error => {  
         this.exceptionHandler.handleExcption(error);
     })
