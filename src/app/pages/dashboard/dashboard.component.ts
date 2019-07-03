@@ -121,12 +121,21 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getChartData(req:any){
+    debugger;
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
     this.showsearchlbl=true;
-    this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
-    if(this.selectedAgentname==undefined)
+    
+    if(this.selectedAgentname==undefined && this.roleId ==2)
+    {
+      this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear();
+    }
+    else if(this.roleId ==1)
+    {
+      this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
+    }
+    else
     {
       this.showsearchlbl=false;
     }
@@ -148,12 +157,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
     {
       this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
       this.showsearchlbl=true;
-  }
+    }
     else
     {
       this.selectedAgentname=undefined;
-    }
-
-}
+    }   
+  }
 
 }
