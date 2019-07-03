@@ -30,6 +30,7 @@
                 <th>Gender</th>
                 <th>Email</th>
                 <th>Contact</th>
+                <th style="text-align: center">Active/Deactive</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -41,7 +42,9 @@
                 <td>{{cust.gender}}</td>
                 <td>{{cust.emailId}}</td>
                 <td>{{cust.mobile}}</td>
-                <td>
+                <td style="text-align: center"><ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
+                  (change)="onSwitchChange(cust)"></ui-switch></td>
+                <td>  <!-- color="#73a1ff" -->
 
                   <!-- <i class="fa fa-trash" aria-hidden="true" title="Delete Role"></i> -->
                   <button class="icon-btn" *ngIf="pageaccesscontrol.isedit" [disabled]="!cust.isActive"
@@ -66,11 +69,7 @@
                   </button>
                   <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? loanHistory(cust.userID) : ''" title="Loan History">
                         <i class="fa fa-history" title="Loan History"></i>
-                    </button> -->
-                  <span style="margin-left:5px;">
-                    <ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
-                      color="#73a1ff" (change)="onSwitchChange(cust)"></ui-switch>
-                  </span>
+                    </button> -->                  
                 </td>
               </tr>
             </tbody>

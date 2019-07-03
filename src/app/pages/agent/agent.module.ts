@@ -8,7 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ListAgentComponent } from './agent-list/agent-list.component';
 import { DataTablesModule } from 'angular-datatables';
-import { UiSwitchModule } from 'ngx-toggle-switch';
+import { UiSwitchModule } from 'ngx-ui-switch';
 import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
 import { AgentVbPaidComponent } from './agent-vb-paid/agent-vb-paid.component';
 

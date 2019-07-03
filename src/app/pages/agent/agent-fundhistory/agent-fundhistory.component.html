@@ -25,23 +25,25 @@
         
         
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
-          <thead>
+          <thead style="text-align: center">
             <tr>
               <th>Fund Amount</th>
               <th>Remark</th>
               <th>Deposit Date</th>
-              <th>Deposit by</th>
-              <th>Is Receive</th>
+              <th>Deposited by</th>
+              <th>Is Received</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody style="text-align: center">
             <tr *ngFor="let fund of fundHistorylist">
               <td><span>₽</span>{{fund.fundamount}}</td>
               <td>{{fund.remark}}</td>
-              <td> {{fund.createddate | date:'dd-MM-yyyy hh:mm'}}</td>
+              <td>{{fund.createddate | date:'dd-MM-yyyy hh:mm'}}</td>
               <td>{{fund.depositby}}</td>
               <td>
-                <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status"
+                <span><i class="fa fa-check fa-lg" aria-hidden="true" title="" *ngIf="fund.isreceive && IsAgent===false"></i></span>
+                <span><i class="fa fa-times fa-lg" aria-hidden="true" title="" *ngIf="fund.isreceive===false && IsAgent === false"></i></span>
+                <ui-switch size="small" *ngIf="IsAgent" name="activeTog" #activeTog="ngModel" title="Status"
                   [ngModelOptions]="{standalone: true}" [(ngModel)]="fund.isreceive" (change)="isreceive(fund)"
                   [disabled]="(fund.isreceive) || pageaccesscontrol.isedit"></ui-switch>
               </td>
