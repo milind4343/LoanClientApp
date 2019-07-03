@@ -33,7 +33,7 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
           this.data = {
             labels: ['2006', '2007'],
             datasets: [{
-              data: [65, 59],
+              data: [65, 59],              
               label: 'Series A',
               backgroundColor: NbColorHelper.hexToRgbA(colors.primaryLight, 0.8),
             }, {
@@ -68,6 +68,11 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
                   ticks: {
                     fontColor: chartjs.textColor,
                   },
+                //   barThickness: 50,  // number (pixels) or 'flex'
+                // maxBarThickness: 50 // number (pixels)
+                barPercentage: 1,
+                categoryPercentage: 0.3,
+                maxBarThickness: 50
                 },
               ],
               yAxes: [
@@ -85,7 +90,7 @@ export class ChartjsBarComponent implements OnInit, OnDestroy {
                   },
                 },
               ],
-            },
+            }
           };
         });
   }

@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       pagingType: 'full_numbers',
       pageLength: 10,
     };
+
   }
 
   ngOnDestroy() {

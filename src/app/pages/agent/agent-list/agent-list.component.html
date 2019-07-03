@@ -30,7 +30,8 @@
                 <td><span>₽</span> {{cust.walletamount}}</td>
                 <td>{{cust.emailId}}</td>
                 <td>{{cust.mobile}}</td>
-                <td>
+                <td>                   
+                    
                   <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status"
                     [ngModelOptions]="{standalone: true}" [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)">
                   </ui-switch>

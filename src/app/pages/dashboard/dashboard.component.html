@@ -1,16 +1,8 @@
 <h2 *ngIf="roleId == 1">Welcome to Loan Management System</h2>
 
 <div class="row">
- <!--   <div class="col-lg-6" *ngIf='res'>      *ngIf="res!==undefined" 
-        <nb-card>
-          <nb-card-header>Bar</nb-card-header>
-          <nb-card-body>
-            <ngx-chartjs-bar [res]="res"></ngx-chartjs-bar>
-          </nb-card-body>
-        </nb-card>        
-</div> -->
 
-<div class="col-lg-6">
+  <div class="col-lg-6">
     <nb-card>
         <!-- <nb-card-header>Bar</nb-card-header> -->
             <nb-card-body>
@@ -30,7 +22,7 @@
                                 <label for="startDate">From Date</label>
                                 <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
                                   #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
-                                <nb-datepicker #startdate [min]="min"></nb-datepicker>
+                                <nb-datepicker #startdate></nb-datepicker>
                               </div>                           
                         </div>
                       </div>
@@ -60,9 +52,10 @@
                 <h5 class="text-danger" *ngIf="showlbl">No Data Found !</h5>
                 <div class="col-lg-12" *ngIf='res'>
                   <ngx-chartjs [child1]="res"></ngx-chartjs>                  
-                </div>              
+                </div>         
             </nb-card-body>
     </nb-card>        
+</div>
 </div>
 
 <div class="col-lg-6" *ngIf="pageView === 'List' && roleId!=1">
