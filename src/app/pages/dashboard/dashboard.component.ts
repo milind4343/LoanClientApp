@@ -43,16 +43,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
     private customerservice: CustomerService, private dateService: NbDateService<Date>) {
-    
-    //debugger;
+
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
     };
-
-    // this.chartData.toDate = "2019-06-27";
-    // this.chartData.fromDate = "2019-06-15";
-    // this.chartData.agentId = "2";
   }
 
   ngOnDestroy() {
@@ -82,7 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
             
         }
-
+        
         this.dashboardservice.getvbtranslist().subscribe(result => {
           debugger;
            this.vbtansferlist=result;
@@ -91,8 +86,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           error => {
             console.log(error);
             //this.handleError.handleExcption(error);
-        });
-       
+        });       
       }
     });
   }
@@ -108,6 +102,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dtTriggerVB =  new Subject();
     this.pageView = event;
     this.dtTrigger = new Subject();
+    this.dtTriggerVB =  new Subject();
     this.ngOnInit();
   }
 
@@ -118,7 +113,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getAllAgents(){
     this.customerservice.getAgent().subscribe(res=>{
       if(res !== null){
-        debugger;
         this.agentlist = res;
         this.agentId= '0';
       }
@@ -126,25 +120,32 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getChartData(req:any){
+    debugger;
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
     this.showsearchlbl=true;
-    this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
-    if(this.selectedAgentname==undefined)
+    
+    if(this.selectedAgentname==undefined && this.roleId ==2)
+    {
+      this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear();
+    }
+    else if(this.roleId ==1)
+    {
+      this.searchresult="Display Result from: "+req.fromDate.getDate()+"-"+(req.fromDate.getMonth()+(1))+"-"+req.fromDate.getFullYear()+" to: "+req.toDate.getDate()+"-"+(req.toDate.getMonth()+(1))+"-"+req.toDate.getFullYear()+" "+ ((this.selectedAgentname==undefined)?'':(" for agent : " +this.selectedAgentname));
+    }
+    else
     {
       this.showsearchlbl=false;
     }
     this.dashboardservice.getChartData(req).subscribe(res=>{
-      debugger;
       if(res.length > 0){        
         this.res = res;
       }
       else
       {        
         this.showlbl = true;
-      }
-      
+      }      
     });
   }
 
