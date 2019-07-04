@@ -24,7 +24,6 @@ export class CustomerLoanHistoryComponent implements OnInit {
   agentlist : Agent[] = [];
   agentId: string;
 
-
   selectedAgentname:string;
   showsearchlbl:boolean=true;
   searchresult:string="Display Result for Agent: All";
@@ -51,7 +50,6 @@ export class CustomerLoanHistoryComponent implements OnInit {
       pagingType: 'full_numbers'
     };
     this.customerservice.getCustomerLoan(this.editUserID).subscribe(result => {
-      debugger;
       this.loanhstorylist = result;
       this.dtTrigger.next();
     },
@@ -78,7 +76,6 @@ export class CustomerLoanHistoryComponent implements OnInit {
   }
 
   onAgentSelect(agentId: number,val:any){
-    debugger;
     this.rerender();
     this.loanhstorylist = [];
     this.customerservice.getCustomerLoan(agentId).subscribe(res=>{

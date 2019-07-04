@@ -14,7 +14,14 @@ import { CustomerInstalmentHistoryComponent } from './customer-instalment-histor
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent,CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
+  declarations: [
+    CustomerListComponent, 
+    CustomerComponent, 
+    CustomerAddComponent, 
+    CustomerLoanAddComponent,
+    CustomerLoanHistoryComponent, 
+    CustomerInstalmentHistoryComponent
+  ],
   imports: [
     CommonModule,
     CustomerRoutingModule,
