@@ -28,7 +28,13 @@ import { PageAccessService } from './commonServices/getpageaccess.service';
 import { DialogNamePromptComponent } from '../app/pages/dialog-name-prompt/dialog-name-prompt.component';
 
 @NgModule({
-  declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent,DialogNamePromptComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    DialogNamePromptComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -49,7 +55,7 @@ import { DialogNamePromptComponent } from '../app/pages/dialog-name-prompt/dialo
     ExceptionHandler,
     PageAccessService
   ],
-  entryComponents:[
+  entryComponents: [
     DialogNamePromptComponent
   ]
 })

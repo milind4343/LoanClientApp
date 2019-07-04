@@ -11,17 +11,25 @@ import { DataTablesModule } from 'angular-datatables';
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
 import { AgentVbPaidComponent } from './agent-vb-paid/agent-vb-paid.component';
-
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent, ListAgentComponent, AgentFundhistoryComponent, AgentVbPaidComponent],
+  declarations: [
+    AgentComponent,
+    AgentdashboardComponent,
+    RegistrationComponent,
+    ListAgentComponent,
+    AgentFundhistoryComponent,
+    AgentVbPaidComponent,
+  ],
   imports: [
     CommonModule,
     AgentRoutingModule,
     NgbModule,
     ThemeModule,
     DataTablesModule,
-    UiSwitchModule
+    UiSwitchModule,
+    SharedModule
   ],
 })
 export class AgentModule { }

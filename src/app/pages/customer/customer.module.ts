@@ -11,6 +11,7 @@ import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.
 import { UiSwitchModule } from 'ngx-ui-switch';
 import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
 import { CustomerInstalmentHistoryComponent } from './customer-instalment-history/customer-instalment-history.component';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   declarations: [CustomerListComponent, CustomerComponent, CustomerAddComponent, CustomerLoanAddComponent,CustomerLoanHistoryComponent, CustomerInstalmentHistoryComponent],
@@ -20,7 +21,8 @@ import { CustomerInstalmentHistoryComponent } from './customer-instalment-histor
     ThemeModule,
     Ng2SmartTableModule,
     DataTablesModule,
-    UiSwitchModule
+    UiSwitchModule,
+    SharedModule
   ]
 })
 export class CustomerModule { }
