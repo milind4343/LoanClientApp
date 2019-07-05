@@ -1,0 +1,141 @@
+<form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    
+   <input type="hidden" formControlName="userId">
+  <div class="row">
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputFirstname" class="" class="col-form-label">FirstName</label>
+           <input type="text" formControlName="firstname" 
+          class="form-control" placeholder="FirstName" maxlength="50" >
+          <p class="error-message" *ngIf="registerForm.controls.firstname.errors?.required && submitted">Required!</p>
+        </div>
+      </div>
+       <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputMiddlename" class="col-form-label">MiddleName</label>
+          <input type="text"  formControlName="middlename" 
+            class="form-control" placeholder="MiddleName" maxlength="50">
+            <p class="error-message" *ngIf="registerForm.controls.middlename.errors?.required && submitted">Required!
+              </p>
+        </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputLastname" class="col-form-label">LastName</label>
+          <input type="text"   class="form-control"
+             maxlength="50" placeholder="LastName" formControlName="lastname">
+             <p class="error-message" *ngIf="registerForm.controls.lastname.errors?.required && submitted">Required!
+              </p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <label class="col-sm-1">Gender</label>
+      <div class="col-sm-3">
+        <nb-radio-group name="Gender" formControlName="gender">
+          <nb-radio [value]="'Male'">
+            Male
+          </nb-radio>
+          <nb-radio [value]="'Female'">
+            Female
+          </nb-radio>
+        </nb-radio-group>
+      </div>
+      <div class="col-sm-3">
+        <div class="form-group">
+          <label for="inputBirthDate" class="col-form-label">BirthDate</label>
+          <input nbInput placeholder="BirthDate" [nbDatepicker]="picker" formControlName="dob" [readonly]="true">
+          <nb-datepicker #picker [max]="max"></nb-datepicker>
+          <!-- <p class="error-message" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
+        </div>
+      </div>
+  
+      <div class="col-sm-4">
+        <div class="form-group">
+          <label for="inputEmail" class="col-form-label">Email</label>
+          <input type="email" class="form-control" placeholder="Email" maxlength="125" formControlName="emailId">
+          <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.required && submitted">Required!</p>
+          <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.email && submitted">Email not valid!</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+          <label for="inputContact" class="col-form-label">New Password</label>
+          <input type="text" class="form-control"  placeholder="New Password"
+              id="password" formControlName="password" maxlength="25">
+              <p class="error-message" *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty">Passwrod not matched.!</p>
+        </div>
+    
+        <div class="col-sm-4">
+            <label for="inputContact" class="col-form-label">Confirm Password</label>
+            <input type="text" class="form-control" placeholder="Confirm Password"
+                formControlName="confirmPassword" maxlength="25">
+             <p class="error-message" *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty">Passwrod not matched.!</p>
+        </div>
+      </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="inputContact" class="col-form-label">Contact No</label>
+        <input type="ContactNo" class="form-control" placeholder="Contact No"
+           pattern="[0-9]*" maxlength="25" formControlName="mobile">
+           <p class="error-message" *ngIf="registerForm.controls.mobile.errors?.required && submitted">Required!</p>
+      </div>
+  
+      <div class="col-sm-4">
+        <label for="inputAlternate" class="col-form-label">Alternate No</label>
+        <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" 
+            maxlength="25" formControlName="phone">
+            <p class="error-message" *ngIf="registerForm.controls.phone.errors?.required && submitted">Required!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label for="inputAddress" class="col-form-label">Address</label>
+        <textarea rows="5" nbInput fullWidth shape="round" placeholder="Address" 
+         maxlength="500" formControlName="address"></textarea>
+         <p class="error-message" *ngIf="registerForm.controls.address.errors?.required && submitted">Required!</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <label class="col-sm-2">State</label>
+        <select class="form-control" (change)="onStateSelect($event.target.value)" formControlName="stateId">
+          <option *ngFor="let stateval of state" value="{{stateval.id}}">
+            {{stateval.name}}
+          </option>
+        </select>
+        <p class="error-message" *ngIf="registerForm.controls.stateId.errors?.required && submitted">Required!</p>
+      </div>
+  
+      <div class="col-sm-4">
+        <label class="col-sm-2">City</label>
+        <select class="form-control" (change)="onCitySelect($event.target.value)" formControlName="cityId" 
+           >
+          <option *ngFor="let cityval of city" value="{{cityval.id}}">
+            {{cityval.name}}
+          </option>
+        </select>
+        <p class="error-message" *ngIf="registerForm.controls.cityId.errors?.required && submitted">Required!</p>
+      </div>
+  
+      <div class="col-sm-4">
+        <label class="col-sm-4">PIN Code</label>
+        <select class="form-control"  name="zipCode"  formControlName="zipcode"  
+          >
+          <option *ngFor="let areaval of area" value="{{areaval.id}}">
+            {{areaval.name}}
+          </option>
+        </select>
+        <p class="error-message" *ngIf="registerForm.controls.zipcode.errors?.required && submitted">Required!</p>
+      </div>
+  
+      
+    </div>
+    <div class="offset-sm-3 col-sm-9" style="margin-top: 10px">
+        <button type="submit" class="btn btn-primary">Update</button>
+        <!-- <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancle</button> -->
+      </div>
+  </form>
+  
+  

@@ -41,12 +41,16 @@ export class RegistrationComponent {
     }).catch(err => {
       console.log(err);
     })
-
-    if (this.userId > 0 || this.userId == undefined) {
-      this.agentService.editAgent(this.userId).subscribe(result => {
-        this.onStateSelect(result.stateId);
-        this.onCitySelect(result.cityId);
-        this.user = result;
+    
+    debugger;
+    if(this.userId>0 || this.userId==undefined){
+      this.agentService.editAgent(this.userId).subscribe(result =>{
+      debugger;
+      this.onStateSelect(result.stateId);
+      this.onCitySelect(result.cityId);
+      debugger;
+      this.user = result;
+      this.user.dob=new Date(result.dob);
       });
     }
     else {

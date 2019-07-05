@@ -4,6 +4,9 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AgentRoutingModule } from './agent/agent-routing.module';
+import { AgentComponent } from './agent/agent.component';
 
 
 const routes: Routes = [{
@@ -26,10 +29,10 @@ const routes: Routes = [{
     path: 'customer',
     loadChildren: './customer/customer.module#CustomerModule',
   },
-  // {
-  //   path: 'charts',
-  //   loadChildren: './charts/charts.module#ChartsModule',
-  // },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+  },
   {
     path: '',
     redirectTo: 'dashboard',

@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  
-
   constructor(public loader:LoaderService, private menuService: NbMenuService, private route: Router) {
     this.menuService.onItemClick()
     .subscribe((event) => {
@@ -38,6 +36,14 @@ export class AppComponent implements OnInit {
         this.loader.loader = false;
       },500);
      
+    }
+    else if(title=="Profile")
+    {
+      this.loader.loader = true;
+      setTimeout(()=>{
+        this.route.navigate(['pages/profile']);
+        this.loader.loader = false;
+      },500);
     }
 
   }

@@ -26,9 +26,12 @@ export class LoginComponent extends NbLoginComponent implements OnInit , AfterVi
 
   ngAfterViewChecked() {
     if(this.loginCounter == 0) {
-        let nbCard =  (<HTMLCollection>document.getElementsByTagName("nb-card"));
-        nbCard[0].setAttribute("class","login_page");
+        // let nbCard =  (<HTMLCollection>document.getElementsByTagName("nb-card"));
+        let bodyelem =  (<HTMLCollection>document.getElementsByTagName("body"));
+        bodyelem[0].classList.add("login_page");
+        // nbCard[0].setAttribute("class","login_page");
         this.loginCounter = 1;
+        debugger;
     }
   }
 

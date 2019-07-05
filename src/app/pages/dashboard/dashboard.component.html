@@ -6,6 +6,19 @@
     <nb-card>
         <!-- <nb-card-header>Bar</nb-card-header> -->
             <nb-card-body>
+                <div class="row" *ngIf="roleId==2" style="margin:0 5% 0 15%;">
+                  <div class="alert alert-vb col-md-3" style="text-align: center" role="alert">
+                    <strong>VB Balance </strong><br> <span>₱ {{agentvb}} </span>
+                  </div>
+                  <div class="alert alert-lb col-md-3" style="text-align: center"  role="alert">
+                      <strong>LB Balance </strong> <br><span>₱ {{agentlb}}</span>
+                    </div>
+                    <div class="alert alert-bb col-md-3" style="text-align: center"  role="alert">
+                        <strong>BB Balance </strong> <br><span>₱ {{agentbb}}</span>
+                  </div>
+                </div>
+                <br>
+
                 <form class="form-horizontal" #form="ngForm" aria-labelledby="title" novalidate (ngSubmit)="submitted=true">
                 <div class="row">
                     <div class="col-sm-4" *ngIf="roleId === 1">
@@ -21,7 +34,7 @@
                             <div class="form-group">
                                 <label for="startDate">From Date</label>
                                 <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
-                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
+                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate" [readonly]="true">
                                 <nb-datepicker #startdate></nb-datepicker>
                               </div>                           
                         </div>
@@ -44,10 +57,13 @@
                             <i class="fa fa-search"></i>
                           </button>
                         </div>
+
                       </div>
+
+                  </div>
+                  <div class="row">
                       <h5 *ngIf="showsearchlbl" style="color: rebeccapurple">{{searchresult}}</h5>
                   </div>
-
                 </form>
             
                 <h5 class="text-danger" *ngIf="showlbl">No Data Found !</h5>

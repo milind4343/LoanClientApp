@@ -51,7 +51,7 @@
         <label for="input-birthdate">Birthdate</label>
         <input id="input-initialdate" nbInput class="form-control" placeholder="Birthdate" name="Birthdate"
           [(ngModel)]="customer.dob" [nbDatepicker]="formpicker">
-        <nb-datepicker #formpicker></nb-datepicker>
+        <nb-datepicker #formpicker [max]="max"></nb-datepicker>
       </div>
     </div>
     <div class="col-sm-4">

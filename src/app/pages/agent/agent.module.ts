@@ -13,6 +13,7 @@ import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory
 import { AgentVbPaidComponent } from './agent-vb-paid/agent-vb-paid.component';
 import { SharedModule } from '../../shared/shared.module';
 
+
 @NgModule({
   declarations: [
     AgentComponent,

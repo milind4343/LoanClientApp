@@ -30,7 +30,15 @@ export class AgentService {
     .map(res => res.json())
       .toPromise();
   }
-
+  
+  updateprofile(model:any){
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
+  
+     return this.http.post(this.agentUrl+'/profile',JSON.stringify(model),{ headers: this.headers })
+     .map(res => res.json())
+       .toPromise();
+   }
   getState(){
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
@@ -128,4 +136,15 @@ export class AgentService {
     return this.httpclient.post(this.agentUrl + '/paidVB', JSON.stringify(vb), {headers: this.headerClient})
   }
 
+  editProfile(){
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
+    return this.http.get(this.agentUrl + '/editprofile',{ headers: this.headers }).map(res=>res.json());
+  }
+
+  checkEmailNotTaken(email:string){
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
+    return this.http.get(this.agentUrl + '/checkEmailNotTaken'+email,{ headers: this.headers }).map(res=>res.json());
+  }
 }

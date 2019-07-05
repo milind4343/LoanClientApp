@@ -38,13 +38,14 @@ export class CustomerAddComponent implements OnInit {
   hasIcon = true;
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
-
+  max: Date;
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
     private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {
       
       debugger;
       console.log(this.editUserID);
       this.imgUrl = "assets/images/user-placeholder.png";
+      this.max = new Date();
   }
 
   ngOnInit() {
@@ -63,7 +64,8 @@ export class CustomerAddComponent implements OnInit {
   
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
-      this.customer = result[0];      
+      this.customer = result[0];  
+      this.customer.dob=new Date(result[0].dob);    
       debugger;
       if(result[0].profileImageURL != null){
         this.imgUrl = result[0].profileImageURL;
