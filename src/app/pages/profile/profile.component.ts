@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { Router } from '@angular/router';
 import { AgentService } from '../agent/agent.service';
-import { equalValueValidator } from './equal-value-validator';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { PasswordValidation } from './PasswordValidation';
-import { startWith, pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'ngx-profile',
@@ -29,9 +26,8 @@ passwordvalid:boolean=true;
   };
   iscomparepassword:boolean=true;
 
-  constructor(private agentService: AgentService,router: Router,private toastrService: NbToastrService,private fb: FormBuilder) { 
-    this.max = new Date();
-    
+  constructor(private agentService: AgentService, private toastrService: NbToastrService,private fb: FormBuilder) { 
+    this.max = new Date();    
   }
 
   createFormGroup() {

@@ -4,7 +4,6 @@ import { AnalyticsService } from '../../../@core/utils';
 import { LayoutService } from '../../../@core/utils';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { ExceptionHandler } from '../../../commonServices/exceptionhandler.service';
-import {Router} from "@angular/router"
 
 @Component({
   selector: 'ngx-header',
@@ -23,7 +22,6 @@ export class HeaderComponent implements OnInit {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private analyticsService: AnalyticsService,
-              private router: Router,
               private layoutService: LayoutService,private authenticationService:AuthenticationService,private exceptionHandler:ExceptionHandler) {
   }
 
