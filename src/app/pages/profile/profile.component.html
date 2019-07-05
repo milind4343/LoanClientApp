@@ -1,4 +1,4 @@
-<form class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="form-horizontal" *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     
    <input type="hidden" formControlName="userId">
   <div class="row">
@@ -53,9 +53,9 @@
       <div class="col-sm-4">
         <div class="form-group">
           <label for="inputEmail" class="col-form-label">Email</label>
-          <input type="email" class="form-control" placeholder="Email" maxlength="125" formControlName="emailId">
+          <input type="email" class="form-control" placeholder="Email"  maxlength="125" formControlName="emailId">
           <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.required && submitted">Required!</p>
-          <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.email && submitted">Email not valid!</p>
+           <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.emailExists && registerForm.controls.emailId?.touched && registerForm.controls.emailId?.dirty">EmailId already exist !</p>
         </div>
       </div>
     </div>

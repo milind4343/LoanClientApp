@@ -5,7 +5,8 @@ import { AgentService } from '../agent/agent.service';
 import { equalValueValidator } from './equal-value-validator';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { PasswordValidation } from './PasswordValidation';
-import { startWith, pairwise } from 'rxjs/operators';
+import { UserValidators } from './validator/user.validator';
+import { control } from 'leaflet';
 
 @Component({
   selector: 'ngx-profile',
@@ -16,7 +17,7 @@ export class ProfileComponent implements OnInit {
   // registrationForm: FormGroup;
   registerForm: FormGroup;
   
-passwordvalid:boolean=true;
+  passwordvalid:boolean=true;
   user: any = {};
   state: any=[];
   city: any=[];
@@ -29,32 +30,23 @@ passwordvalid:boolean=true;
   };
   iscomparepassword:boolean=true;
 
-  constructor(private agentService: AgentService,router: Router,private toastrService: NbToastrService,private fb: FormBuilder) { 
+  constructor(private agentService: AgentService,router: Router,private toastrService: NbToastrService,private fb: FormBuilder,private service: UserValidators) { 
     this.max = new Date();
-    
-  }
-
-  createFormGroup() {
-    return new FormGroup({
-      firstname: new FormControl(),
-      middlename: new FormControl(),
-      lastname: new FormControl(),
-      dob: new FormControl(),
-      emailId: new FormControl(),
-      password: new FormControl(),
-      confirmPassword: new FormControl(),
-      mobile:new FormControl(),
-      phone:new FormControl(),
-      address:new FormControl(),
-      stateId:new FormControl(),
-      cityId:new FormControl(),
-      zipcode:new FormControl(),
-      gender:new FormControl(),
-      userId:new FormControl(),
-      roleid:new FormControl(),
+    this.agentService.editProfile().subscribe(result =>{
+      this.createForm(result)
+      //this.registerForm = this.createFormGroup();
+      //this.createFormGroup(result);
+      this.onStateSelect(result.stateId);
+      this.onCitySelect(result.cityId);
+      //this.user = result;
+      // this.registerForm.controls.firstname.setValue(result.firstname);
+      // this.registerForm.controls.lastname.setValue(result.lastname);
+      // this.registerForm.controls.middlename.setValue(result.middlename);
+      //this.user.dob=new Date(result.dob);
+      //this.user.password="";
     });
   }
- 
+
   
   ngOnInit() {
     this.state=[];
@@ -70,22 +62,9 @@ passwordvalid:boolean=true;
       console.log(err);
     })
 
-    this.agentService.editProfile().subscribe(result =>{
-      debugger;
-     
-      this.createForm(result)
-      //this.registerForm = this.createFormGroup();
-      //this.createFormGroup(result);
-      this.onStateSelect(result.stateId);
-      this.onCitySelect(result.cityId);
-      //this.user = result;
-      // this.registerForm.controls.firstname.setValue(result.firstname);
-      // this.registerForm.controls.lastname.setValue(result.lastname);
-      // this.registerForm.controls.middlename.setValue(result.middlename);
-      //this.user.dob=new Date(result.dob);
-      //this.user.password="";
-    });
+    
   }
+
   createForm(user)
   {
     this.registerForm = this.fb.group({
@@ -93,7 +72,7 @@ passwordvalid:boolean=true;
       middlename: [user.middlename, Validators.required],
       lastname: [user.lastname, Validators.required],
       dob: [new Date(user.dob), Validators.required],
-      emailId: [user.emailId, [Validators.required, Validators.email]],
+      emailId: [user.emailId, [Validators.required, Validators.email],[this.service.userValidator(user.userId)]],
       password: [''],
       confirmPassword: [''],
       mobile:[user.mobile,Validators.required],
@@ -105,15 +84,12 @@ passwordvalid:boolean=true;
       gender:[user.gender,Validators.required],
       userId:[user.userId],
       roleid:[user.roleid],
-    
-      //password: ['', [Validators.required, Validators.minLength(6)]],
   },
   {
     validator: PasswordValidation.MatchPassword // your validation method
-});
-   
-  }
-  
+  });
+}
+
   get f() {
     debugger;
     return this.registerForm.controls; 
@@ -128,9 +104,11 @@ passwordvalid:boolean=true;
         if (result != null) {
           if(this.user.userId>0)
           {
+            this.registerForm.reset();
             this.toastrService.success('Profile update success !','Success',this.config);
           }
           else{
+            this.registerForm.reset();
             this.toastrService.success('Profile update success !','Success',this.config);
           }
         }
