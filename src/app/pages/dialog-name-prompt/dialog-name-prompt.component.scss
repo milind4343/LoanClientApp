@@ -29,5 +29,10 @@
 
  nb-card{
   background: #fff !important;
-  width:  106%
+  width: 300px;
+  text-align: center;
+}
+ 
+nb-card-header{
+  border-bottom: 1px solid #ddd;
 }

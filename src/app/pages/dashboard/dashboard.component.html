@@ -34,7 +34,7 @@
                             <div class="form-group">
                                 <label for="startDate">From Date</label>
                                 <input id="startDate" class="form-control" nbInput placeholder="From Date" [nbDatepicker]="startdate"
-                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate">
+                                  #startDate [(ngModel)]="balance.fromDate" (ngModelChange)="changeenddate($event)" name="startDate" [readonly]="true">
                                 <nb-datepicker #startdate></nb-datepicker>
                               </div>                           
                         </div>
