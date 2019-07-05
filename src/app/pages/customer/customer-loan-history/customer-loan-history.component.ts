@@ -17,7 +17,7 @@ export class CustomerLoanHistoryComponent implements OnInit {
   pageView: string = "List";
   editloanID: number;
   clientname:string;
-  editUserID:number;
+  editUserID:number = 0;
   pageaccesscontrol:any = {};
   loanhstorylist:any = [];
   roleId: number;
