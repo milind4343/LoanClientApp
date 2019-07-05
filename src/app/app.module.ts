@@ -29,7 +29,13 @@ import { DialogNamePromptComponent } from '../app/pages/dialog-name-prompt/dialo
 
 
 @NgModule({
-  declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent,DialogNamePromptComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    ForgotPasswordComponent,
+    ResetPasswordComponent,
+    DialogNamePromptComponent,
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -50,7 +56,7 @@ import { DialogNamePromptComponent } from '../app/pages/dialog-name-prompt/dialo
     ExceptionHandler,
     PageAccessService
   ],
-  entryComponents:[
+  entryComponents: [
     DialogNamePromptComponent
   ]
 })

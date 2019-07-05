@@ -27,7 +27,7 @@
     <div class="col-sm-3">
       <div class="form-group">
         <!-- <input type="text" [(ngModel)]="customer.profile" name="profile" id="input-profile"> -->
-        <input style="display: none" type="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
+        <input style="display: none" type="file" name="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
           (change)="fileProgress(fileInput.files)"> <!-- (change)="onFileChanged($event)" -->
         <a (click)="fileInput.click()">
           <img [src]="imgUrl" style="height: 150px;" 
@@ -73,8 +73,9 @@
       <div class="form-group">
         <label for="input-email">Email</label>
         <span class="text-danger" *ngIf="email.invalid && submitted && email.errors.required"> * required</span>
+        <span class="text-danger" *ngIf="email.errors?.uniqueEmail"> * already in use</span>
         <input type="text" [(ngModel)]="customer.emailId" #email="ngModel" name="email" class="form-control" id="input-email"
-          placeholder="Email" required>
+          placeholder="Email" required [uniqueEmail]="customer.userID">
       </div>
     </div>
     <div class="col-sm-4">

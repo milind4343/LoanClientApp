@@ -20,6 +20,7 @@
                 <th>Wallet Amount</th>
                 <th>Email</th>
                 <th>Contact</th>
+                <th>Active/Deactive</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -30,10 +31,13 @@
                 <td><span>₽</span> {{cust.walletamount}}</td>
                 <td>{{cust.emailId}}</td>
                 <td>{{cust.mobile}}</td>
+                <td style="text-align: center;">
+                  <ui-switch checkedLabel="" uncheckedLabel="" size="small" name="activeTog" #activeTog="ngModel" title="Status"
+                  [ngModelOptions]="{standalone: true}" [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)">
+                </ui-switch>
+                </td>
                 <td>
-                  <ui-switch size="small" name="activeTog" #activeTog="ngModel" title="Status"
-                    [ngModelOptions]="{standalone: true}" [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)">
-                  </ui-switch>
+                
                   <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="View agent"
                       (click)="editAgent(cust.userId)"></i></span>
                   <!-- <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History"

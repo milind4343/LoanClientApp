@@ -23,8 +23,6 @@ export class AgentVbPaidComponent implements OnInit {
 
   ngOnInit() {
     debugger;
-    // console.log(this.userid);
-    // this.getVBDetail(this.userid);
     this.getVBDetail();
   }
 
@@ -33,8 +31,8 @@ export class AgentVbPaidComponent implements OnInit {
     this.agentservice.getAgentVBDetail().subscribe(res=>{
       if(res!=null){
         console.log(res);
-        this.vb.paidAmount = res;
-        //this.vb.agentId = agentId;
+        this.vb.paidAmount = res.vb;
+        this.vb.agentId = res.agentId;
       }
     });
   }

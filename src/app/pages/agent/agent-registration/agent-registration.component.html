@@ -55,12 +55,14 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label for="inputEmail" class="col-form-label">Email</label>
+        <span class="error-message" *ngIf="EmailID.errors?.uniqueEmail"> * this email is already in use</span>
         <input type="email" class="form-control" #EmailID="ngModel" id="inputemail" placeholder="Email"
-          [(ngModel)]="user.emailId" name="EmailID" maxlength="125" required email>
+          [(ngModel)]="user.emailId" name="EmailID" maxlength="125" required email [uniqueEmail]='user.userId'>
         <p class="error-message" *ngIf="EmailID.invalid && submitted && EmailID.errors.required">Required!</p>
         <p class="error-message" *ngIf="(EmailID.invalid && EmailID.errors.email && (EmailID.touched || submitted))">
           Email not valid
-        </p>
+        </p>       
+        
       </div>
     </div>
   </div>
