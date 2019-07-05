@@ -100,7 +100,7 @@ export class CustomerAddComponent implements OnInit {
         position: this.position,
         preventDuplicates: this.preventDuplicates
       };
-debugger;
+
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{
