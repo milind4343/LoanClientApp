@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, OnDestroy, OnInit, Output, EventEmitter, Input, DebugNode} from '@angular/core';
 import { Subject } from 'rxjs';
 import { DashboardService } from './dashboard.service';
 import { AuthenticationService } from '../../commonServices/authentication.service';
@@ -41,6 +41,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   searchresult:any;
   selectedAgentname:string;
 
+  agentvb:number=0;
+  agentlb:number=0;
+  agentbb:number=0;
+  agentbalanceAsOn:Date=new Date();
+
   constructor(private dashboardservice: DashboardService,private authservice: AuthenticationService,
     private customerservice: CustomerService, private dateService: NbDateService<Date>) {
 
@@ -65,6 +70,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.getAllAgents();         
         }
         else {
+          debugger;
+          this.agentvb=res.vb;
+          this.agentlb=res.lb;
+          this.agentbb=res.bb;
+          this.agentbalanceAsOn= new Date();
+          
           this.balance.agentId = res.userId;
           this.dueinstallmenthstorylist = [];
           this.dashboardservice.getLoanInstallments(0).subscribe(result => {

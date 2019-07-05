@@ -13,6 +13,7 @@ import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory
 import { AgentVbPaidComponent } from './agent-vb-paid/agent-vb-paid.component';
 
 
+
 @NgModule({
   declarations: [AgentComponent,AgentdashboardComponent, RegistrationComponent, ListAgentComponent, AgentFundhistoryComponent, AgentVbPaidComponent],
   imports: [

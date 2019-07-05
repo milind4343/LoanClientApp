@@ -49,7 +49,9 @@ export class RegistrationComponent  {
       debugger;
       this.onStateSelect(result.stateId);
       this.onCitySelect(result.cityId);
+      debugger;
       this.user = result;
+      this.user.dob=new Date(result.dob);
       });
     }
     else

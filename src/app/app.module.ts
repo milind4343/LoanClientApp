@@ -27,6 +27,7 @@ import { ExceptionHandler } from './commonServices/exceptionhandler.service';
 import { PageAccessService } from './commonServices/getpageaccess.service';
 import { DialogNamePromptComponent } from '../app/pages/dialog-name-prompt/dialog-name-prompt.component';
 
+
 @NgModule({
   declarations: [AppComponent,LoginComponent, ForgotPasswordComponent, ResetPasswordComponent,DialogNamePromptComponent],
   imports: [
