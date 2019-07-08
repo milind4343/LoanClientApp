@@ -17,18 +17,17 @@ export class AgentService {
   private agentUrl = environment.domain + '/api/agent';
   private commonUrl = environment.domain + '/api/common';
   private customerUrl = environment.domain + '/api/customer';
-
+  private multipartheaders: Headers;
 
   constructor(private http: Http, private httpclient: HttpClient) {
   }
 
-  register(model:any){
-   this.token = "Bearer " + localStorage.getItem('jwt');
-   this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });
- 
-    return this.http.post(this.agentUrl+'/registration',JSON.stringify(model),{ headers: this.headers })
+  register(formdata : any) {
+    this.token = "Bearer " + localStorage.getItem('jwt');
+    this.multipartheaders = new Headers({'Authorization': this.token})
+    return this.http.post(this.agentUrl + '/registration', formdata, { headers : this.multipartheaders })
     .map(res => res.json())
-      .toPromise();
+    .toPromise();
   }
   
   updateprofile(model:any){
@@ -38,7 +37,8 @@ export class AgentService {
      return this.http.post(this.agentUrl+'/profile',JSON.stringify(model),{ headers: this.headers })
      .map(res => res.json())
        .toPromise();
-   }
+  }
+  
   getState(){
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new Headers({ 'Content-Type': 'application/json', 'Authorization': this.token });

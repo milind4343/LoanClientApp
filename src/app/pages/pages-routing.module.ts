@@ -5,9 +5,6 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { NotFoundComponent } from './miscellaneous/not-found/not-found.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AgentRoutingModule } from './agent/agent-routing.module';
-import { AgentComponent } from './agent/agent.component';
-
 
 const routes: Routes = [{
   path: '',

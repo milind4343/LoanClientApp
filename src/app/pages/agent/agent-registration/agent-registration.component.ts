@@ -24,8 +24,12 @@ export class RegistrationComponent {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
 
+  imgUrl: any;
+  formData: FormData = new FormData();
+
   constructor(private agentService: AgentService, router: Router, private toastrService: NbToastrService) {
     this.max = new Date();
+    this.imgUrl = "assets/images/user-placeholder.png";
   }
 
   ngOnInit() {   
@@ -51,12 +55,25 @@ export class RegistrationComponent {
       debugger;
       this.user = result;
       this.user.dob=new Date(result.dob);
+      if(result.profileImageURL != null){
+        this.imgUrl = result.profileImageURL;
+      }    
       });
     }
     else {
       this.user.userId = 0;
       this.user.stateId = '';
       this.user.gender = "Male";
+    }
+  }
+
+  fileProgress(fileInput: any) {
+    var reader = new FileReader();
+    let fileToUpload = <File>fileInput[0];
+    this.formData.append('file', fileToUpload, fileToUpload.name);
+    reader.readAsDataURL(fileInput[0]);
+    reader.onload = (_event) => {
+      this.imgUrl = reader.result;
     }
   }
 
@@ -96,7 +113,10 @@ export class RegistrationComponent {
 
   registration(form: any) {
     if (form.valid) {
-      this.agentService.register(this.user).then(result => {
+
+      this.formData.append("agent", JSON.stringify(this.user));
+
+      this.agentService.register(this.formData).then(result => {
         if (result != null) {
           if (this.user.userId > 0) {
             this.toastrService.success('Data update success !', 'Success', this.config);

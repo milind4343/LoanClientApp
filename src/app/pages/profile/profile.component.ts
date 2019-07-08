@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
-import { Router } from '@angular/router';
 import { AgentService } from '../agent/agent.service';
-import { equalValueValidator } from './equal-value-validator';
 import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
 import { PasswordValidation } from './PasswordValidation';
 import { UserValidators } from './validator/user.validator';
