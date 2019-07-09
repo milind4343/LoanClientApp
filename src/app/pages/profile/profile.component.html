@@ -16,23 +16,6 @@
         <p class="error-message" *ngIf="registerForm.controls.middlename.errors?.required && submitted">Required!
         </p>
       </div>
-      <div class="col-sm-3">
-        <div class="form-group">
-          <label for="inputBirthDate" class="col-form-label">BirthDate</label>
-          <input nbInput placeholder="BirthDate" [nbDatepicker]="picker" formControlName="dob" [readonly]="true">
-          <nb-datepicker #picker [max]="max"></nb-datepicker>
-          <!-- <p class="error-message" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
-        </div>
-      </div>
-  
-      <div class="col-sm-4">
-        <div class="form-group">
-          <label for="inputEmail" class="col-form-label">Email</label>
-          <input type="email" class="form-control" placeholder="Email"  maxlength="125" formControlName="emailId">
-          <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.required && submitted">Required!</p>
-           <p class="error-message" *ngIf="registerForm.controls.emailId.errors?.emailExists && registerForm.controls.emailId?.touched && registerForm.controls.emailId?.dirty">EmailId already exist !</p>
-        </div>
-      </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
@@ -63,7 +46,6 @@
         <!-- <p class="error-message" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
       </div>
     </div>
-
     <div class="col-sm-4">
       <div class="form-group">
         <label for="inputEmail" class="col-form-label">Email</label>

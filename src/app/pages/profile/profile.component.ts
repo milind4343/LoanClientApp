@@ -28,7 +28,7 @@ export class ProfileComponent implements OnInit {
   };
   iscomparepassword:boolean=true;
 
-  constructor(private agentService: AgentService,router: Router,private toastrService: NbToastrService,private fb: FormBuilder,private service: UserValidators) { 
+  constructor(private agentService: AgentService,private toastrService: NbToastrService,private fb: FormBuilder,private service: UserValidators) { 
     this.max = new Date();
     this.agentService.editProfile().subscribe(result =>{
       this.createForm(result)

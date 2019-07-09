@@ -16,7 +16,7 @@
               <option value="0">- - Choose Agent - -</option>
               <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
-            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;">{{searchresult}}</h5>
+            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</h5>
           </div>
          
         </div>
@@ -42,7 +42,8 @@
                 <td>{{cust.gender}}</td>
                 <td>{{cust.emailId}}</td>
                 <td>{{cust.mobile}}</td>
-                <td style="text-align: center"><ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
+                <td style="text-align: center">
+                  <ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
                   (change)="onSwitchChange(cust)"></ui-switch></td>
                 <td>  <!-- color="#73a1ff" -->
 

@@ -1,0 +1,188 @@
+.nb-theme-corporate nb-card{
+    border:none !important;
+}
+
+.nb-theme-corporate .alert-vb{
+    color: #fff !important;
+    background-color: #3498DB !important;
+    border-radius: .25rem !important;
+    box-shadow: none !important;
+    font-family: Open Sans,sans-serif !important;
+    /* font-size: .9375rem !important; */
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.5rem !important;
+    padding: 1rem 1.125rem !important;
+    margin-bottom: 1.5rem !important;
+    margin: 7px;
+}
+
+.nb-theme-corporate .alert-lb{
+    color: #fff !important;
+    background-color: #A569BD     !important;
+    border-radius: .25rem !important;
+    box-shadow: none !important;
+    font-family: Open Sans,sans-serif !important;
+    /* font-size: .9375rem !important; */
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.5rem !important;
+    padding: 1rem 1.125rem !important;
+    margin-bottom: 1.5rem !important;
+    margin: 7px;
+}
+
+
+.nb-theme-corporate .alert-lb strong{
+    font-size: 20px;
+}
+.nb-theme-corporate .alert-bb strong{
+    font-size: 20px;
+}
+.nb-theme-corporate .alert-vb strong{
+    font-size: 20px;
+}
+
+.nb-theme-corporate .alert-bb{
+    color: #fff !important;
+    background-color: #5D6D7E !important;
+    border-radius: .25rem !important;
+    box-shadow: none !important;
+    font-family: Open Sans,sans-serif !important;
+    /* font-size: .9375rem !important; */
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 1.5rem !important;
+    padding: 1rem 1.125rem !important;
+    margin-bottom: 1.5rem !important;
+    margin: 7px;
+}
+
+/* designer */
+
+
+.nb-theme-corporate nb-card{
+    border:none !important;
+}
+.nb-theme-corporate nb-card-header h4{
+    color:#fff;
+    background: #e2ba89;
+    padding: 10px;
+    margin: 10px 0;
+}
+table.dataTable thead td, table.dataTable thead th {
+    border-bottom: 1px solid #b0b0b0;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.nb-theme-corporate nb-menu .menu-item a ,
+.nb-theme-corporate [_nghost-c12] .switch-label[_ngcontent-c12] > span[_ngcontent-c12],
+.nb-theme-corporate [_nghost-c12] .switch-label[_ngcontent-c12] > span.active[_ngcontent-c12]{
+    color: #fff !important;
+}
+.nb-theme-corporate nb-menu .menu-item a.active, .nb-theme-corporate nb-menu .menu-item a:hover {
+    background-color: #337690;
+    color: #fff;
+    font-weight: 600;
+}
+.nb-theme-corporate nb-menu ,
+.nb-theme-corporate nb-sidebar .main-container,
+ul.menu-items{
+    background: #4b96b6;
+    color: #fff;
+}
+.nb-theme-corporate nb-menu .menu-item .menu-icon,
+.nb-theme-corporate nb-menu .menu-item a.active .chevron, 
+.nb-theme-corporate nb-menu .menu-item a.active .menu-icon, 
+.nb-theme-corporate nb-menu .menu-item a:hover .chevron, 
+.nb-theme-corporate nb-menu .menu-item a:hover .menu-icon,
+.nb-theme-corporate nb-actions nb-action i.control-icon,
+.nb-theme-corporate nb-search button{
+    color: #fff;
+}
+.nb-theme-corporate nb-layout .layout nb-layout-header nav{
+    box-shadow: none;
+}
+.nb-theme-corporate .btn.btn-warning ,
+.nb-theme-corporate [nbButton].btn-primary,
+.nb-theme-corporate .btn:not(:disabled):not(.disabled){
+    background-color: #e2ba89;
+}
+.nb-theme-corporate nb-layout .layout nb-layout-header nav {
+    background: #2e3a6a;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    color: #fff!important;
+    background: #4b96b6;
+    border: none;
+}
+
+.dataTable button.icon-btn{
+    cursor: pointer;
+    background: #e2ba89;
+    color: #fff;
+    border: none;
+    padding: 3px 5px 1px 5px;
+    border-radius: 3px;
+    margin: 0 1px;
+}
+.nb-theme-corporate [_nghost-c7] .socials[_ngcontent-c7] a[_ngcontent-c7]:hover {
+    color: #2e3a6a;
+}
+.nb-theme-corporate [nbButton].btn-primary.hover, .nb-theme-corporate [nbButton].btn-primary:hover ,
+.nb-theme-corporate .btn.btn-primary.active, .nb-theme-corporate .btn.btn-primary:active, .nb-theme-corporate .btn.btn-primary:active:focus{
+    color: #fff;
+    background-color: #2e3a6a;
+}
+
+.nb-theme-corporate nb-card{
+    border:none !important;
+}
+
+.nb-theme-corporate nb-card{
+    background: none !important;
+}
+.login_page{
+    background: url("images/login-bg-2.jpg") no-repeat;
+    background-size: 100% 100%;
+}
+.nb-theme-corporate nb-layout .layout{
+    background: none !important;
+}
+h1#title{
+    color: #fff;
+    text-transform: uppercase;
+    background: #4f61a6;
+    padding:15px 10px;
+    border-radius: 5px 5px 0px 0px;
+    margin-bottom: 0;
+    font-size: 24px;
+}
+.login_page form{
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius:0px 0px 10px 10px;
+}
+.login_page form .label{
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.nb-theme-corporate [nbButton].btn-success {
+    background-color: #4f61a6;
+    font-size: 20px;
+    border-radius: 5px;
+}
+.nb-theme-corporate [nbButton].btn-success.hover, 
+.nb-theme-corporate [nbButton].btn-success:hover {
+    background-color: #2e3a6a;
+}
+.nb-theme-corporate [nbInput].input-success{
+    border: none;
+    border-bottom: 4px solid #2e3a6a;
+    height: 50px;
+}
+.login_page form  a.forgot-password {
+    color: #4f61a6;
+}
