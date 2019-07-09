@@ -25,10 +25,9 @@ export class ForgotPasswordComponent extends NbLoginComponent implements OnInit 
   forgotpwd(email:string)
   {
     this.authservice.forgotpassword(email).subscribe(res=>{
-      debugger;
-      if(res!=null)
+      if(res)
       {
-      if(res){
+      if(!res._body.includes("404")){
         this.toastrService.success('Mail send successfully !', 'Success', this.config);
       }
       else
@@ -40,7 +39,7 @@ export class ForgotPasswordComponent extends NbLoginComponent implements OnInit 
      {
       this.toastrService.danger('Something went wrong !', 'Error', this.config);
      }
+     this.user.email="";
     });
-    debugger;
   }
 }
