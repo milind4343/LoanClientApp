@@ -40,16 +40,14 @@ export class CustomerAddComponent implements OnInit {
   preventDuplicates = true;
   max: Date;
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
-    private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {
-      
-      debugger;
+    private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {            
       console.log(this.editUserID);
       this.imgUrl = "assets/images/user-placeholder.png";
       this.max = new Date();
   }
 
-  ngOnInit() {
-    debugger;
+  ngOnInit() {   
+    this.customer.userID = 0;
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.customer.cityId = "";
     this.customer.zipcode = "";
@@ -104,13 +102,10 @@ export class CustomerAddComponent implements OnInit {
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{
-      this.customerservice.registerCustomer(this.formData).subscribe(result => {
-        debugger;
+      this.customerservice.registerCustomer(this.formData).subscribe(result => {        
         if (result.success) {
-
           this.editUserID = 0;
           this.callParent.emit('List');
-
           this.toastrService.show(
             "Customer Added Successfully",
             "Success",
@@ -126,9 +121,7 @@ export class CustomerAddComponent implements OnInit {
         this.loadingMediumGroup = false;
         this.loader.loader = false;
       },err => {
-
         config.status = NbToastStatus.DANGER;
-
         this.toastrService.show(
           "Something goes wrong!",
           "Error",
@@ -137,7 +130,6 @@ export class CustomerAddComponent implements OnInit {
         this.loadingMediumGroup = false;
       });
     }
-
   }
 
   getState() {
