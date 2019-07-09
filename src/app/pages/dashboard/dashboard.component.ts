@@ -134,21 +134,24 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.res = undefined;
     this.showsearchlbl = true;
 
-    if (this.selectedAgentname == undefined && this.roleId == 2) {
-      this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear();
-    }
-    else if (this.roleId == 1) {
-      this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear() + " " + ((this.selectedAgentname == undefined) ? '' : (" for agent : " + this.selectedAgentname));
-    }
-    else {
-      this.showsearchlbl = false;
-    }
+   
     this.dashboardservice.getChartData(req).subscribe(res => {
+      debugger;
       if (res.length > 0) {
         this.res = res;
+        if (this.selectedAgentname == undefined && this.roleId == 2) {
+          this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear();
+        }
+        else if (this.roleId == 1) {
+          this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear() + " " + ((this.selectedAgentname == undefined) ? '' : (" for agent : " + this.selectedAgentname));
+        }
+        else {
+          this.showsearchlbl = false;
+        }
       }
       else {
         this.showlbl = true;
+        this.showsearchlbl = false;
       }
     });
   }

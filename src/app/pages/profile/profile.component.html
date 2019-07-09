@@ -1,6 +1,6 @@
-<form *ngIf="registerForm" class="form-horizontal" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
-  <input type="hidden" formControlName="userId">
+<form class="form-horizontal" *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    
+   <input type="hidden" formControlName="userId">
   <div class="row">
     <div class="col-sm-4">
       <div class="form-group">
@@ -46,7 +46,6 @@
         <!-- <p class="error-message" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
       </div>
     </div>
-
     <div class="col-sm-4">
       <div class="form-group">
         <label for="inputEmail" class="col-form-label">Email</label>
