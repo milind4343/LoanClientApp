@@ -11,6 +11,7 @@ export class AuthService {
 
   private acountUrl = environment.domain + '/api/account';
   
+  
   private headers = new Headers({ 'Content-Type': 'application/json' })
 
   constructor(private http: Http,private httpclient: HttpClient) {

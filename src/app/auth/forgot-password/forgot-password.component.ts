@@ -16,7 +16,7 @@ export class ForgotPasswordComponent extends NbLoginComponent implements OnInit 
   }
   
   config = {
-    position: NbGlobalPhysicalPosition.TOP_RIGHT
+    position: NbGlobalPhysicalPosition.TOP_RIGHT,
   };
   ngOnInit() {
   }
@@ -26,13 +26,20 @@ export class ForgotPasswordComponent extends NbLoginComponent implements OnInit 
   {
     this.authservice.forgotpassword(email).subscribe(res=>{
       debugger;
+      if(res!=null)
+      {
       if(res){
         this.toastrService.success('Mail send successfully !', 'Success', this.config);
       }
       else
       {
-        this.toastrService.danger('Something went wrong !', 'Error', this.config);
+        this.toastrService.danger('Mail sending failed !', 'Error', this.config);
       }
+     }
+     else
+     {
+      this.toastrService.danger('Something went wrong !', 'Error', this.config);
+     }
     });
     debugger;
   }
