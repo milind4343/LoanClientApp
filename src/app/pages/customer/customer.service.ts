@@ -36,7 +36,7 @@ export class CustomerService {
   //   //.then(res => res.json().data as Customer[]);
   // } 
 
-  registerCustomer(formdata : any) : Observable<any> {
+  registerCustomer(formdata : any) : Observable<any> {    
       this.token = "Bearer " + localStorage.getItem('jwt');
       this.multipartheaders = new HttpHeaders({'Authorization': this.token})
       return this.httpclient.post(this.customerUrl + '/add', formdata, { headers : this.multipartheaders });

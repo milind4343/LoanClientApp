@@ -32,7 +32,8 @@ export class RegistrationComponent {
     this.imgUrl = "assets/images/user-placeholder.png";
   }
 
-  ngOnInit() {   
+  ngOnInit() {  
+    this.user.userId = 0; 
     this.state = [];
     this.agentService.getState().then(result => {
       if (result != null) {
