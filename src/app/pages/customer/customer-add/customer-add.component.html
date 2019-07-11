@@ -89,9 +89,8 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label for="input-altcontact">Alternate Contact No.</label>
-        <span class="text-danger" *ngIf="phone.invalid && submitted && phone.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.phone" name="altcontact" #phone="ngModel" class="form-control" id="input-altcontact"
-          placeholder="Alternate Contact" required>
+          placeholder="Alternate Contact">
       </div>
     </div>
   </div>

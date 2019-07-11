@@ -16,7 +16,7 @@
           <div *ngIf="title=='Fund Transfer'">
               <form class="form-horizontal"  #fundform="ngForm" aria-labelledby="title" novalidate>
                   <div class="row">
-                    <label class="col-sm-5">Agent</label>
+                    <label class="col-sm-4">Agent</label>
                     <div class="col-sm-7">
                         <div class="form-group">
                           <select class="form-control"  #agentid="ngModel" [(ngModel)]="agent.agentid" name="agentid"  required> 
@@ -33,7 +33,7 @@
                   </div>
   
                   <div class="row">
-                    <label class="col-sm-5">Amount</label>
+                    <label class="col-sm-4">Amount</label>
                     <div class="col-sm-7">
                       <div class="form-group">
                         <input type="fundamount"  name="fundamount" #fundamount="ngModel" [(ngModel)]="agent.fundamount" class="form-control" id="inputmiddlename" placeholder="Fund Amount" maxlength="50" required>
@@ -43,7 +43,7 @@
                   </div>
   
                   <div class="row">
-                      <label class="col-sm-5">Remark</label>
+                      <label class="col-sm-4">Remark</label>
                       <div class="col-sm-7">
                         <div class="form-group">
                             <textarea rows="3" nbInput fullWidth shape="round" style=" border-radius: 0;"  placeholder="Remark" #remark="ngModel"  [(ngModel)]="agent.remark" name="remark" maxlength="500"></textarea>
@@ -51,7 +51,7 @@
                       </div>
                   </div>
                   <div class="text-center"> 
-                      <button class="btn btn-md btn-primary" (click)="submitted=true;addFundDtl(agent,fundform)">Save</button>
+                      <button class="btn btn-md btn-primary" style="margin-left:15%" (click)="submitted=true;addFundDtl(agent,fundform)">Save</button>
                       <button class="btn btn-md btn-warning" (click)="cancel('No')">Cancle</button>
                   </div>
                   
