@@ -29,8 +29,9 @@
         <label for="inputLoanAmount">Loan Amount</label>
         <span class="text-danger" *ngIf="loanamount.invalid && submitted && loanamount.errors.required"> *
           required</span>
+          <span class="text-danger" *ngIf="loanamount.errors?.maxLoan"> * loan limit exceed !</span>
         <input type="text" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
-          id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required>
+          id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required maxLoan>
       </div>
     </div>
     <div class="col-sm-2">

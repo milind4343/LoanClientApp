@@ -5,7 +5,7 @@
         <label for="input-firstname">First Name</label>
         <span class="text-danger" *ngIf="firstname.invalid && submitted && firstname.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control"
-          id="input-firstname" placeholder="First Name" required >          
+          id="input-firstname" placeholder="First Name" required maxlength="50">          
       </div>
     </div>
     <div class="col-sm-3">
@@ -13,7 +13,7 @@
         <label for="input-middlename">Middle Name</label>
         <span class="text-danger" *ngIf="middlename.invalid && submitted && middlename.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.middlename" name="middlename" class="form-control"
-          id="input-middlename" #middlename="ngModel" placeholder="Middle Name" required>
+          id="input-middlename" #middlename="ngModel" placeholder="Middle Name" required maxlength="50">
       </div>
     </div>
     <div class="col-sm-3">
@@ -21,7 +21,7 @@
         <label for="input-lastname">Last Name</label>
         <span class="text-danger" *ngIf="lastname.invalid && submitted && lastname.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.lastname" name="lastname" #lastname class="form-control" id="input-lastname"
-          #lastname= "ngModel" placeholder="Last Name" required>
+          #lastname= "ngModel" placeholder="Last Name" required maxlength="50">
       </div>
     </div>
     <div class="col-sm-3">
@@ -43,7 +43,7 @@
         <label for="input-UID">UID</label>
         <span class="text-danger" *ngIf="uid.invalid && submitted && uid.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.uid" #uid="ngModel" name="UID" class="form-control" id="input-UID"
-          placeholder="Unique Identity No." required>
+          placeholder="Unique Identity No." required maxlength="50">
       </div>
     </div>
     <div class="col-sm-4">
@@ -75,7 +75,7 @@
         <span class="text-danger" *ngIf="email.invalid && submitted && email.errors.required"> * required</span>
         <span class="text-danger" *ngIf="email.errors?.uniqueEmail"> * already in use</span>
         <input type="text" [(ngModel)]="customer.emailId" #email="ngModel" name="email" class="form-control" id="input-email"
-          placeholder="Email" required [uniqueEmail]="customer.userID">
+          placeholder="Email" required [uniqueEmail]="customer.userID" maxlength="150">
       </div>
     </div>
     <div class="col-sm-4">
@@ -83,7 +83,7 @@
         <label for="input-contact">Contact No.</label>
         <span class="text-danger" *ngIf="mobile.invalid && submitted && mobile.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.mobile" name="contact" #mobile="ngModel" class="form-control" id="input-contact"
-          placeholder="Contact" required>
+          placeholder="Contact" required maxlength="15">
       </div>
     </div>
     <div class="col-sm-4">
@@ -91,7 +91,7 @@
         <label for="input-altcontact">Alternate Contact No.</label>
         <span class="text-danger" *ngIf="phone.invalid && submitted && phone.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.phone" name="altcontact" #phone="ngModel" class="form-control" id="input-altcontact"
-          placeholder="Alternate Contact" required>
+          placeholder="Alternate Contact" required maxlength="15">
       </div>
     </div>
   </div>
@@ -139,7 +139,7 @@
         <label for="input-contact">Address</label>
         <span class="text-danger" *ngIf="address.invalid && submitted && address.errors.required"> * required</span>
         <textarea rows="5" nbInput fullWidth [(ngModel)]="customer.address" #address="ngModel" name="address" class="form-control"
-          id="input-address" placeholder="Address" required></textarea>
+          id="input-address" placeholder="Address" required maxlength="500"></textarea>
       </div>
     </div>
     <div class="col-sm-6">
@@ -147,13 +147,13 @@
         <label for="input-profession">Profession</label>
         <span class="text-danger" *ngIf="profession.invalid && submitted && profession.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.profession" name="profession" #profession="ngModel" class="form-control"
-          id="input-profession" placeholder="Profession" required>
+          id="input-profession" placeholder="Profession" required maxlength="50">
       </div>
       <div class="form-group">
         <label for="input-company">Company</label>
         <span class="text-danger" *ngIf="company.invalid && submitted && company.errors.required"> * required</span>
         <input type="text" [(ngModel)]="customer.company" name="company" #company="ngModel" class="form-control" id="input-company"
-          placeholder="Company" required>
+          placeholder="Company" required maxlength="50">
       </div>
     </div>
   </div>
@@ -163,7 +163,7 @@
       <div class="form-group">
         <label for="input-remarks">Remarks</label>
         <textarea rows="2" [(ngModel)]="customer.remarks" name="remarks" class="form-control" id="input-remarks"
-          placeholder="Remarks"></textarea>
+          placeholder="Remarks" maxlength="250"></textarea>
       </div>
     </div>
   </div>

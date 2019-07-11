@@ -31,6 +31,7 @@ export class CustomerAddComponent implements OnInit {
   pageaccesscontrol:any={};
   loadingMediumGroup = false;
 
+
   config: ToasterConfig;
   status = NbToastStatus.SUCCESS;
   destroyByClick = true;
@@ -40,13 +41,17 @@ export class CustomerAddComponent implements OnInit {
   preventDuplicates = true;
   max: Date;
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
-    private agentservice: AgentService, private toastrService: NbToastrService,private pageAccessService: PageAccessService) {            
-      console.log(this.editUserID);
+    private agentservice: AgentService, private toastrService: NbToastrService,
+    private pageAccessService: PageAccessService) {            
+      
       this.imgUrl = "assets/images/user-placeholder.png";
       this.max = new Date();
   }
 
   ngOnInit() {   
+
+    
+
     this.customer.userID = 0;
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.customer.cityId = "";

@@ -5,7 +5,6 @@ import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebul
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
 
-
 @Component({
   selector: 'ngx-customer-loan-add',
   templateUrl: './customer-loan-add.component.html',
@@ -41,7 +40,9 @@ export class CustomerLoanAddComponent implements OnInit {
   docTypeList: any = [];
   finalDoc: any = [];
 
-  constructor(private customerService: CustomerService, private dateService: NbDateService<Date>, private toastrService: NbToastrService) {
+  constructor(private customerService: CustomerService, 
+    private dateService: NbDateService<Date>, 
+    private toastrService: NbToastrService) {
   }
 
 
@@ -50,7 +51,7 @@ export class CustomerLoanAddComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 5
     };
-
+   
     // this.loan={};
     // this.loan.tenure=[];
     // this.installmenttenure=[];
@@ -62,9 +63,7 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   setdefaultvalue() {
-    debugger;
     this.min = this.dateService.addDay(new Date(),0);
-
     this.max = this.dateService.addDay(this.min, 44);
 
     // this.max = new Date();
@@ -78,8 +77,7 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   agentbind() {
-    this.customerService.getAgent().subscribe(result => {
-      debugger;
+    this.customerService.getAgent().subscribe(result => {     
       if (result != null) {
         this.agent.push({ id: '', name: "--Select Agent--" });
         result.forEach(element => {
@@ -120,7 +118,7 @@ export class CustomerLoanAddComponent implements OnInit {
     if(form.valid)
     {
       this.customerService.assignloan(this.formData).subscribe(result => {
-        debugger;
+       
         if (result.success) {
           // this.tenure=[];
           // this.loan={};
@@ -147,7 +145,7 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   tenurecalculation(data: any) {
-    debugger;
+   
     if (data.loanamount != undefined && data.interest != "") {
       if (this.installmenttenure.length > 0) {
         this.rerender();
