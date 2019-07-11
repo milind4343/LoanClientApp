@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
 import { AgentService } from '../agent/agent.service';
-import { FormGroup, Validators, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PasswordValidation } from './PasswordValidation';
 import { UserValidators } from './validator/user.validator';
-import { control } from 'leaflet';
 
 @Component({
   selector: 'ngx-profile',

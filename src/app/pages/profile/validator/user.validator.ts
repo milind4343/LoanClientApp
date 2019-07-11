@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AbstractControl, AsyncValidatorFn, FormGroup } from '@angular/forms';
+import { AbstractControl, AsyncValidatorFn } from '@angular/forms';
 import { Observable, timer } from 'rxjs';
 import { map, switchMap  } from 'rxjs/operators';
 import { environment } from '../../../../environments/environment';
-
-
 
 @Injectable({
   providedIn: 'root'
