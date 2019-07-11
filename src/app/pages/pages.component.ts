@@ -23,6 +23,7 @@ export class PagesComponent implements OnInit {
   menu: NbMenuItem[];
 
   constructor(public loader: LoaderService, private router: Router, private EncrDecr: EncrDecrService, private pageService: PageService) {
+    this.menu = [];
   }
 
   // ngOnInit() {

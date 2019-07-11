@@ -60,17 +60,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    debugger;
     this.authservice.getLoggedInUserDetail().subscribe(res => {
       if (res != null) {
-        debugger;
         this.roleId = res.roleId;
         if (this.roleId == 1) {
           this.dueinstallmenthstorylist = [];
           this.getAllAgents();
         }
         else {
-          debugger;
           this.agentvb=res.vb;
           this.agentlb=res.lb;
           this.agentbb=res.bb;
@@ -88,7 +85,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         }
 
         this.dashboardservice.getvbtranslist().subscribe(result => {
-          debugger;
           this.vbtansferlist = result;
           this.dtTriggerVB.next();
         },
@@ -128,15 +124,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   getChartData(req: any) {
-    debugger;
     console.log(req);
     this.showlbl = false;
     this.res = undefined;
     this.showsearchlbl = true;
-
-   
+       
     this.dashboardservice.getChartData(req).subscribe(res => {
-      debugger;
       if (res.length > 0) {
         this.res = res;
         if (this.selectedAgentname == undefined && this.roleId == 2) {
