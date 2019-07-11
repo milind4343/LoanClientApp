@@ -35,6 +35,7 @@ export class DashboardService {
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token});
     return this.httpclient.post<any[]>(this.agentUrl +'/chartData', JSON.stringify(data),{ headers : this.headers });
   }
+  
   getvbtranslist():Observable<any>{
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headers = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token})

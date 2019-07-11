@@ -3,19 +3,15 @@ import { Http, Headers } from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
-import { HttpClient } from '@angular/common/http';
-
 
 @Injectable()
 export class AuthService {
 
-  private acountUrl = environment.domain + '/api/account';
-  
+  private acountUrl = environment.domain + '/api/account';  
   
   private headers = new Headers({ 'Content-Type': 'application/json' })
 
-  constructor(private http: Http,private httpclient: HttpClient) {
-
+  constructor(private http: Http) {
   }
 
   login(model: any) {
