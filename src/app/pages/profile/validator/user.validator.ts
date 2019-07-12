@@ -14,8 +14,6 @@ export class UserValidators {
   constructor(private http: HttpClient) {}
 
   searchUser(email,userid) {
-    debugger;
-    // debounce
     return timer(1000)
       .pipe(
         switchMap(() => {
@@ -26,9 +24,7 @@ export class UserValidators {
       );
   }
 
-    userValidator(userid): AsyncValidatorFn {
-      debugger;
-      
+    userValidator(userid): AsyncValidatorFn {      
       return (control: AbstractControl): Observable<{ [key: string]: any } | null> => {
         let emailId = control.value; // to get value in input tag
         //let userId = control.get("userId").value; // to get value in input tag

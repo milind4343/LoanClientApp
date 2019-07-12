@@ -49,9 +49,6 @@ export class CustomerAddComponent implements OnInit {
   }
 
   ngOnInit() {   
-
-    
-
     this.customer.userID = 0;
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     this.customer.cityId = "";
@@ -63,8 +60,7 @@ export class CustomerAddComponent implements OnInit {
     this.getState();
   }
 
-  getCustomer(userID: number) {
-  
+  getCustomer(userID: number) {  
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
       this.customer = result[0];  

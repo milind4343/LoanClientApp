@@ -37,13 +37,15 @@ export class ListAgentComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.pageaccesscontrol = this.pageaccess.getAccessData();
-    debugger;
+   
     this.dtOptions = {
-      pagingType: 'full_numbers'
+      pagingType: 'full_numbers',
+      pageLength: 10,
+      order:[0,'asc'],        
+      columnDefs:[{orderable: false,targets:[5,6]}]
     };
 
-    this.agentService.getAgent().subscribe(result =>{
-      debugger;
+    this.agentService.getAgent().subscribe(result =>{     
       this.agentlist =result;    
       this.dtTrigger.next();
     });

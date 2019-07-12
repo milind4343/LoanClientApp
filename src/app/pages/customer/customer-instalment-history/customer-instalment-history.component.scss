@@ -1,0 +1,15 @@
+.head_btn{
+    position: relative;    text-align: center;
+    display: block;
+}
+.head_btn button{
+    position: absolute;
+    left: 12px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    outline: none;
+    cursor: pointer;
+}

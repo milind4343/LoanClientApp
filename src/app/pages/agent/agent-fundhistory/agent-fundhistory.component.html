@@ -2,8 +2,7 @@
   <div class="col-md-12">
     <nb-card>
       <nb-card-header>Fund History</nb-card-header>
-      <nb-card-body>
-          
+      <nb-card-body>         
 
         <div *ngIf="!IsAgent" class="col-md-12" style="float: right;">
          
@@ -21,8 +20,7 @@
             <br>
         </div>
         <!-- <h4  *ngIf="IsAgent" class="text-danger">{{agentName}}</h4> -->
-        <br/>
-        
+        <br/>        
         
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
           <thead style="text-align: center">

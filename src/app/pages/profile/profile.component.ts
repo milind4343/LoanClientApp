@@ -4,6 +4,7 @@ import { AgentService } from '../agent/agent.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { PasswordValidation } from './PasswordValidation';
 import { UserValidators } from './validator/user.validator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-profile',
@@ -11,9 +12,8 @@ import { UserValidators } from './validator/user.validator';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  // registrationForm: FormGroup;
-  registerForm: FormGroup;
-  
+
+  registerForm: FormGroup;  
   passwordvalid:boolean=true;
   user: any = {};
   state: any=[];
@@ -26,44 +26,38 @@ export class ProfileComponent implements OnInit {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
   iscomparepassword:boolean=true;
+  isdrpbind:Boolean=false;
 
-  constructor(private agentService: AgentService,private toastrService: NbToastrService,private fb: FormBuilder,private service: UserValidators) { 
-    this.max = new Date();
-    this.agentService.editProfile().subscribe(result =>{
-      this.createForm(result)
-      //this.registerForm = this.createFormGroup();
-      //this.createFormGroup(result);
-      this.onStateSelect(result.stateId);
-      this.onCitySelect(result.cityId);
-      //this.user = result;
-      // this.registerForm.controls.firstname.setValue(result.firstname);
-      // this.registerForm.controls.lastname.setValue(result.lastname);
-      // this.registerForm.controls.middlename.setValue(result.middlename);
-      //this.user.dob=new Date(result.dob);
-      //this.user.password="";
+  constructor(private agentService: AgentService, private toastrService: NbToastrService, 
+    private fb: FormBuilder, private service: UserValidators, private router : Router) 
+    {    
+      this.max = new Date();
+      this.agentService.editProfile().subscribe(result =>{                
+        this.createForm(result);
+        this.onStateSelect(result.stateId, this.isdrpbind);
+        this.onCitySelect(result.cityId, this.isdrpbind);
     });
   }
 
   
   ngOnInit() {
+    
     this.state=[];
     this.agentService.getState().then(result => {
-      if (result != null) {
-        this.state.push({id:'',name: "--Select State--"});
+      if (result != null) {       
         result.forEach(element => {
           this.state.push({id : element.stateId , name : element.stateName})
         });
          this.user.Gender="Male";
       }
     }).catch(err => {
-      console.log(err);
-    })
-
-    
+      //console.log(err);
+    })    
   }
 
   createForm(user)
   {
+    debugger;
     this.registerForm = this.fb.group({
       firstname: [user.firstname, Validators.required],
       middlename: [user.middlename, Validators.required],
@@ -88,12 +82,10 @@ export class ProfileComponent implements OnInit {
 }
 
   get f() {
-    debugger;
     return this.registerForm.controls; 
   }
  
-  onSubmit() {
-    debugger;
+  onSubmit() {  
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.valid) {
@@ -101,36 +93,36 @@ export class ProfileComponent implements OnInit {
         if (result != null) {
           if(this.user.userId>0)
           {
-            this.registerForm.reset();
-            this.toastrService.success('Profile update success !','Success',this.config);
+            //this.router.navigate(['/pages/dashboard']);           
+            this.toastrService.success('Profile Updated Successfully !','Success',this.config);          
           }
-          else{
-            this.registerForm.reset();
-            this.toastrService.success('Profile update success !','Success',this.config);
+          else{          
+            //this.router.navigate(['/pages/dashboard']);
+            this.toastrService.success('Profile Updated Successfully !','Success',this.config);           
           }
         }
         else
         {
-          this.toastrService.success('Profile update failed !','Failed',this.config);
+          this.toastrService.success('Profile Updated failed !','Failed',this.config);
         }
     }).catch(err => {
-      console.log(err);
+      //console.log(err);
       this.toastrService.danger('Something went wrong !','Failed',this.config);
     })
     }
+  }
 
-    // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
-    }
-
-  onStateSelect(stateId) {
+  onStateSelect(stateId,ischange) {
+    debugger;
+    this.isdrpbind=ischange;
     this.city = [];
     this.agentService.getCity(+stateId).then(result => {
-      if (result != null && result.length>0) {
-        debugger
-        this.city.push({id: '',name: "--Select City--"});
+      if (result != null && result.length>0) {       
         result.forEach(element => {
           this.city.push({id : element.id , name : element.name})
         });
+        if(this.isdrpbind)
+        this.registerForm.get('cityId').setValue("");
       }
       else
       {
@@ -140,53 +132,33 @@ export class ProfileComponent implements OnInit {
         this.user.areaId='';
       }
     }).catch(err => {
-      console.log(err);
+      //console.log(err);
     })
   }
 
-  onCitySelect(cityId) {
+  onCitySelect(cityId,ischange) {
+    this.isdrpbind=ischange;
+    debugger
     this.area = [];
+    this.user.cityId="";
     this.agentService.getArea(+cityId).then(result => {
-      if (result != null) {
-        debugger
-        this.area.push({id:'',name: "--Select Area--"});
+      if (result != null && result.length > 0) {       
         result.forEach(element => {
           this.area.push({id : element.id , name : element.name})
         });
+        if(this.isdrpbind)
+        this.registerForm.get('zipcode').setValue("");
+      }
+      else{
+        this.area = [];
       }
     }).catch(err => {
-      console.log(err);
+      //console.log(err);
     })
   }
-
-  registration(form:any){
-    debugger;
-    if(form.valid)
-      {
-        this.agentService.register(this.user).then(result => {
-        if (result != null) {
-          if(this.user.userId>0)
-          {
-            this.toastrService.success('Profile update success !','Success',this.config);
-          }
-          else{
-            this.toastrService.success('Profile update success !','Success',this.config);
-          }
-        }
-        else
-        {
-          this.toastrService.success('Profile update failed !','Failed',this.config);
-        }
-    }).catch(err => {
-      console.log(err);
-      this.toastrService.danger('Something went wrong !','Failed',this.config);
-    })
-  }
-}
 
   cancle()
   {
-    debugger;
     this.user={};
   }
 }

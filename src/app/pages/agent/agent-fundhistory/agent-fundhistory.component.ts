@@ -138,7 +138,7 @@ getAllAgents(){
     this.showsearchlbl=true;
     if(+agentId!=+("0"))
     {
-      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == agentId)[0]["lastname"];
     }
     this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }

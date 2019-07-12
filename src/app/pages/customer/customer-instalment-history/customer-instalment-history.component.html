@@ -1,11 +1,10 @@
 <div class="row">
-    <div class="col-md-12">
-       
-      <nb-card>    
-        
-          <nb-card-header>{{pageTitle}}  
-            <span style="text-align: center;"><h4>{{clientname}}</h4></span>
-              <button nbButton status="primary" style="float: right;" class="btn-demo" (click)="backtoloanHistory()" > Cancle </button>
+    <div class="col-md-12">       
+      <nb-card>            
+          <nb-card-header>
+            <span class="head_btn"><h4>{{pageTitle}} - {{clientname}}</h4>
+              <button     (click)="backtoloanHistory()"> <i class="fas fa-arrow-left"></i> </button>
+            </span>
             </nb-card-header>  
            
         <nb-card-body>

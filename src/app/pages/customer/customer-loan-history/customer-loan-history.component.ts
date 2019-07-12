@@ -33,7 +33,17 @@ export class CustomerLoanHistoryComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
-  constructor(private authservice: AuthenticationService, private pageAccessService: PageAccessService, private customerservice: CustomerService) { }
+  constructor(private authservice: AuthenticationService, 
+    private pageAccessService: PageAccessService, 
+    private customerservice: CustomerService) 
+    { 
+      this.dtOptions = {
+        pagingType: 'full_numbers',
+        pageLength: 5,
+        order:[0,'asc'],        
+        columnDefs:[{orderable: false,targets:[8]}]
+      };
+    }
 
   ngOnInit() : void{
     this.pageaccesscontrol = this.pageAccessService.getAccessData();
@@ -46,9 +56,7 @@ export class CustomerLoanHistoryComponent implements OnInit {
       }
     });
 
-    this.dtOptions = {
-      pagingType: 'full_numbers'
-    };
+  
     this.customerservice.getCustomerLoan(this.editUserID).subscribe(result => {
       this.loanhstorylist = result;
       this.dtTrigger.next();
@@ -88,7 +96,7 @@ export class CustomerLoanHistoryComponent implements OnInit {
     this.showsearchlbl=true;
     if(+agentId!=+("0"))
     {
-      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == agentId)[0]["lastname"];
     }
     this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }

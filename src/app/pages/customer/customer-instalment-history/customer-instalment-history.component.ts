@@ -17,7 +17,7 @@ export class CustomerInstalmentHistoryComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   installmenthstorylist: any[] = [];
   dtTrigger: any = new Subject();
-  pageTitle = "Instalments";
+  pageTitle = "Installments";
 
   constructor(private customerservice: CustomerService) { }
 

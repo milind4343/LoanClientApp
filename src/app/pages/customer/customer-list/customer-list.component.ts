@@ -52,7 +52,9 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
       this.dtOptions = {
         pagingType: 'full_numbers',
-        pageLength: 3,
+        pageLength: 10,
+        order:[0,'asc'],        
+        columnDefs:[{orderable: false,targets:[6,7]}]
         //lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
         //dom: 'Blfrtip'     
       };
@@ -177,7 +179,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
     this.showsearchlbl=true;
     if(+agentId!=+("0"))
     {
-      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == 2)[0]["lastname"];
+      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == agentId)[0]["lastname"];
     }
     this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
   }
