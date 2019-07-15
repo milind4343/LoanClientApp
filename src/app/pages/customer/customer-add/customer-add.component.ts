@@ -78,15 +78,24 @@ export class CustomerAddComponent implements OnInit {
     //this.fileData = <File>fileInput.target.files[0];
     var reader = new FileReader();
     let fileToUpload = <File>fileInput[0];
-    this.formData.append('file', fileToUpload, fileToUpload.name);
-    reader.readAsDataURL(fileInput[0]);
-    reader.onload = (_event) => {
-      this.imgUrl = reader.result;
+
+    if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/jpg' || fileToUpload.type == 'image/png')
+    {
+      this.formData.append('file', fileToUpload, fileToUpload.name);
+      reader.readAsDataURL(fileInput[0]);
+      reader.onload = (_event) => {
+        this.imgUrl = reader.result;
+      }
     }
+    else
+    {
+      this.toastrService.danger('choose image in jpg/png format !', 'Failed', this.config);
+      return false;
+      //this.imgUrl = "assets/images/user-placeholder.png";
+    }    
   }
   
-  register(form: any) {
-    debugger;
+  register(form: any) {   
     if (form.valid) {
       this.loader.loader = true;
       this.loadingMediumGroup = true;

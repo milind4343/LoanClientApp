@@ -143,24 +143,24 @@
           <div class="form-group row">
             <label for="document" class="col-sm-3 col-form-label">Select Documents To Upload :</label>
             <div class="col-sm-4">
-              <input type="file" name="loanDoc" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
+              <input type="file" name="loanDoc" accept=".doc,.docx,.pdf, image/*" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
             </div>
           </div>
         </nb-card-header>
         <nb-card-body>    
           <div class="row">             
-              <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">                  
-                    <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x" title="doc"></i></a>
-                    <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
-                    <p>{{file.filename}}</p> 
-                  </nb-checkbox>
-                    <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
-                    <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
-                        <option value="">- - Choose - -</option>
-                        <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>                       
-                    </select>     
-                  <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
-                </div>
+              <div class="col-sm-3" *ngFor="let file of objDoc; let i=index;">
+                <a href="{{file.downloadPath}}" download target="_blank"><i class="fa fa-file-alt fa-4x" title="doc"></i></a>
+                <nb-checkbox name="ckbView{{i}}" [(ngModel)]="file.isChecked">
+                  <p>{{file.filename}}</p>
+                </nb-checkbox>
+                <span class="text-danger" *ngIf="file.isChecked && submitted && docType.invalid"> * required</span>
+                <select id="docType" class="form-control" #docType="ngModel" [(ngModel)]="file.docType" name="docType{{i}}" required>
+                  <option value="">- - Choose - -</option>
+                  <option *ngFor="let doc of docTypeList" value="{{doc.id}}">{{doc.name}}</option>
+                </select>
+                <!-- <label *ngFor="let file of objDoc"><i class="fa fa-file-alt 3x" title="doc"></i>{{file.name}}</label> -->
+              </div>
           </div>     
               
         </nb-card-body>

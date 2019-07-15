@@ -1,7 +1,7 @@
 <form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
   <nb-card>
     <nb-card-header>
-      <h3>{{loan.customername}} - Loan No.{{loan.customerloanid}} - Installment No.{{loan.installno}}</h3>
+      <h4><i class="fas fa-user"></i> {{loan.customername}} <span style="float: right">Loan No.{{loan.customerloanid}} - Installment No.{{loan.installno}}</span></h4>
     </nb-card-header>
     <nb-card-body>
       <div class="row">

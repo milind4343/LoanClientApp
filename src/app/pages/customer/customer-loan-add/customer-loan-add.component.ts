@@ -117,8 +117,7 @@ export class CustomerLoanAddComponent implements OnInit {
 
     if(form.valid)
     {
-      this.customerService.assignloan(this.formData).subscribe(result => {
-       
+      this.customerService.assignloan(this.formData).subscribe(result => {       
         if (result.success) {
           // this.tenure=[];
           // this.loan={};
@@ -133,19 +132,19 @@ export class CustomerLoanAddComponent implements OnInit {
           this.customerService.uploadLoanDoc(this.formData).subscribe(result => {  
           });
         }
-      }, err => {
-  
+      }, err => {  
       });
     }   
   }
 
 
-  changeenddate(startdate: any) {
+  changeenddate(startdate: any) 
+  {
     this.loan.enddate = this.dateService.addDay(startdate, 44);
   }
 
-  tenurecalculation(data: any) {
-   
+  tenurecalculation(data: any) 
+  {   
     if (data.loanamount != undefined && data.interest != "") {
       if (this.installmenttenure.length > 0) {
         this.rerender();
@@ -235,8 +234,14 @@ export class CustomerLoanAddComponent implements OnInit {
       return;
     this.docTypeList = [];
     this.getAllDocTypes();    
-    for (let f of fileInput) {
+    for (let f of fileInput) {     
       let file = <File>f;
+      var ext = file.name.split('.').pop().toLowerCase();
+      if($.inArray(ext, ['pdf','doc','docx', 'png', 'jpg', 'jpeg']) == -1) 
+      {
+        this.toastrService.danger('choose file in doc/pdf/png/jpg format !', 'Failed', this.config);       
+        return false;
+      }
       this.objDoc.push({ filedata: file, docType: '', isChecked: true, downloadPath: '', filename:file.name });
     }   
   }

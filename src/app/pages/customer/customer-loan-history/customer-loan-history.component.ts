@@ -41,7 +41,7 @@ export class CustomerLoanHistoryComponent implements OnInit {
         pagingType: 'full_numbers',
         pageLength: 5,
         order:[0,'asc'],        
-        columnDefs:[{orderable: false,targets:[8]}]
+        columnDefs:[{orderable: false,targets:[9]}]
       };
     }
 

@@ -71,11 +71,20 @@ export class RegistrationComponent {
   fileProgress(fileInput: any) {
     var reader = new FileReader();
     let fileToUpload = <File>fileInput[0];
-    this.formData.append('file', fileToUpload, fileToUpload.name);
-    reader.readAsDataURL(fileInput[0]);
-    reader.onload = (_event) => {
-      this.imgUrl = reader.result;
+    if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/jpg' || fileToUpload.type == 'image/png')
+    {
+      this.formData.append('file', fileToUpload, fileToUpload.name);
+      reader.readAsDataURL(fileInput[0]);
+      reader.onload = (_event) => {
+        this.imgUrl = reader.result;
+      }
     }
+    else
+    {
+      this.toastrService.danger('choose image in jpg/png format !', 'Failed', this.config);
+      this.imgUrl = "assets/images/user-placeholder.png";
+    }
+   
   }
 
   onStateSelect(stateId) {

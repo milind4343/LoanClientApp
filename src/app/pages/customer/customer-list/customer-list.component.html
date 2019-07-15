@@ -47,7 +47,7 @@
                 <td>{{cust.emailId}}</td>
                 <td>{{cust.mobile}}</td>
                 <td style="text-align: center">
-                  <ui-switch size="small" *ngIf="pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
+                  <ui-switch size="small" [disabled]="!pageaccesscontrol.isedit" name="active" [(ngModel)]="cust.isActive"
                   (change)="onSwitchChange(cust)"></ui-switch></td>
                 <td>  <!-- color="#73a1ff" -->
 
