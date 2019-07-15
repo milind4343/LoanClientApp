@@ -1,7 +1,7 @@
-<h4 style="color: red;text-align: center">Available VB Balance : {{vb.paidAmount}} ₱</h4>
+<!-- <h4 style="color: red;text-align: center"></h4> -->
 <form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
   <nb-card>
-      <nb-card-header>Agent VB mark as paid</nb-card-header>
+      <nb-card-header><h4>Agent VB mark as paid <span style="float: right">Available VB : {{vb.paidAmount}} ₱</span></h4></nb-card-header>
       <nb-card-body>         
           <div class="form-group row">
               <label for="amount" class="col-sm-2 col-form-label">VB Amount</label>

@@ -20,9 +20,9 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   dtTrigger: any = new Subject();
   isSelect:boolean;
   
-  pageTitle : string = "Agent List";
+  pageTitle : string = "All Agents";
   pageView : string = "List";
-  userid: number;
+  userid: number;s
   pageaccesscontrol:any={};
   // fundtransfer:any;
   fundHistorylist:any[];
@@ -53,14 +53,14 @@ export class ListAgentComponent implements OnInit, OnDestroy {
 
   onPageChanged(eventValue :string) {
     this.pageView = eventValue;   
-    this.pageTitle='All Agent List';
+    this.pageTitle='All Agents';
     this.dtTrigger = new Subject();
     this.ngOnInit();
   }
 
   registration(){
     this.pageView='Add';
-    this.pageTitle='Fill Agent Details';
+    this.pageTitle='Fill Agent Detail';
     this.userid=0;
   }
 
@@ -86,7 +86,7 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     debugger;
     this.userid=userId;
     this.pageView='Edit';
-    this.pageTitle='Edit Agent';
+    this.pageTitle='Edit Agent Detail';
   }
 
   fetchFundHistory(userId){

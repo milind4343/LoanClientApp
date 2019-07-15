@@ -1,15 +1,15 @@
 <div class="row" *ngIf="pageView !== 'History'">
   <div class="col-md-12">
     <nb-card>
-      <nb-card-header>{{pageTitle}}</nb-card-header>
+      <nb-card-header><h4>{{pageTitle}}</h4></nb-card-header>
       <!-- Agent List -->
       <nb-card-body>
         <div *ngIf="pageView === 'List'">
           <div class="col-md-8" style="float: right;">
             <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()"
-              *ngIf="pageaccesscontrol.isadd"> Fund Transafer </button>
+              *ngIf="pageaccesscontrol.isadd"><i class="fas fa-exchange-alt"></i> Fund Transfer</button>
             <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
-              (click)="registration()"> Add Agent </button>
+              (click)="registration()"><i class="fas fa-user-plus"></i> Add New</button>
             <!-- routerLink='/pages/agent/register' -->
           </div>
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -36,10 +36,10 @@
                   [ngModelOptions]="{standalone: true}" [(ngModel)]="cust.isactive" (change)="agentIsActive(cust)">
                 </ui-switch>
                 </td>
-                <td>
-                
-                  <span style="margin-left:10px;"><i class="fa fa-edit" aria-hidden="true" title="View agent"
-                      (click)="editAgent(cust.userId)"></i></span>
+                <td>                
+                  <span style="margin-left:10px;">
+                    <i class="fas fa-user-edit" (click)="editAgent(cust.userId)" aria-hidden="true" title="View agent"></i>
+                  </span>
                   <!-- <span style="margin-left:10px;"><i class="fa fa-history" aria-hidden="true" title="Fund History"
                       (click)="fetchFundHistory(cust.userId)"></i></span> -->
                   <!-- <button style="margin-left:10px;" type="button" shape="rectangle" status="success" nbButton size="xsmall" (click)="gotoVB(cust.userId)">VB</button> -->

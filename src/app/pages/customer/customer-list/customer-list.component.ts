@@ -20,7 +20,7 @@ import { AuthenticationService } from '../../../commonServices/authentication.se
 })
 export class CustomerListComponent implements OnInit, OnDestroy {
 
-  pageTitle: string = "Customer List";
+  pageTitle: string = "All Customers";
   pageView: string = "List";
   customerlist: Customer[] = [];
   agentlist : Agent[] = [];
@@ -96,7 +96,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
   editCustomer(userId: number) {
     debugger;
     this.pageView = 'Edit';
-    this.pageTitle = 'Update Customer Detail';
+    this.pageTitle = 'Update/View Customer Detail';
     this.editUserID = userId;
   }
 
@@ -108,7 +108,7 @@ export class CustomerListComponent implements OnInit, OnDestroy {
 
   callParent(event: any) {
     this.pageView = event;
-    this.pageTitle = 'Customer List';
+    this.pageTitle = 'All Customers';
     this.dtTrigger = new Subject();
     this.ngOnInit();
   }

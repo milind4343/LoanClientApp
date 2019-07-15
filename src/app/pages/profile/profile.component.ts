@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
   isdrpbind:Boolean=false;
 
   constructor(private agentService: AgentService, private toastrService: NbToastrService, 
-    private fb: FormBuilder, private service: UserValidators, private router : Router) 
+    private fb: FormBuilder, private service: UserValidators, private router : Router)
     {    
       this.max = new Date();
       this.agentService.editProfile().subscribe(result =>{                
@@ -157,8 +157,13 @@ export class ProfileComponent implements OnInit {
     })
   }
 
-  cancle()
-  {
-    this.user={};
+  backToHome(){
+    this.router.navigate(['/pages/dashboard']);
   }
+
+  // cancle()
+  // {
+  //   this.user={};
+  // }
+ 
 }

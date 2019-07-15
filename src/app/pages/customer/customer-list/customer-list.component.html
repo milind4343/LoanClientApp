@@ -1,24 +1,28 @@
 <div class="row">
-  <div class="col-md-12">
-    <h1 class="title">{{pageTitle}}</h1>
-    <div class="form-group" *ngIf="pageView === 'List'">
-      <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd"> Add
-        Customer </button>
-    </div>
+  <div class="col-md-12">    
     <nb-card>
-      <!-- <nb-card-header>{{pageTitle}}</nb-card-header> -->
+      <nb-card-header>
+        <h4 class="title">{{pageTitle}}
+          <span style="float: right">
+            <div class="form-group" *ngIf="pageView === 'List'">
+              <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd">
+                <i class="fas fa-user-plus"></i> Add New</button>
+            </div>
+          </span>
+        </h4>
+      </nb-card-header>
       <nb-card-body>
         <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
-          <div class="col-sm-4">
-            <label for="agent">Agent</label>
-            <select class="form-control" [(ngModel)]="agentId" #agent="ngModel" 
+          <!-- <div class="col-sm-4"> -->
+            <label class="label col-sm-3 col-form-label" for="agent">Get Customers on Agent Selection :</label>
+            <select class="form-control col-sm-4" [(ngModel)]="agentId" #agent="ngModel" 
             name="agent" (change)="onAgentSelect(agentId,this)">              
               <option value="0">- - Choose Agent - -</option>
               <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
-            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</h5>
-          </div>
-         
+            <h4 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</h4>
+            <!-- <span *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</span> -->
+          <!-- </div> -->         
         </div>
         <div *ngIf="pageView === 'List'">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
@@ -66,7 +70,8 @@
                   </button>
                   <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive"
                     style="cursor: pointer;" (click)="cust.isActive ? addLoan(cust.userID) : ''" title="Add Loan">
-                    <i class="fa fa-plus-circle" title="Add Loan">loan</i>
+                    <!-- <i class="fa fa-plus-circle" title="Add Loan">loan</i> -->
+                    <i class="fas fa-plus"></i> Loan
                   </button>
                   <!-- <button class="icon-btn" *ngIf="pageaccesscontrol.isadd" [disabled]="!cust.isActive" style="cursor: pointer;" (click)="cust.isActive ? loanHistory(cust.userID) : ''" title="Loan History">
                         <i class="fa fa-history" title="Loan History"></i>

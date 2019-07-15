@@ -1,36 +1,46 @@
 <form class="form-horizontal" *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <input type="hidden" formControlName="userId">
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputFirstname">FirstName</label>
-        <span class="text-danger" *ngIf="registerForm.controls.firstname.errors?.required && submitted"> * required</span>
-        <input type="text" formControlName="firstname" class="form-control" placeholder="FirstName" maxlength="50">        
+  
+
+    <nb-card>
+      <nb-card-header><h4>Profile Detail</h4></nb-card-header>
+      <nb-card-body>
+          <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputFirstname">FirstName</label>
+            <span class="text-danger" *ngIf="registerForm.controls.firstname.errors?.required && submitted"> *
+              required</span>
+            <input type="text" formControlName="firstname" class="form-control" placeholder="FirstName" maxlength="50">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputMiddlename">MiddleName</label>
+            <span class="text-danger" *ngIf="registerForm.controls.middlename.errors?.required && submitted"> *
+              required</span>
+            <input type="text" formControlName="middlename" class="form-control" placeholder="MiddleName"
+              maxlength="50">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputLastname">LastName</label>
+            <span class="text-danger" *ngIf="registerForm.controls.lastname.errors?.required && submitted"> *
+              required</span>
+            <input type="text" class="form-control" maxlength="50" placeholder="LastName" formControlName="lastname">
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputBirthDate">BirthDate</label>
+            <input class="form-control" nbInput placeholder="BirthDate" [nbDatepicker]="picker" formControlName="dob"
+              [readonly]="true">
+            <nb-datepicker #picker [max]="max"></nb-datepicker>
+            <!-- <p class="text-danger" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputMiddlename">MiddleName</label>
-        <span class="text-danger" *ngIf="registerForm.controls.middlename.errors?.required && submitted"> * required</span>
-        <input type="text" formControlName="middlename" class="form-control" placeholder="MiddleName" maxlength="50">        
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputLastname">LastName</label>
-        <span class="text-danger" *ngIf="registerForm.controls.lastname.errors?.required && submitted"> * required</span>
-        <input type="text" class="form-control" maxlength="50" placeholder="LastName" formControlName="lastname">
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputBirthDate">BirthDate</label>
-        <input class="form-control" nbInput placeholder="BirthDate" [nbDatepicker]="picker" formControlName="dob" [readonly]="true">
-        <nb-datepicker #picker [max]="max"></nb-datepicker>
-        <!-- <p class="text-danger" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
-      </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
@@ -62,9 +72,11 @@
     <div class="col-sm-3">
       <div class="form-group">
         <label for="inputEmail">Email</label>
-        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.required && submitted"> * required</span>        
-        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.emailExists && submitted"> * email already exists</span>
-        <input type="email" name="email" class="form-control" placeholder="Email" maxlength="125" formControlName="emailId" email>
+        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.required && submitted"> * required</span>
+        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.emailExists && submitted"> * email
+          already exists</span>
+        <input type="email" name="email" class="form-control" placeholder="Email" maxlength="125"
+          formControlName="emailId" email>
       </div>
     </div>
   </div>
@@ -72,17 +84,20 @@
   <div class="row">
     <div class="col-sm-3">
       <label for="inputContact">New Password</label>
-      <span class="text-danger" *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty">
-         * passwrod not matched</span>
-      <input type="text" class="form-control" placeholder="New Password" id="password" formControlName="password" maxlength="25">
+      <span class="text-danger"
+        *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty">
+        * passwrod not matched</span>
+      <input type="text" class="form-control" placeholder="New Password" id="password" formControlName="password"
+        maxlength="25">
     </div>
 
     <div class="col-sm-3">
       <label for="inputContact">Confirm Password</label>
       <span class="text-danger"
-        *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty"> 
+        *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty">
         * passwrod not matched</span>
-      <input type="text" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword" maxlength="25">
+      <input type="text" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword"
+        maxlength="25">
     </div>
     <div class="col-sm-6">
       <label for="inputAddress">Address</label>
@@ -134,7 +149,11 @@
   </div>
 
   <div class="offset-sm-3 col-sm-9" style="margin-top: 10px">
-    <button type="submit" class="btn btn-primary">Update</button>
+    <button type="submit" class="btn btn-primary">Save and Continue Edit</button>
+    <button type="button" class="btn btn-success" (click)="backToHome()">cancle</button>
     <!-- <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancle</button> -->
   </div>
+  </nb-card-body>
+  </nb-card>
+
 </form>

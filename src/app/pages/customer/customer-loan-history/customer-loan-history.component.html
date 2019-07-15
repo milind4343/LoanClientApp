@@ -5,9 +5,10 @@
             <!-- <button nbButton status="primary" class="btn-demo" > Add Customer </button> -->
         <!-- </div>  -->
       <nb-card>           
-        <nb-card-header *ngIf="pageView === 'List' || pageView === 'List'">{{pageTitle}}</nb-card-header>
+        <nb-card-header *ngIf="pageView === 'List' || pageView === 'List'">
+          <h4>{{pageTitle}}</h4>
+        </nb-card-header>
         <nb-card-body>
-
         <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
           <div class="col-sm-4">
             <label for="agent">Agent</label>
