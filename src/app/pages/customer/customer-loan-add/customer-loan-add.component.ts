@@ -177,11 +177,11 @@ export class CustomerLoanAddComponent implements OnInit {
         let weeklyinstallment = +(finalAmount / 6).toFixed(2);
 
         this.tenure = [];
-        for (let i = 0; i < 6; i++) {
-          if (i !== 0)
+        for (let i = 1; i < 7; i++) {
+          // if (i !== 0)
             date = this.dateService.addDay(date, 7);
           this.tenure.push({
-            srno: i + 1,
+            srno: i,
             installmentdate: date,
             installmentamount: weeklyinstallment
           })
@@ -193,11 +193,11 @@ export class CustomerLoanAddComponent implements OnInit {
 
         this.tenure = [];
 
-        for (let i = 0; i < 45; i++) {
-          if (i !== 0)
+        for (let i = 1; i < 46; i++) {
+          // if (i !== 0)
             date = this.dateService.addDay(date, 1);
           this.tenure.push({
-            srno: i + 1,
+            srno: i ,
             installmentdate: date,
             installmentamount: dailyinstallment
           })

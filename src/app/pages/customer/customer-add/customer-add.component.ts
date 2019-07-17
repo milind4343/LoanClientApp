@@ -31,7 +31,6 @@ export class CustomerAddComponent implements OnInit {
   pageaccesscontrol:any={};
   loadingMediumGroup = false;
 
-
   config: ToasterConfig;
   status = NbToastStatus.SUCCESS;
   destroyByClick = true;
@@ -40,6 +39,11 @@ export class CustomerAddComponent implements OnInit {
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
   max: Date;
+
+  alphaonly = "[a-zA-Z]*";
+  numonly = "[0-9]*";
+  //emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
     private agentservice: AgentService, private toastrService: NbToastrService,
     private pageAccessService: PageAccessService) {            
@@ -108,7 +112,11 @@ export class CustomerAddComponent implements OnInit {
         position: this.position,
         preventDuplicates: this.preventDuplicates
       };
-
+      debugger;
+      //let ddt = JSON.stringify(this.customer.dob);
+      //JSON.parse(ddt);
+      //console.log(JSON.parse(this.customer.dob));
+      this.customer.dob = new Date(this.customer.dob.toISOString());
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{

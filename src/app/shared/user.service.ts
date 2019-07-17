@@ -15,4 +15,8 @@ export class UserService {
     return this.httpclient.get<any>(this.url + '/isuniquemail/' + email + '/' + userId, { headers: this.header });
   }
 
+  getUserByUid(uid:string, userId: string){  
+    return this.httpclient.get<any>(this.url + '/isuniqueuid/' + uid + '/' + userId, { headers: this.header });
+  }
+
 }

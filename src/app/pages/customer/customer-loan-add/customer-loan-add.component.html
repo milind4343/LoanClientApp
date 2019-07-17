@@ -84,7 +84,7 @@
   <div class="row">
     <div class="col-sm-3">
       <div class="form-group">
-        <label for="periodicity">Instalment Period</label>
+        <label for="periodicity">Installment Period</label>
         <div class="demo-radio">
           <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity"
             [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
@@ -115,7 +115,7 @@
     </div>
     <div class="col-sm-2">
       <div class="form-group">
-        <label for="totalInstallments">Total Instalments</label>
+        <label for="totalInstallments">Total Installments</label>
         <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments"
           #totalinstallments [(ngModel)]="loan.totalinstallments" placeholder="Total Installments" [disabled]="true">
       </div>
@@ -198,8 +198,8 @@
         <thead *ngIf="showInstallments">
           <tr>
             <th>ID</th>
-            <th>Instalment Date</th>
-            <th>Instalment Amount</th>
+            <th>Installment Date</th>
+            <th>Installment Amount</th>
           </tr>
         </thead>
         <tbody>

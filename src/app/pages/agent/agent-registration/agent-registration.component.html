@@ -1,6 +1,5 @@
 <form class="form-horizontal" #addEditform="ngForm" aria-labelledby="title" novalidate>
   <div class="row">
-
     <div class="col-sm-3">
       <div class="form-group">
         <!-- <input type="text" [(ngModel)]="customer.profile" name="profile" id="input-profile"> -->
@@ -18,42 +17,40 @@
         <div class="col-sm-4">
           <div class="form-group">
             <label for="inputFirstname" class="col-form-label">FirstName</label>
-            <input type="firstname" name="Firstname" #Firstname="ngModel" [(ngModel)]="user.firstname"
-              class="form-control" id="inputfirstname" placeholder="FirstName" maxlength="50" required>
-            <p class="error-message" *ngIf="Firstname.invalid && submitted && Firstname.errors.required">Required!
-            </p>
+            <span class="text-danger" *ngIf="Firstname.invalid && submitted && Firstname.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="Firstname.touched && Firstname.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="Firstname" #Firstname="ngModel" [(ngModel)]="user.firstname"
+              class="form-control" placeholder="FirstName" maxlength="15" required [pattern]="alphaonly">
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label for="inputMiddlename" class="col-form-label">MiddleName</label>
-            <input type="middlename" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.middlename"
-              class="form-control" id="inputmiddlename" placeholder="MiddleName" maxlength="50" required>
-            <p class="error-message" *ngIf="MiddleName.invalid && submitted && MiddleName.errors.required">Required!
-            </p>
+            <span class="text-danger" *ngIf="MiddleName.invalid && submitted && MiddleName.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="MiddleName.touched && MiddleName.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.middlename"
+              class="form-control" id="inputmiddlename" placeholder="MiddleName" maxlength="15" required [pattern]="alphaonly">            
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label for="inputLastname" class="col-form-label">LastName</label>
-            <input type="email" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"
-              id="inputlastname" maxlength="50" placeholder="LastName" required>
-            <p class="error-message" *ngIf="Lastname.invalid && submitted && Lastname.errors.required">Required!</p>
+            <span class="text-danger" *ngIf="Lastname.invalid && submitted && Lastname.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="Lastname.touched && Lastname.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"
+              id="inputlastname" maxlength="15" placeholder="LastName" required [pattern]="alphaonly">            
           </div>
         </div>
 
         <div class="col-sm-4">
           <label class="col-form-label">Gender</label>
+          <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span>
           <div class="custom_radio">
-            <nb-radio-group [(ngModel)]="user.gender" name="Gender">
-              <nb-radio style="display: inline-block;" [value]="'Male'">
-                Male
-              </nb-radio>
-              <nb-radio style="display: inline-block;" [value]="'Female'">
-                Female
-              </nb-radio>
+            <nb-radio-group [(ngModel)]="user.gender" #gender="ngModel" name="Gender" required>
+              <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
+              <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
             </nb-radio-group>
           </div>
         </div>
@@ -61,24 +58,23 @@
         <div class="col-sm-4">
           <div class="form-group">
             <label for="inputBirthDate" class="col-form-label">BirthDate</label>
-            <input nbInput placeholder="BirthDate" #DOB="ngModel" [nbDatepicker]="picker" [(ngModel)]="user.dob"
-              name="DOB" required [readonly]="true">
-            <nb-datepicker #picker [max]="max"></nb-datepicker>
-            <p class="error-message" *ngIf="DOB.invalid && submitted && DOB.errors.required">Required!</p>
+            <span class="text-danger" *ngIf="DOB.invalid && submitted && DOB.errors.required"> * required</span>            
+            <input class="form-control" nbInput placeholder="BirthDate" #DOB="ngModel" [nbDatepicker]="picker" [(ngModel)]="user.dob"
+              name="DOB" required readonly>
+            <nb-datepicker #picker [max]="max"></nb-datepicker>            
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label for="inputEmail" class="col-form-label">Email</label>
-            <span class="error-message" *ngIf="EmailID.errors?.uniqueEmail"> * this email is already in use</span>
-            <input type="email" class="form-control" #EmailID="ngModel" id="inputemail" placeholder="Email"
-              [(ngModel)]="user.emailId" name="EmailID" maxlength="125" required email [uniqueEmail]='user.userId'>
-            <p class="error-message" *ngIf="EmailID.invalid && submitted && EmailID.errors.required">Required!</p>
-            <p class="error-message"
-              *ngIf="(EmailID.invalid && EmailID.errors.email && (EmailID.touched || submitted))">
+            <span class="text-danger" *ngIf="EmailID.invalid && submitted && EmailID.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="(EmailID.invalid && EmailID.errors.email && (EmailID.touched || submitted))">
               Email not valid
-            </p>
+            </span>
+            <span class="text-danger" *ngIf="EmailID.errors?.uniqueEmail"> * this email is already in use</span>
+            <input type="email" onkeyup="this.value = this.value.toUpperCase();" class="form-control" #EmailID="ngModel" id="inputemail" placeholder="Email"
+              [(ngModel)]="user.emailId" name="EmailID" maxlength="50" required email [uniqueEmail]='user.userId'>            
           </div>
         </div>
       </div>
@@ -91,62 +87,58 @@
         <div class="col-sm-6">
           <div class="form-group">
             <label for="inputContact" class="col-form-label">Contact No.</label>
+            <span class="text-danger" *ngIf="Mobile.invalid && submitted && Mobile.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="Mobile.errors?.pattern && Mobile.touched"> * allow (0-9) only</span>
             <input type="ContactNo" class="form-control" id="inputemail" placeholder="Contact No" #Mobile="ngModel"
-              [(ngModel)]="user.mobile" name="Mobile" pattern="[0-9]*" maxlength="25" required>
-            <p class="error-message" *ngIf="Mobile.invalid && submitted && Mobile.errors.required">Required!</p>
-            <p class="error-message" *ngIf="(Mobile.invalid && Mobile.errors.pattern && (Mobile.touched || submitted))">
-              Allow
-              only number!
-            </p>
+              [(ngModel)]="user.mobile" name="Mobile" pattern="[0-9]*" maxlength="15" required>            
           </div>
         </div>
 
         <div class="col-sm-6">
           <div class="form-group">
             <label for="inputAlternate" class="col-form-label">Alternate No.</label>
+            <span class="text-danger" *ngIf="Phone.errors?.pattern && Phone.touched"> * allow (0-9) only</span>
             <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" #Phone="ngModel"
-              [(ngModel)]="user.phone" name="Phone" maxlength="25">
+              [(ngModel)]="user.phone" name="Phone" maxlength="15" pattern="[0-9]*">
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label class="col-sm-2">State</label>
+            <span class="text-danger" *ngIf="stateId.invalid && submitted"> * required</span>
             <select class="form-control" (change)="onStateSelect(user.stateId)" #stateId="ngModel"
               [(ngModel)]="user.stateId" name="stateId" required>
               <option *ngFor="let stateval of state" value="{{stateval.id}}">
                 {{stateval.name}}
               </option>
-            </select>
-            <p class="error-message" *ngIf="stateId.invalid && submitted">
-              Required!
-            </p>
+            </select>           
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label class="col-sm-2">City</label>
+            <span class="text-danger" *ngIf="cityId.invalid && submitted && cityId.errors.required"> * required</span>
             <select class="form-control" (change)="onCitySelect(user.cityId)" #cityId="ngModel"
               [(ngModel)]="user.cityId" name="cityId" [disabled]="!(user.stateId!==0)" required>
               <option *ngFor="let cityval of city" value="{{cityval.id}}">
                 {{cityval.name}}
               </option>
-            </select>
-            <p class="error-message" *ngIf="cityId.invalid && submitted && cityId.errors.required">Required!</p>
+            </select>            
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
             <label class="col-sm-12">PIN Code</label>
+            <span class="text-danger" *ngIf="zipCode.invalid && submitted && zipCode.errors.required"> * required</span>
             <select class="form-control" [(ngModel)]="user.zipcode" name="zipCode" #zipCode="ngModel"
               [disabled]="!(user.cityId!==0)" required>
               <option *ngFor="let areaval of area" value="{{areaval.id}}">
                 {{areaval.name}}
               </option>
-            </select>
-            <p class="error-message" *ngIf="zipCode.invalid && submitted && zipCode.errors.required">Required!</p>
+            </select>            
           </div>
         </div>
       </div>
@@ -154,19 +146,19 @@
     <div class="col-sm-4">
       <div class="form-group">
         <label for="inputAddress" class="col-form-label">Address</label>
-        <textarea rows="6" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
-          name="Address" maxlength="500" required style="min-height: 133px;"></textarea>
-        <p class="error-message" *ngIf="Address.invalid && submitted && Address.errors.required">Required!</p>
+        <span class="text-danger" *ngIf="Address.invalid && submitted && Address.errors.required"> * required</span>
+        <textarea rows="4" onkeyup="this.value = this.value.toUpperCase();" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
+          name="Address" maxlength="250" required class="form-control"></textarea>        
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class=" col-sm-12 text-center " *ngIf="(user.userId>0)">
+    <div class=" col-sm-12 text-center" *ngIf="(user.userId>0)">
       <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)">Update</button>
       <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancel</button>
     </div>
-    <div class=" col-sm-12 text-center " *ngIf="(user.userId==0)">
+    <div class=" col-sm-12 text-center" *ngIf="(user.userId==0)">
       <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)">Register</button>
       <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancel</button>
     </div>

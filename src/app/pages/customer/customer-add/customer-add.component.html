@@ -6,8 +6,7 @@
             <input style="display: none" type="file" name="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
               (change)="fileProgress(fileInput.files)"> <!-- (change)="onFileChanged($event)" -->
             <a (click)="fileInput.click()">
-              <img [src]="imgUrl" style="height: 150px;" 
-              nbTooltip="Upload Profile Photo" nbTooltipPlacement="top" nbTooltipStatus="success" />
+              <img [src]="imgUrl" style="height: 150px;" nbTooltip="Upload Profile Photo" nbTooltipPlacement="top" nbTooltipStatus="success" />
             </a>        
           </div>
         </div>
@@ -16,25 +15,29 @@
               <div class="col-sm-4">
                   <div class="form-group">
                     <label for="input-firstname">First Name</label>
+                    <!-- <pre>{{firstname.errors?.invalid}}</pre> -->
                     <span class="text-danger" *ngIf="firstname.invalid && submitted && firstname.errors.required"> * required</span>
-                    <input type="text" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control"
-                      id="input-firstname" placeholder="First Name" required maxlength="50">          
+                    <span class="text-danger" *ngIf="firstname.touched && firstname.errors?.pattern"> * allows (a-z) only</span>
+                    <input type="text" [pattern]="alphaonly" onkeyup="this.value = this.value.toUpperCase();" [(ngModel)]="customer.firstname" #firstname="ngModel" name="firstname" class="form-control"
+                      id="input-firstname" placeholder="First Name" required maxlength="15">           
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label for="input-middlename">Middle Name</label>
                     <span class="text-danger" *ngIf="middlename.invalid && submitted && middlename.errors.required"> * required</span>
-                    <input type="text" [(ngModel)]="customer.middlename" name="middlename" class="form-control"
-                      id="input-middlename" #middlename="ngModel" placeholder="Middle Name" required maxlength="50">
+                    <span class="text-danger" *ngIf="middlename.touched && middlename.errors?.pattern"> * allows (a-z) only</span>
+                    <input type="text" [pattern]="alphaonly" [(ngModel)]="customer.middlename" name="middlename" class="form-control"
+                    onkeyup="this.value = this.value.toUpperCase();" #middlename="ngModel" placeholder="Middle Name" required maxlength="15">
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label for="input-lastname">Last Name</label>
                     <span class="text-danger" *ngIf="lastname.invalid && submitted && lastname.errors.required"> * required</span>
-                    <input type="text" [(ngModel)]="customer.lastname" name="lastname" #lastname class="form-control" id="input-lastname"
-                      #lastname= "ngModel" placeholder="Last Name" required maxlength="50">
+                    <span class="text-danger" *ngIf="lastname.touched && lastname.errors?.pattern"> * allows (a-z) only</span>
+                    <input type="text" [pattern]="alphaonly" [(ngModel)]="customer.lastname" name="lastname" class="form-control"
+                    onkeyup="this.value = this.value.toUpperCase();" #lastname="ngModel" placeholder="Last Name" required maxlength="15">
                   </div>
                 </div>
           </div>
@@ -43,15 +46,18 @@
                   <div class="form-group">
                     <label for="input-UID">UID</label>
                     <span class="text-danger" *ngIf="uid.invalid && submitted && uid.errors.required"> * required</span>
+                    <span class="text-danger" *ngIf="uid.errors?.uniqueUid"> * already in use</span>    
                     <input type="text" [(ngModel)]="customer.uid" #uid="ngModel" name="UID" class="form-control" id="input-UID"
-                      placeholder="Unique Identity No." required maxlength="50">
+                      placeholder="Unique Identity No." required maxlength="15" onkeyup="this.value = this.value.toUpperCase();"
+                      [uniqueUid]="customer.userID">
                   </div>
                 </div>
                 <div class="col-sm-4">
                   <div class="form-group">
                     <label for="input-birthdate">Birthdate</label>
+                    <span class="text-danger" *ngIf="Birthdate.invalid && submitted && Birthdate.errors.required"> * required</span>
                     <input id="input-initialdate" nbInput class="form-control" placeholder="Birthdate" name="Birthdate"
-                      [(ngModel)]="customer.dob" [nbDatepicker]="formpicker">
+                      [(ngModel)]="customer.dob" #Birthdate="ngModel" [nbDatepicker]="formpicker" readonly required>
                     <nb-datepicker #formpicker [max]="max"></nb-datepicker>
                   </div>
                 </div>
@@ -75,24 +81,27 @@
       <div class="form-group">
         <label for="input-email">Email</label>
         <span class="text-danger" *ngIf="email.invalid && submitted && email.errors.required"> * required</span>
-        <span class="text-danger" *ngIf="email.errors?.uniqueEmail"> * already in use</span>
-        <input type="text" [(ngModel)]="customer.emailId" #email="ngModel" name="email" class="form-control" id="input-email"
-          placeholder="Email" required [uniqueEmail]="customer.userID" maxlength="150">
+        <span class="text-danger" *ngIf="email.errors?.uniqueEmail"> * already in use</span>        
+        <span class="text-danger" *ngIf="email.errors?.email"> * invalid email</span>
+        <input type="email" [(ngModel)]="customer.emailId" #email="ngModel" name="email" class="form-control" id="input-email"
+        onkeyup="this.value = this.value.toUpperCase();" placeholder="Email" email required [uniqueEmail]="customer.userID" maxlength="50">
       </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
         <label for="input-contact">Contact No.</label>
         <span class="text-danger" *ngIf="mobile.invalid && submitted && mobile.errors.required"> * required</span>
-        <input type="text" [(ngModel)]="customer.mobile" name="contact" #mobile="ngModel" class="form-control" id="input-contact"
+        <span class="text-danger" *ngIf="mobile.touched && mobile.errors?.pattern"> * allows (0-9) only</span>
+        <input type="text" [pattern]="numonly" [(ngModel)]="customer.mobile" name="contact" #mobile="ngModel" class="form-control" id="input-contact"
           placeholder="Contact" required maxlength="15">
       </div>
     </div>
     <div class="col-sm-4">
       <div class="form-group">
         <label for="input-altcontact">Alternate Contact No.</label>
+        <span class="text-danger" *ngIf="phone.touched && phone.errors?.pattern"> * allows (0-9) only</span>
         <!-- <span class="text-danger" *ngIf="phone.invalid && submitted && phone.errors.required"> * required</span> -->
-        <input type="text" [(ngModel)]="customer.phone" name="altcontact" #phone="ngModel" class="form-control" id="input-altcontact"
+        <input type="text" [pattern]="numonly" [(ngModel)]="customer.phone" name="altcontact" #phone="ngModel" class="form-control" id="input-altcontact"
           placeholder="Alternate Contact" maxlength="15">
       </div>
     </div>
@@ -141,21 +150,23 @@
         <label for="input-contact">Address</label>
         <span class="text-danger" *ngIf="address.invalid && submitted && address.errors.required"> * required</span>
         <textarea rows="5" nbInput fullWidth [(ngModel)]="customer.address" #address="ngModel" name="address" class="form-control"
-          id="input-address" placeholder="Address" required maxlength="500"></textarea>
+        onkeyup="this.value = this.value.toUpperCase();" placeholder="Address" required maxlength="250"></textarea>
       </div>
     </div>
     <div class="col-sm-6">
       <div class="form-group">
         <label for="input-profession">Profession</label>
         <span class="text-danger" *ngIf="profession.invalid && submitted && profession.errors.required"> * required</span>
-        <input type="text" [(ngModel)]="customer.profession" name="profession" #profession="ngModel" class="form-control"
-          id="input-profession" placeholder="Profession" required maxlength="50">
+        <span class="text-danger" *ngIf="phone.touched && profession.errors?.pattern"> * allows (a-z) only</span>
+        <input type="text" [pattern]="alphaonly" [(ngModel)]="customer.profession" name="profession" #profession="ngModel" class="form-control"
+        onkeyup="this.value = this.value.toUpperCase();" placeholder="Profession" required maxlength="25">
       </div>
       <div class="form-group">
         <label for="input-company">Company</label>
         <span class="text-danger" *ngIf="company.invalid && submitted && company.errors.required"> * required</span>
-        <input type="text" [(ngModel)]="customer.company" name="company" #company="ngModel" class="form-control" id="input-company"
-          placeholder="Company" required maxlength="50">
+        <span class="text-danger" *ngIf="company.touched && company.errors?.pattern"> * allows (a-z) only</span>
+        <input type="text" [pattern]="alphaonly" [(ngModel)]="customer.company" name="company" #company="ngModel" class="form-control" id="input-company"
+        onkeyup="this.value = this.value.toUpperCase();" placeholder="Company" required maxlength="25">
       </div>
     </div>
   </div>
@@ -164,8 +175,9 @@
     <div class="col-sm-12">
       <div class="form-group">
         <label for="input-remarks">Remarks</label>
-        <textarea rows="2" [(ngModel)]="customer.remarks" name="remarks" class="form-control" id="input-remarks"
-          placeholder="Remarks" maxlength="250"></textarea>
+        <span class="text-danger" *ngIf="submitted && remarks.errors?.pattern"> * allows (a-z) only</span>
+        <textarea rows="2" [pattern]="alphaonly" [(ngModel)]="customer.remarks" name="remarks" #remarks="ngModel" class="form-control" id="input-remarks"        
+        onkeyup="this.value = this.value.toUpperCase();" placeholder="Remarks" maxlength="250"></textarea>
       </div>
     </div>
   </div>

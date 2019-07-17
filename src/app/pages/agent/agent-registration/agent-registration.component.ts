@@ -27,6 +27,8 @@ export class RegistrationComponent {
   imgUrl: any;
   formData: FormData = new FormData();
 
+  alphaonly = "[a-zA-Z]*";
+
   constructor(private agentService: AgentService, router: Router, private toastrService: NbToastrService) {
     this.max = new Date();
     this.imgUrl = "assets/images/user-placeholder.png";
@@ -41,7 +43,6 @@ export class RegistrationComponent {
         result.forEach(element => {
           this.state.push({ id: element.stateId, name: element.stateName })
         });
-        this.user.Gender = "Male";
       }
     }).catch(err => {
       console.log(err);
@@ -64,7 +65,6 @@ export class RegistrationComponent {
     else {
       this.user.userId = 0;
       this.user.stateId = '';
-      this.user.gender = "Male";
     }
   }
 
@@ -83,8 +83,7 @@ export class RegistrationComponent {
     {
       this.toastrService.danger('choose image in jpg/png format !', 'Failed', this.config);
       this.imgUrl = "assets/images/user-placeholder.png";
-    }
-   
+    }   
   }
 
   onStateSelect(stateId) {
