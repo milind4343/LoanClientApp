@@ -46,7 +46,7 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     };
 
     this.agentService.getAgent().subscribe(result =>{     
-      this.agentlist =result;    
+      this.agentlist = result;    
       this.dtTrigger.next();
     });
   }
@@ -122,7 +122,8 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       debugger;
       if (resultagent.status==200) {
         this.dtTrigger = new Subject();
-        this.toastrService.success('Fund update success !','Success',this.config);
+        this.toastrService.success('Fund Transferred successfully !','Success',this.config);
+        this.agentlist = [];  
         this.ngOnInit();
       }
       else

@@ -143,7 +143,8 @@
           <div class="form-group row">
             <label for="document" class="col-sm-3 col-form-label">Select Documents To Upload :</label>
             <div class="col-sm-4">
-              <input type="file" name="loanDoc" accept=".doc,.docx,.pdf, image/*" multiple #loanDoc (change)="selectedDoc(loanDoc.files)" />
+              <input type="file" name="loanDoc" accept=".doc,.docx,.pdf, image/*" multiple #loanDoc 
+              (change)="selectedDoc(loanDoc.files)" />
             </div>
           </div>
         </nb-card-header>

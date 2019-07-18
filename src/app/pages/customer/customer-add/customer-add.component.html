@@ -134,7 +134,7 @@
     </div>
     <div class="col-sm-4">
       <div class="form-group">
-        <label for="input-state">Pincode</label>
+        <label for="input-state">Zipcode</label>
         <span class="text-danger" *ngIf="zipcode.invalid && submitted && zipcode.errors.required"> * required</span>
         <select class="form-control" name="zipcode" #zipcode="ngModel" [(ngModel)]="customer.zipcode" required>
           <option value="">--- Select Zipcode ---</option>

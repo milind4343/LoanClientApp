@@ -2,27 +2,31 @@
   <div class="col-md-12">    
     <nb-card>
       <nb-card-header>
-        <h4 class="title">{{pageTitle}}
-          <span style="float: right">
-            <div class="form-group" *ngIf="pageView === 'List'">
-              <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd">
-                <i class="fas fa-user-plus"></i> Add New</button>
-            </div>
-          </span>
-        </h4>
+        <h4 class="title">{{pageTitle}}</h4>
       </nb-card-header>
       <nb-card-body>
+          <span style="float: right">
+              <div class="form-group" *ngIf="pageView === 'List'">
+                <button nbButton status="primary" class="btn-demo" (click)="addCustomer()" *ngIf="pageaccesscontrol.isadd">
+                  <i class="fas fa-user-plus"></i> Add New</button>
+              </div>
+            </span>
         <div class="form-group row" *ngIf="pageView === 'List' && roleId === 1">
           <!-- <div class="col-sm-4"> -->
-            <label class="label col-sm-3 col-form-label" for="agent">Get Customers on Agent Selection :</label>
-            <select class="form-control col-sm-4" [(ngModel)]="agentId" #agent="ngModel" 
-            name="agent" (change)="onAgentSelect(agentId,this)">              
-              <option value="0">- - Choose Agent - -</option>
-              <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
-            </select>
-            <h4 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</h4>
-            <!-- <span *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</span> -->
-          <!-- </div> -->         
+          <label class="label col-sm-3 col-form-label" for="agent">Get Customers on Agent Selection :</label>
+          <select class="form-control col-sm-4" [(ngModel)]="agentId" #agent="ngModel" name="agent"
+            (change)="onAgentSelect(agentId,this)">
+            <option value="0">- - Choose Agent - -</option>
+            <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+          </select>
+          <div class="col-sm-12">
+            <h4 *ngIf="showsearchlbl"
+              style="color: rebeccapurple;margin-top: 15px;font-size: 18px;border-bottom: 1px solid;padding-bottom: 7px;margin-bottom: 15px;">
+              {{searchresult}}
+            </h4>
+          </div>
+          <!-- <span *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 5px;margin-top: 15px;">{{searchresult}}</span> -->
+          <!-- </div> -->
         </div>
         <div *ngIf="pageView === 'List'">
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">

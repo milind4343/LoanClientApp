@@ -26,7 +26,6 @@ export class DialogNamePromptComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-
     
     this.agent={};
     this.agent.agentid='';

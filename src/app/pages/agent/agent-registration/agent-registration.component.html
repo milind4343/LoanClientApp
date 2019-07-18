@@ -105,39 +105,36 @@
 
         <div class="col-sm-4">
           <div class="form-group">
-            <label class="col-sm-2">State</label>
+            <label class="col-form-label">State</label>
             <span class="text-danger" *ngIf="stateId.invalid && submitted"> * required</span>
             <select class="form-control" (change)="onStateSelect(user.stateId)" #stateId="ngModel"
               [(ngModel)]="user.stateId" name="stateId" required>
-              <option *ngFor="let stateval of state" value="{{stateval.id}}">
-                {{stateval.name}}
-              </option>
+              <option value="">--- Select State ---</option>
+              <option *ngFor="let stateval of state" value="{{stateval.id}}">{{stateval.name}}</option>
             </select>           
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
-            <label class="col-sm-2">City</label>
+            <label class="col-form-label">City</label>
             <span class="text-danger" *ngIf="cityId.invalid && submitted && cityId.errors.required"> * required</span>
             <select class="form-control" (change)="onCitySelect(user.cityId)" #cityId="ngModel"
               [(ngModel)]="user.cityId" name="cityId" [disabled]="!(user.stateId!==0)" required>
-              <option *ngFor="let cityval of city" value="{{cityval.id}}">
-                {{cityval.name}}
-              </option>
+              <option value="">--- Select City ---</option>
+              <option *ngFor="let cityval of city" value="{{cityval.id}}">{{cityval.name}}</option>
             </select>            
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
-            <label class="col-sm-12">PIN Code</label>
+            <label class="col-form-label">Zipcode</label>
             <span class="text-danger" *ngIf="zipCode.invalid && submitted && zipCode.errors.required"> * required</span>
             <select class="form-control" [(ngModel)]="user.zipcode" name="zipCode" #zipCode="ngModel"
               [disabled]="!(user.cityId!==0)" required>
-              <option *ngFor="let areaval of area" value="{{areaval.id}}">
-                {{areaval.name}}
-              </option>
+              <option value="">--- Select Zipcode ---</option>
+              <option *ngFor="let areaval of area" value="{{areaval.id}}">{{areaval.name}}</option>
             </select>            
           </div>
         </div>
@@ -147,7 +144,7 @@
       <div class="form-group">
         <label for="inputAddress" class="col-form-label">Address</label>
         <span class="text-danger" *ngIf="Address.invalid && submitted && Address.errors.required"> * required</span>
-        <textarea rows="4" onkeyup="this.value = this.value.toUpperCase();" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
+        <textarea rows="5" onkeyup="this.value = this.value.toUpperCase();" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
           name="Address" maxlength="250" required class="form-control"></textarea>        
       </div>
     </div>

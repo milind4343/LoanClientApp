@@ -38,8 +38,7 @@ export class RegistrationComponent {
     this.user.userId = 0; 
     this.state = [];
     this.agentService.getState().then(result => {
-      if (result != null) {
-        this.state.push({ id: '', name: "--Select State--" });
+      if (result != null) {        
         result.forEach(element => {
           this.state.push({ id: element.stateId, name: element.stateName })
         });
@@ -66,6 +65,8 @@ export class RegistrationComponent {
       this.user.userId = 0;
       this.user.stateId = '';
     }
+    this.user.cityId = "";
+    this.user.zipcode = "";
   }
 
   fileProgress(fileInput: any) {
@@ -88,9 +89,9 @@ export class RegistrationComponent {
 
   onStateSelect(stateId) {
     this.city = [];
+    this.user.cityId = '';
     this.agentService.getCity(+stateId).then(result => {
-      if (result != null && result.length > 0) {
-        this.city.push({ id: '', name: "--Select City--" });
+      if (result != null && result.length > 0) {        
         result.forEach(element => {
           this.city.push({ id: element.id, name: element.name })
         });
@@ -108,9 +109,9 @@ export class RegistrationComponent {
 
   onCitySelect(cityId) {   
     this.area = [];
+    this.user.areaId = '';
     this.agentService.getArea(+cityId).then(result => {
-      if (result != null) {
-        this.area.push({ id: '', name: "--Select Area--" });
+      if (result != null) {        
         result.forEach(element => {
           this.area.push({ id: element.id, name: element.name })
         });

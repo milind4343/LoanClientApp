@@ -102,6 +102,7 @@ export class CustomerLoanAddComponent implements OnInit {
 
   assignloan(loan: any, form: any) {
     //loan.tenure=this.tenure;
+    debugger;
     var finaldata = JSON.stringify(loan);
     this.formData = new FormData();
     this.formData.append('loandetail', finaldata);
