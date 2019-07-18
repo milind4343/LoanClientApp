@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-registration',
@@ -29,7 +30,9 @@ export class RegistrationComponent {
 
   alphaonly = "[a-zA-Z]*";
 
-  constructor(private agentService: AgentService, router: Router, private toastrService: NbToastrService) {
+  constructor(private agentService: AgentService, router: Router, 
+    private toastrService: NbToastrService, public loader: LoaderService) 
+  {
     this.max = new Date();
     this.imgUrl = "assets/images/user-placeholder.png";
   }
@@ -47,7 +50,6 @@ export class RegistrationComponent {
       console.log(err);
     })
     
-    debugger;
     if(this.userId>0 || this.userId==undefined){
       this.agentService.editAgent(this.userId).subscribe(result =>{
       debugger;
@@ -122,26 +124,31 @@ export class RegistrationComponent {
   }
 
   registration(form: any) {
+    debugger;
+    this.loader.loader = true;
     if (form.valid) {
-
       this.formData.append("agent", JSON.stringify(this.user));
 
       this.agentService.register(this.formData).then(result => {
         if (result != null) {
           if (this.user.userId > 0) {
-            this.toastrService.success('Data update success !', 'Success', this.config);
             this.onPageChange.emit('List');
+            this.loader.loader = false;
+            this.toastrService.success('Data update success !', 'Success', this.config);            
           }
           else {
-            this.toastrService.success('Registration success !', 'Success', this.config);
             this.onPageChange.emit('List');
+            this.loader.loader = false;
+            this.toastrService.success('Registration success !', 'Success', this.config);            
           }
         }
         else {
+          this.loader.loader = false;
           this.toastrService.success('Registration failed !', 'Failed', this.config);
         }
       }).catch(err => {
         console.log(err);
+        this.loader.loader = false;
         this.toastrService.danger('Something went wrong !', 'Failed', this.config);
       })
     }

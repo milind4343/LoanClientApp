@@ -100,6 +100,7 @@ export class CustomerAddComponent implements OnInit {
   }
   
   register(form: any) {   
+    this.loader.loader = true;
     if (form.valid) {
       this.loader.loader = true;
       this.loadingMediumGroup = true;
@@ -124,27 +125,29 @@ export class CustomerAddComponent implements OnInit {
         if (result.success) {
           this.editUserID = 0;
           this.callParent.emit('List');
+          this.loader.loader = false;
           this.toastrService.show(
             "Customer Added Successfully",
             "Success",
             config);
         }
         else {
+          this.loader.loader = false;
           config.status = NbToastStatus.DANGER;
           this.toastrService.show(
             "Something goes wrong!",
             "Error",
             config);
         }
-        this.loadingMediumGroup = false;
-        this.loader.loader = false;
+        this.loadingMediumGroup = false;        
       },err => {
+        this.loader.loader = false;
         config.status = NbToastStatus.DANGER;
         this.toastrService.show(
           "Something goes wrong!",
           "Error",
           config);
-        this.loader.loader = false;
+        
         this.loadingMediumGroup = false;
       });
     }

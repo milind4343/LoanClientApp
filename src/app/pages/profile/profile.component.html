@@ -1,159 +1,157 @@
-<form class="form-horizontal" *ngIf="registerForm" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="form-horizontal" *ngIf="registerForm" [formGroup]="registerForm">
   <input type="hidden" formControlName="userId">
-  
-
-    <nb-card>
-      <nb-card-header><h4>Profile Detail</h4></nb-card-header>
-      <nb-card-body>
-          <div class="row">
+  <nb-card>
+    <nb-card-header>
+      <h4>Profile Detail</h4>
+    </nb-card-header>
+    <nb-card-body>
+      <div class="row">
         <div class="col-sm-3">
           <div class="form-group">
             <label for="inputFirstname">FirstName</label>
-            <span class="text-danger" *ngIf="registerForm.controls.firstname.errors?.required && submitted"> *
-              required</span>
-            <input type="text" formControlName="firstname" class="form-control" placeholder="FirstName" maxlength="50">
+            <span class="text-danger" *ngIf="registerForm.controls.firstname.errors?.required && submitted"> * required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.firstname.touched && registerForm.controls.firstname.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" formControlName="firstname" [pattern]="alphaonly" class="form-control" placeholder="FirstName" maxlength="15">
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
             <label for="inputMiddlename">MiddleName</label>
-            <span class="text-danger" *ngIf="registerForm.controls.middlename.errors?.required && submitted"> *
-              required</span>
-            <input type="text" formControlName="middlename" class="form-control" placeholder="MiddleName"
-              maxlength="50">
+            <span class="text-danger" *ngIf="registerForm.controls.middlename.errors?.required && submitted"> * required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.middlename.touched && registerForm.controls.middlename.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" formControlName="middlename" [pattern]="alphaonly" class="form-control" placeholder="MiddleName"
+              maxlength="15">
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
             <label for="inputLastname">LastName</label>
-            <span class="text-danger" *ngIf="registerForm.controls.lastname.errors?.required && submitted"> *
-              required</span>
-            <input type="text" class="form-control" maxlength="50" placeholder="LastName" formControlName="lastname">
+            <span class="text-danger" *ngIf="registerForm.controls.lastname.errors?.required && submitted"> * required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.lastname.touched && registerForm.controls.lastname.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" class="form-control" maxlength="15" [pattern]="alphaonly" placeholder="LastName" formControlName="lastname">
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
             <label for="inputBirthDate">BirthDate</label>
             <input class="form-control" nbInput placeholder="BirthDate" [nbDatepicker]="picker" formControlName="dob"
-              [readonly]="true">
+              [readonly]="true" readonly required>
             <nb-datepicker #picker [max]="max"></nb-datepicker>
             <!-- <p class="text-danger" *ngIf="f.dob.invalid && submitted && f.dob.errors.required">Required!</p> -->
           </div>
         </div>
       </div>
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="gender">Gender</label>
-        <!-- <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span> -->
-        <div class="demo-radio">
-          <nb-radio-group name="gender" formControlName="gender" required>
-            <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
-            <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
-          </nb-radio-group>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <!-- <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span> -->
+            <div class="demo-radio">
+              <nb-radio-group name="gender" formControlName="gender" required>
+                <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
+                <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <label for="inputContact">Contact No</label>
+          <span class="text-danger" *ngIf="registerForm.controls.mobile.errors?.required && submitted"> * required</span>
+          <span class="text-danger" *ngIf="registerForm.controls.mobile.touched && registerForm.controls.mobile.errors?.pattern"> * allows (0-9) only</span>
+          <input type="ContactNo" class="form-control" placeholder="Contact No" pattern="[0-9]*" maxlength="15"
+            formControlName="mobile">
+        </div>
+
+        <div class="col-sm-3">
+          <label for="inputAlternate">Alternate No</label>          
+          <span class="text-danger" *ngIf="registerForm.controls.phone.touched && registerForm.controls.phone.errors?.pattern"> * allows (0-9) only</span>
+          <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" maxlength="15" pattern="[0-9]*"
+            formControlName="phone">
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.required && submitted"> * required</span>
+            <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.emailExists"> * email already exists</span>
+            <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.email"> * invalid email</span>
+            <input type="email" name="email" class="form-control" placeholder="Email" maxlength="100"
+              formControlName="emailId" email>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-sm-3">
-      <label for="inputContact">Contact No</label>
-      <span class="text-danger" *ngIf="registerForm.controls.mobile.errors?.required && submitted"> * required</span>
-      <input type="ContactNo" class="form-control" placeholder="Contact No" pattern="[0-9]*" maxlength="25"
-        formControlName="mobile">
-    </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <label for="inputContact">New Password</label>
+          <span class="text-danger" *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty"> * passwrod not matched</span>
+          <input type="text" class="form-control" placeholder="New Password" id="password" formControlName="password"
+            maxlength="8">
+        </div>
 
-    <div class="col-sm-3">
-      <label for="inputAlternate">Alternate No</label>
-      <span class="text-danger" *ngIf="registerForm.controls.phone.errors?.required && submitted"> * required</span>
-      <input type="AlternateNo" class="form-control" id="inputemail" placeholder="Alternate No" maxlength="25"
-        formControlName="phone">
-    </div>
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label for="inputEmail">Email</label>
-        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.required && submitted"> * required</span>
-        <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.emailExists && submitted"> * email
-          already exists</span>
-        <input type="email" name="email" class="form-control" placeholder="Email" maxlength="125"
-          formControlName="emailId" email>
+        <div class="col-sm-3">
+          <label for="inputContact">Confirm Password</label>
+          <span class="text-danger" *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty">
+            * passwrod not matched</span>
+          <input type="text" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword"
+            maxlength="8">
+        </div>
+        <div class="col-sm-6">
+          <label for="inputAddress">Address</label>
+          <span class="text-danger" *ngIf="registerForm.controls.address.errors?.required && submitted"> * required</span>
+          <textarea class="form-control" rows="2" nbInput fullWidth placeholder="Address" maxlength="200"
+            formControlName="address"></textarea>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="col-sm-3">
-      <label for="inputContact">New Password</label>
-      <span class="text-danger"
-        *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty">
-        * passwrod not matched</span>
-      <input type="text" class="form-control" placeholder="New Password" id="password" formControlName="password"
-        maxlength="25">
-    </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>State</label>
+            <span class="text-danger" *ngIf="registerForm.controls.stateId.errors?.required && submitted"> * required</span>
+            <select class="form-control" (change)="onStateSelect($event.target.value,true)" formControlName="stateId">
+              <option value="">- - select state - -</option>
+              <option *ngFor="let stateval of state" value="{{stateval.id}}">
+                {{stateval.name}}
+              </option>
+            </select>
+          </div>
+        </div>
 
-    <div class="col-sm-3">
-      <label for="inputContact">Confirm Password</label>
-      <span class="text-danger"
-        *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty">
-        * passwrod not matched</span>
-      <input type="text" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword"
-        maxlength="25">
-    </div>
-    <div class="col-sm-6">
-      <label for="inputAddress">Address</label>
-      <span class="text-danger" *ngIf="registerForm.controls.address.errors?.required && submitted"> * required</span>
-      <textarea class="form-control" rows="2" nbInput fullWidth placeholder="Address" maxlength="500"
-        formControlName="address"></textarea>
-    </div>
-  </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>City</label>
+            <span class="text-danger" *ngIf="registerForm.controls.cityId.errors?.required && submitted"> * required</span>
+            <select class="form-control" (change)="onCitySelect($event.target.value,true)" formControlName="cityId">
+              <option value="">- - select city - -</option>
+              <option *ngFor="let cityval of city" value="{{cityval.id}}">
+                {{cityval.name}}
+              </option>
+            </select>
+          </div>
+        </div>
 
-  <div class="row">
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>State</label>
-        <span class="text-danger" *ngIf="registerForm.controls.stateId.errors?.required && submitted"> * required</span>
-        <select class="form-control" (change)="onStateSelect($event.target.value,true)" formControlName="stateId">
-          <option value="">- - select state - -</option>
-          <option *ngFor="let stateval of state" value="{{stateval.id}}">
-            {{stateval.name}}
-          </option>
-        </select>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label>Zipcode</label>
+            <span class="text-danger" *ngIf="registerForm.controls.zipcode.errors?.required && submitted"> * required</span>
+            <select class="form-control" name="zipCode" formControlName="zipcode">
+              <option value="">- - select zipcode - -</option>
+              <option *ngFor="let areaval of area" value="{{areaval.id}}">
+                {{areaval.name}}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>City</label>
-        <span class="text-danger" *ngIf="registerForm.controls.cityId.errors?.required && submitted"> * required</span>
-        <select class="form-control" (change)="onCitySelect($event.target.value,true)" formControlName="cityId">
-          <option value="">- - select city - -</option>
-          <option *ngFor="let cityval of city" value="{{cityval.id}}">
-            {{cityval.name}}
-          </option>
-        </select>
+      <div class="offset-sm-3 col-sm-9" style="margin-top: 10px">
+        <button type="button" class="btn btn-primary" (click)="onSubmit()" style="margin-right: 8px">Save and Continue Edit</button>
+        <button type="button" class="btn btn-success" (click)="backToHome()">cancle</button>
+        <!-- <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancle</button> -->
       </div>
-    </div>
-
-    <div class="col-sm-3">
-      <div class="form-group">
-        <label>PIN Code</label>
-        <span class="text-danger" *ngIf="registerForm.controls.zipcode.errors?.required && submitted"> * required</span>
-        <select class="form-control" name="zipCode" formControlName="zipcode">
-          <option value="">- - select area - -</option>
-          <option *ngFor="let areaval of area" value="{{areaval.id}}">
-            {{areaval.name}}
-          </option>
-        </select>
-      </div>
-    </div>
-  </div>
-
-  <div class="offset-sm-3 col-sm-9" style="margin-top: 10px">
-    <button type="submit" class="btn btn-primary">Save and Continue Edit</button>
-    <button type="button" class="btn btn-success" (click)="backToHome()">cancle</button>
-    <!-- <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancle</button> -->
-  </div>
-  </nb-card-body>
+    </nb-card-body>
   </nb-card>
 
 </form>

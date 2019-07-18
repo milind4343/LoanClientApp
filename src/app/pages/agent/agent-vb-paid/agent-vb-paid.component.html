@@ -1,5 +1,5 @@
 <!-- <h4 style="color: red;text-align: center"></h4> -->
-<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
+<form class="form-horizontal" #form="ngForm">
   <nb-card>
       <nb-card-header><h4>Agent VB mark as paid <span style="float: right">Available VB : {{vb.paidAmount}} ₱</span></h4></nb-card-header>
       <nb-card-body>         
@@ -27,7 +27,8 @@
               <label for="chequenum" class="col-sm-2 col-form-label">Cheque No.</label>
               <div class="col-sm-4">
                   <span class="text-danger" *ngIf="vb.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> * required</span>
-                  <input type="text" class="form-control" #chequenum="ngModel" [(ngModel)]="vb.chequeno" name="chequenum" id="ChequeNo"
+                  <span class="text-danger" *ngIf="chequenum.touched && chequenum.errors?.pattern"> * allows (0-9) only</span>
+                  <input type="text" class="form-control" pattern="[0-9]*" #chequenum="ngModel" [(ngModel)]="vb.chequeno" name="chequenum" id="ChequeNo"
                     placeholder="Enter Cheque No." [disabled]="vb.paymentmethodid === 1 || vb.paymentmethodid === null" required>
               </div>
           </div>
@@ -36,31 +37,31 @@
               <label for="bankName" class="col-sm-2 col-form-label">Bank Name</label>
               <div class="col-sm-4">
                   <span class="text-danger" *ngIf="vb.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> * required</span>                
-                  <input type="text" class="form-control" #bankName="ngModel" [(ngModel)]="vb.bankname" name="bankName"
+                  <span class="text-danger" *ngIf="bankName.touched && bankName.errors?.pattern"> * allows (a-z) only</span>
+                  <input type="text" pattern="[a-zA-Z ]*" class="form-control" #bankName="ngModel" [(ngModel)]="vb.bankname" name="bankName"
                     placeholder="Enter Bank Name" [disabled]="vb.paymentmethodid === 1 || vb.paymentmethodid === null" required>
               </div>
           </div>
           
           <div class="form-group row">
               <label for="document" class="col-sm-2 col-form-label">Remarks</label>
+              <span class="text-danger" *ngIf="remarks.touched && remarks.errors?.pattern"> * allows (a-z,0-9,. & space) only</span>
               <div class="col-sm-4">
-                  <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="vb.remarks" 
-                  placeholder="Enter Remarks" [(ngModel)]="vb.remarks" #remarks></textarea>
+                  <textarea rows="1" class="form-control" pattern="[a-zA-Z0-9. ]*" id="remarks" name="remarks" [(ngModel)]="vb.remarks" 
+                  placeholder="Enter Remarks" [(ngModel)]="vb.remarks" #remarks="ngModel"></textarea>
               </div>
           </div> 
          
         <div class="row">
           <div class="col-sm-4"></div>
           <div class="button-container">
-            <button type="submit" class="btn btn-primary" [disabled]="vb.paidAmount === 0">Mark As Paid</button>
+            <button type="button" (click)="submitted=true;markpaid(form)" class="btn btn-primary" [disabled]="vb.paidAmount === 0">Mark As Paid</button>
           </div>
           <!-- <div class="button-container">
             <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
           </div> -->
-        </div>
-    
+        </div>    
       </nb-card-body>
     </nb-card>
-
 </form>
 

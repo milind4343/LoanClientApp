@@ -16,7 +16,7 @@ export class MaxLoanValidatorDirective implements AsyncValidator {
   validate(c: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {    
     return this.authservice.getLoggedInUserDetail().pipe(
       map(users => {        
-        return c.value >= users.lb ? {'maxLoan':true} : null;         
+        return c.value > users.lb ? {'maxLoan':true} : null;         
       })
     );
   }

@@ -67,11 +67,15 @@ export class AgentService {
   }
 
   getAgent(): Observable<Agent[]>{
+    //this.token = "Bearer " + localStorage.getItem('jwt');
+    this.headerClient = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent',{ headers: this.headerClient });
+  }
+
+  getAgentList(): Observable<Agent[]>{
     this.token = "Bearer " + localStorage.getItem('jwt');
     this.headerClient = new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': this.token });
- 
-    // return this.httpclient.get<Agent[]>(this.agentUrl + '/getAgent');
-    return this.httpclient.get<Agent[]>(this.commonUrl + '/getAgent',{ headers: this.headerClient });
+    return this.httpclient.get<Agent[]>(this.agentUrl + '/getAgent',{ headers: this.headerClient });
   }
 
   editAgent(agentId){

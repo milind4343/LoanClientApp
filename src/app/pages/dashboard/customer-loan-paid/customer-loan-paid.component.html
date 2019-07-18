@@ -1,4 +1,4 @@
-<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;markpaid(form)">
+<form class="form-horizontal" #form="ngForm">
   <nb-card>
     <nb-card-header>
       <h4><i class="fas fa-user"></i> {{loan.customername}} <span style="float: right">Loan No.{{loan.customerloanid}} - Installment No.{{loan.installno}}</span></h4>
@@ -46,9 +46,9 @@
         <div class="col-sm-3">
           <div class="form-group">
             <label>Paid Amount</label>
-            <span class="text-danger" *ngIf="paidamount1.invalid && paidamount1.errors.required && submitted"> *
-              required</span>
-            <input class="form-control" #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1"
+            <span class="text-danger" *ngIf="paidamount1.invalid && paidamount1.errors.required && submitted"> * required</span>
+            <span class="text-danger" *ngIf="paidamount1.touched && paidamount1.errors?.pattern"> * allows (0-9) only</span>
+            <input class="form-control" pattern="^\d+[0-9]*(.[0-9]{1,2})?" #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1"
               placeholder="Enter Paid Amount" required>
           </div>
         </div>
@@ -56,12 +56,10 @@
         <div class="col-sm-4">
           <div class="form-group">
             <label for="chequenum">Cheque No.</label>
-            <span class="text-danger"
-              *ngIf="loan.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> *
-              required</span>
+            <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="chequenum.touched && chequenum.errors?.pattern"> * allows (0-9) only</span>
             <input type="text" class="form-control" #chequenum="ngModel" [(ngModel)]="loan.chequeno" name="chequenum"
-              id="ChequeNo" placeholder="Enter Cheque No."
-              [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null" required>
+              id="ChequeNo" placeholder="Enter Cheque No." pattern="[0-9]*" [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null" required>
           </div>
         </div>
       </div>
@@ -69,10 +67,9 @@
         <div class="col-sm-5">
           <div class="form-group">
             <label for="bankName">Bank Name</label>
-            <span class="text-danger"
-              *ngIf="loan.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> *
-              required</span>
-            <input type="text" class="form-control" #bankName="ngModel" [(ngModel)]="loan.bankname" name="bankName"
+            <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> * required</span>
+            <span class="text-danger" *ngIf="bankName.touched && bankName.errors?.pattern"> * allows (a-z) only</span>
+            <input type="text" pattern="[a-zA-Z ]*" class="form-control" #bankName="ngModel" [(ngModel)]="loan.bankname" name="bankName"
               placeholder="Enter Bank Name" [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null"
               required>
           </div>
@@ -80,15 +77,16 @@
         <div class="col-sm-7">
           <div class="form-group">
             <label for="document">Remarks</label>
-            <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks"
-              placeholder="Enter Remarks" [(ngModel)]="loan.remarks" #remarks></textarea>
+            <span class="text-danger" *ngIf="remarks.touched && remarks.errors?.pattern"> * allows (a-z,0-9,. & space) only</span>
+            <textarea rows="1" pattern="[a-zA-Z0-9. ]*" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks"
+              placeholder="Enter Remarks" [(ngModel)]="loan.remarks" #remarks="ngModel"></textarea>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="button-container">
-          <button type="submit" class="btn btn-primary">Mark As Paid</button>
+          <button type="button" (click)="submitted=true;markpaid(form)" class="btn btn-primary">Mark As Paid</button>
         </div>
         <div class="button-container">
           <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>

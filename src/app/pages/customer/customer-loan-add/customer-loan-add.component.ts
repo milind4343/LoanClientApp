@@ -40,11 +40,12 @@ export class CustomerLoanAddComponent implements OnInit {
   docTypeList: any = [];
   finalDoc: any = [];
 
+  numonly = "[0-9]*";
+
   constructor(private customerService: CustomerService, 
     private dateService: NbDateService<Date>, 
     private toastrService: NbToastrService) {
   }
-
 
   ngOnInit() {
     this.dtOptions = {
@@ -159,16 +160,17 @@ export class CustomerLoanAddComponent implements OnInit {
       let finalAmount = 0;
       let interestDaily = +((+interestAnnual / 365).toFixed(2));
       let durationInterest = +((+interestDaily * 45).toFixed(2));
+      debugger
       if (data.interestpayat == "Daily") {
          finalAmount=(loanamount)+(durationInterest);
         //finalAmount = (loanamount);
-        this.loan.paymentamount = finalAmount;
+        this.loan.paymentamount = finalAmount.toFixed(2);
       }
       else {
         debugger;
         finalAmount = (loanamount);
         // this.loan.paymentamount = (finalAmount) - (durationInterest);
-        this.loan.paymentamount = (loanamount);
+        this.loan.paymentamount = (loanamount).toFixed(2);
       }
       this.loan.interestamount = +(durationInterest);
 

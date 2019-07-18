@@ -1,9 +1,9 @@
-<form class="form-horizontal" #form="ngForm" (ngSubmit)="submitted=true;register(form)">
+<form class="form-horizontal" #form="ngForm">
   <div class="row">
       <div class="col-sm-3">
           <div class="form-group">
             <!-- <input type="text" [(ngModel)]="customer.profile" name="profile" id="input-profile"> -->
-            <input style="display: none" type="file" name="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
+            <input style="display: none" tabindex="0" type="file" name="file" #fileInput [(ngModel)]="customer.profileImage" accept="image/*"
               (change)="fileProgress(fileInput.files)"> <!-- (change)="onFileChanged($event)" -->
             <a (click)="fileInput.click()">
               <img [src]="imgUrl" style="height: 150px;" nbTooltip="Upload Profile Photo" nbTooltipPlacement="top" nbTooltipStatus="success" />
@@ -67,8 +67,8 @@
                     <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span>
                     <div class="demo-radio">
                       <nb-radio-group [(ngModel)]="customer.gender" #gender="ngModel" name="gender" required>
-                        <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
-                        <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
+                        <nb-radio style="display: inline-block;" [value]="'Male'" tabindex="0">Male</nb-radio>
+                        <nb-radio style="display: inline-block;" [value]="'Female'" tabindex="0">Female</nb-radio>
                       </nb-radio-group>
                     </div>
                   </div>
@@ -198,7 +198,7 @@
   <div class="row">
     <div class="col-sm-4"></div>
       <div class="button-container" *ngIf="pageaccesscontrol.isedit">
-        <button type="submit" class="btn btn-primary">Save</button>
+        <button type="button" (click)="submitted=true;register(form)" class="btn btn-primary">Save</button>
       </div>
       <div class="button-container">
           <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>
