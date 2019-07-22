@@ -69,6 +69,7 @@ export class CustomerAddComponent implements OnInit {
       this.formData = new FormData();
       this.customer = result[0];  
       this.customer.dob=new Date(result[0].dob);    
+      this.customer.gender = result[0].gender.toUpperCase();
       debugger;
       if(result[0].profileImageURL != null){
         this.imgUrl = result[0].profileImageURL;

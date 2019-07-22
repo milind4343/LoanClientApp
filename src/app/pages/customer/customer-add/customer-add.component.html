@@ -66,8 +66,8 @@
                     <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span>
                     <div class="demo-radio">
                       <nb-radio-group [(ngModel)]="customer.gender" #gender="ngModel" name="gender" required>
-                        <nb-radio style="display: inline-block;" [value]="'Male'" tabindex="0">Male</nb-radio>
-                        <nb-radio style="display: inline-block;" [value]="'Female'" tabindex="0">Female</nb-radio>
+                        <nb-radio style="display: inline-block;" [value]="'MALE'" tabindex="0">Male</nb-radio>
+                        <nb-radio style="display: inline-block;" [value]="'FEMALE'" tabindex="0">Female</nb-radio>
                       </nb-radio-group>
                     </div>
                   </div>

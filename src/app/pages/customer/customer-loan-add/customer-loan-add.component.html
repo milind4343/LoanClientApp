@@ -29,8 +29,8 @@
         <label for="inputLoanAmount">Loan Amount</label>
         <span class="text-danger" *ngIf="loanamount.invalid && submitted && loanamount.errors.required"> * required</span>
         <span class="text-danger" *ngIf="loanamount.errors?.maxLoan"> * loan limit exceed !</span>
-        <span class="text-danger" *ngIf="loanamount.touched && loanamount.errors?.pattern"> * allows (0-9) only</span>
-        <input type="text" pattern="^\d+[0-9]*(.[0-9]{1,2})?" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
+        <span class="text-danger" *ngIf="loanamount.touched && loanamount.errors?.pattern"> * allows only 0-9 with two decimal precision, don't start with 0</span>        
+        <input type="text" pattern="^[1-9][0-9]*(.[0-9]{1,2})?" class="form-control" #loanamount="ngModel" [(ngModel)]="loan.loanamount" name="loanamount"
           id="inputLoanAmount" placeholder="₱ 10000" (change)="tenurecalculation(loan)" required maxLoan>
       </div>
     </div>
@@ -40,27 +40,13 @@
         <span class="text-danger" *ngIf="interest.invalid && submitted && interest.errors.required"> * required</span>
         <select id="interest" class="form-control" #interest="ngModel" (change)="tenurecalculation(loan)"
           [(ngModel)]="loan.interest" name="interest" required>
-          <option value="">
-            - - 0% - -
-          </option>
-          <option value="15">
-            15%
-          </option>
-          <option value="16">
-            16%
-          </option>
-          <option value="17">
-            17%
-          </option>
-          <option value="18">
-            18%
-          </option>
-          <option value="19">
-            19%
-          </option>
-          <option value="20">
-            20%
-          </option>
+          <option value="">- - 0% - -</option>
+          <option value="15">15%</option>
+          <option value="16">16%</option>
+          <option value="17">17%</option>
+          <option value="18">18%</option>
+          <option value="19">19%</option>
+          <option value="20">20%</option>
         </select>
       </div>
     </div>
@@ -68,14 +54,14 @@
       <div class="form-group">
         <label for="startDate">Loan Start Date</label>
         <input id="startDate" class="form-control" nbInput placeholder="Loan Start Date" [nbDatepicker]="startdate"
-          #startDate [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event)" name="startDate" readonly>
+          #startDate="ngModel" [(ngModel)]="loan.startdate" (ngModelChange)="changeenddate($event);tenurecalculation(loan)" name="startDate" readonly>
         <nb-datepicker #startdate [min]="min"></nb-datepicker>
       </div>
     </div>
     <div class="col-sm-2">
       <div class="form-group">
         <label for="endDate">Loan End Date</label>
-        <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate
+        <input id="endDate" class="form-control" nbInput placeholder="Loan End Date" [nbDatepicker]="enddate" #enddate="ngModel"
           [(ngModel)]="loan.enddate" name="enddate" [disabled]="true">
         <nb-datepicker #enddate></nb-datepicker>
       </div>
@@ -86,7 +72,7 @@
       <div class="form-group">
         <label for="periodicity">Installment Period</label>
         <div class="demo-radio">
-          <nb-radio-group id="periodicity" name="paymentperiodicity" name="paymentperiodicity"
+          <nb-radio-group id="periodicity" name="paymentperiodicity"
             [(ngModel)]="loan.paymentperiodicity" (ngModelChange)="tenurecalculation(loan)">
             <nb-radio style="display: inline-block;" [value]="'Weekly'">Weekly</nb-radio>
             <nb-radio style="display: inline-block;" [value]="'Daily'">Daily</nb-radio>
@@ -110,20 +96,20 @@
       <div class="form-group">
         <label for="paymentAmount">Loan Re-Payment Amount</label>
         <input id="paymentAmount" type="text" class="form-control" name="paymentamount" id="paymentamount"
-          #paymentamount [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
+          #paymentamount="ngModel" [(ngModel)]="loan.paymentamount" placeholder="Payment Amount" [disabled]="true">
       </div>
     </div>
     <div class="col-sm-2">
       <div class="form-group">
         <label for="totalInstallments">Total Installments</label>
         <input id="totalInstallments" type="text" class="form-control" name="totalinstallments" id="totalinstallments"
-          #totalinstallments [(ngModel)]="loan.totalinstallments" placeholder="Total Installments" [disabled]="true">
+          #totalinstallments="ngModel" [(ngModel)]="loan.totalinstallments" placeholder="Total Installments" [disabled]="true">
       </div>
     </div>
     <div class="col-sm-2">
       <div class="form-group">
         <label for="inputInterestAmount">Interest Amount</label>
-        <input type="text" class="form-control" #interestamount [(ngModel)]="loan.interestamount" name="interestamount"
+        <input type="text" class="form-control" #interestamount="ngModel" [(ngModel)]="loan.interestamount" name="interestamount"
           id="inputInterestAmount" placeholder="₱ 10000" [disabled]="true">
       </div>
     </div>
@@ -174,7 +160,7 @@
       <div class="form-group">
         <label for="document">Remarks</label>
         <textarea rows="1" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks" placeholder="Remarks"
-          [(ngModel)]="loan.remarks" #remarks></textarea>
+          [(ngModel)]="loan.remarks" #remarks="ngModel"></textarea>
       </div>
     </div>
   </div>

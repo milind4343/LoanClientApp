@@ -50,14 +50,15 @@ export class RegistrationComponent {
       console.log(err);
     })
     
-    if(this.userId>0 || this.userId==undefined){
+    if(this.userId > 0 || this.userId == undefined){
       this.agentService.editAgent(this.userId).subscribe(result =>{
       debugger;
       this.onStateSelect(result.stateId);
       this.onCitySelect(result.cityId);
-      debugger;
+    
       this.user = result;
       this.user.dob=new Date(result.dob);
+      this.user.gender = result.gender.toUpperCase();
       if(result.profileImageURL != null){
         this.imgUrl = result.profileImageURL;
       }    

@@ -54,10 +54,9 @@
           <div class="form-group">
             <label>Paid Amount</label>            
             <span class="text-danger" *ngIf="paidamount1.invalid && paidamount1.errors.required && submitted"> * required</span>
-            <span class="text-danger" *ngIf="paidamount1.errors?.pattern"> * allows (0-9) only & two decimal precision</span>
-            <span class="text-danger" *ngIf="paidamount1.touched && (loan.paidamount > loan.totalunpaidamount)"> * not allowed</span>
-            <span class="text-danger" *ngIf="paidamount1.touched && (loan.paidamount == 0)"> * not allowed</span>
-            <input class="form-control" nbTooltip="Total Unpaid : ₱ {{loan.totalunpaidamount}}" nbTooltipPlacement="top" nbTooltipStatus="warning" pattern="^\d+[0-9]*(.[0-9]{1,2})?" 
+            <span class="text-danger" *ngIf="paidamount1.errors?.pattern"> * allows only 0-9 with two decimal precision, don't start with 0</span>
+            <span class="text-danger" *ngIf="paidamount1.touched && (loan.paidamount > loan.totalunpaidamount)"> * not allowed</span>            
+            <input class="form-control" nbTooltip="Total Unpaid : ₱ {{loan.totalunpaidamount}}" nbTooltipPlacement="top" nbTooltipStatus="warning" pattern="^[1-9][0-9]*(.[0-9]{1,2})?" 
             #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1" placeholder="Enter Paid Amount" required>
           </div>
         </div>

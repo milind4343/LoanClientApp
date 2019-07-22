@@ -86,16 +86,18 @@
         <div class="col-sm-3">
           <label for="inputContact">New Password</label>
           <span class="text-danger" *ngIf="registerForm.controls.password.errors?.MatchPassword && registerForm.controls.password?.touched && registerForm.controls.password?.dirty"> * passwrod not matched</span>
+          <span class="text-danger" *ngIf="registerForm.controls.password.errors?.minlength"> * enter atleast 4 letters </span>
           <input type="text" class="form-control" placeholder="New Password" id="password" formControlName="password"
-            maxlength="8">
+            maxlength="8" minlength="4">
         </div>
 
         <div class="col-sm-3">
           <label for="inputContact">Confirm Password</label>
           <span class="text-danger" *ngIf="registerForm.controls.confirmPassword.errors?.MatchPassword && registerForm.controls.confirmPassword?.touched && registerForm.controls.confirmPassword?.dirty">
-            * passwrod not matched</span>
+            * password doesn't matched</span>
+            <span class="text-danger" *ngIf="registerForm.controls.confirmPassword.errors?.minlength"> * enter atleast 4 letters </span>
           <input type="text" class="form-control" placeholder="Confirm Password" formControlName="confirmPassword"
-            maxlength="8">
+            maxlength="8" minlength="4">
         </div>
         <div class="col-sm-6">
           <label for="inputAddress">Address</label>

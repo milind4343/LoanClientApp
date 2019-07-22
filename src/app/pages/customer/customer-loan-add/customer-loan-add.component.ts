@@ -52,7 +52,7 @@ export class CustomerLoanAddComponent implements OnInit {
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5
+      pageLength: 10
     };
    
     // this.loan={};
@@ -104,6 +104,11 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   assignloan(loan: any, form: any) {
+
+    debugger;
+    this.loan.startdate = new Date(this.loan.startdate).toDateString();
+    this.loan.enddate = new Date(this.loan.enddate).toDateString();    
+
     //loan.tenure=this.tenure;
     this.loader.loader = true;
     var finaldata = JSON.stringify(loan);
@@ -177,7 +182,7 @@ export class CustomerLoanAddComponent implements OnInit {
         this.loan.paymentamount = (loanamount).toFixed(2);
       }
       this.loan.interestamount = +(durationInterest);
-
+      debugger;
       let date = data.startdate;
       if (data.paymentperiodicity == "Weekly") {
         this.loan.totalinstallments = 6;
@@ -189,23 +194,28 @@ export class CustomerLoanAddComponent implements OnInit {
             date = this.dateService.addDay(date, 7);
           this.tenure.push({
             srno: i,
-            installmentdate: date,
+            installmentdate: new Date(date).toDateString(),
             installmentamount: weeklyinstallment
           })
         }
       }
       else {
+        debugger
         this.loan.totalinstallments = 45;
         let dailyinstallment = +(finalAmount / 45).toFixed(2);
 
         this.tenure = [];
 
-        for (let i = 1; i < 46; i++) {
-          // if (i !== 0)
-            date = this.dateService.addDay(date, 1);
+        this.tenure.push({
+          srno: 1 ,
+          installmentdate: new Date(date).toDateString(),
+          installmentamount: dailyinstallment
+        })
+        for (let i = 2; i < 46; i++) {          
+          date = this.dateService.addDay(date, 1);
           this.tenure.push({
             srno: i ,
-            installmentdate: date,
+            installmentdate: new Date(date).toDateString(),
             installmentamount: dailyinstallment
           })
         }
@@ -228,7 +238,6 @@ export class CustomerLoanAddComponent implements OnInit {
     // this.installmenttenure = {
     //   tenure:this.tenure
     // }
-
   }
 
   cancelForm() {
