@@ -1,4 +1,4 @@
-import { Component, OnInit,Input,Output,EventEmitter, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
 import { AgentService } from '../agent.service';
 import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { DataTableDirective } from 'angular-datatables';
 import { Agent } from '../agent';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-agent-fundhistory',
@@ -16,7 +17,7 @@ import { Agent } from '../agent';
 })
 
 export class AgentFundhistoryComponent implements OnInit {
-  @Input() userId : number;
+  @Input() userId: number;
   @Output() onPageChange = new EventEmitter<string>();
   dtOptions: DataTables.Settings = {};
   dtTrigger: any = new Subject();
@@ -24,127 +25,123 @@ export class AgentFundhistoryComponent implements OnInit {
   @ViewChild(DataTableDirective)
   dtElement: DataTableDirective;
 
-  pageTitle : string = "Agent List";
-  pageView : string = "List";
+  pageTitle: string = "Agent List";
+  pageView: string = "List";
   IsAgent = false;
 
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
-  fundHistorylist:any[];
-  agentName:string;
-  pageaccesscontrol:any={};
-  roleId:number;
+  fundHistorylist: any[];
+  agentName: string;
+  pageaccesscontrol: any = {};
+  roleId: number;
 
-  agentlist : Agent[] = [];
+  agentlist: Agent[] = [];
   agentId: string;
 
-  selectedAgentname:string;
-  showsearchlbl:boolean=true;
-  searchresult:string="Display Result for Agent: All";
+  selectedAgentname: string;
+  showsearchlbl: boolean = true;
+  searchresult: string = "Display Result for Agent: All";
 
-  constructor(private router : Router, private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService,private pageAccessService: PageAccessService,private authservice:AuthenticationService) { }
+  constructor(private router: Router, private agentService: AgentService,
+    private dialogService: NbDialogService, private toastrService: NbToastrService,
+    private pageAccessService: PageAccessService, private authservice: AuthenticationService,
+    private loader: LoaderService) { }
 
   ngOnInit(): void {
+    this.loader.loader = true;
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
     debugger;
     this.dtOptions = {
       pagingType: 'full_numbers'
     };
-   
+
     // this.pageView='List';
     // this.pageTitle='Agent List';
 
     // this.pageView='History';
     // this.pageTitle='Fund History';
-    debugger;
+
     let routerurl = this.router.url;
-    if(routerurl == "/pages/agent/history"){
+    if (routerurl == "/pages/agent/history") {
       this.IsAgent = true;
     }
 
-    this.authservice.getLoggedInUserDetail().subscribe(res=>{
-      debugger;
-      if(res!= null){
-        debugger;
+    this.authservice.getLoggedInUserDetail().subscribe(res => {
+      if (res != null) {
         this.roleId = res.roleId;
-        if(this.roleId ==1){
-           this.IsAgent = false;
-           this.getAllAgents();
-          
+        if (this.roleId == 1) {
+          this.IsAgent = false;
+          this.getAllAgents();
         }
-        else{
+        else {
           this.IsAgent = true;
         }
-
-        this.bindFundHistoryListByAgentId(this.IsAgent,0)
-        // this.agentService.getAgentfund(this.userId, this.IsAgent).subscribe(result =>{
-    
+        this.bindFundHistoryListByAgentId(this.IsAgent, 0);
+      }
+    });
   }
-});
-}
 
 
-bindFundHistoryListByAgentId(isagent:boolean,agentid:number)
-{
-  this.agentService.getAgentfund(isagent,agentid).subscribe(result =>{
-    debugger;
-    this.fundHistorylist = result.lstFundVM;
-    this.agentName = result.agentName;
-    this.dtTrigger.next();
-  });
-}
+  bindFundHistoryListByAgentId(isagent: boolean, agentid: number) {
+    this.agentService.getAgentfund(isagent, agentid).subscribe(result => {
+      this.fundHistorylist = result.lstFundVM;
+      this.agentName = result.agentName;
+      this.dtTrigger.next();
+      this.loader.loader = false;
+    });
+  }
 
-getAllAgents(){
-  this.agentService.getAgent().subscribe(res=>{
-    if(res !== null){
-      debugger;
-      this.agentlist = res;
-      this.agentId= '0';
-    }
-  });
-}
+  getAllAgents() {
+    this.agentService.getAgent().subscribe(res => {
+      if (res !== null) {
+        debugger;
+        this.agentlist = res;
+        this.agentId = '0';
+      }
+    });
+  }
 
-  isreceive(fund : any){
-    debugger;
+  isreceive(fund: any) {
     this.dialogService.open(DialogNamePromptComponent, {
       context: {
         title: 'Confirmation',
         description: fund.isreceive == true ? '' : 'Are you sure, you received fund?',
       },
-    }).onClose.subscribe(result => result && result == 'Yes' ? this.activeinactive(fund): fund.isreceive = !fund.isreceive);
+    }).onClose.subscribe(result => result && result == 'Yes' ? this.activeinactive(fund) : fund.isreceive = !fund.isreceive);
   }
 
-  activeinactive(fund : any) {
-      this.agentService.isreceivefund(fund.agentfundid,fund.isreceive).subscribe(result => {
-        this.toastrService.success('Fund receive success !','Success',this.config);
-      },error=>{
-        this.toastrService.danger('Something went wrong !','Failed',this.config);
-      });
+  activeinactive(fund: any) {
+    this.loader.loader = true;
+    this.agentService.isreceivefund(fund.agentfundid, fund.isreceive).subscribe(result => {
+      this.loader.loader = false;
+      this.toastrService.success('Fund receive success !', 'Success', this.config);
+    }, error => {
+      this.loader.loader = false;
+      this.toastrService.danger('Something went wrong !', 'Failed', this.config);
+    });
   }
 
-  onAgentSelect(agentId,val:any){
-    debugger;
-    agentId=+agentId;
+  onAgentSelect(agentId, val: any) {    
+    agentId = +agentId;
     this.rerender();
     this.fundHistorylist = [];
-    this.agentService.getAgentfund(false,agentId).subscribe(res=>{
-      if(res!== null){       
+    this.agentService.getAgentfund(false, agentId).subscribe(res => {
+      if (res !== null) {
         this.fundHistorylist = res.lstFundVM;
         this.dtTrigger.next();
       }
     });
 
-    this.showsearchlbl=true;
-    if(+agentId!=+("0"))
-    {
-      this.selectedAgentname=val.agentlist.filter(x => x.userId == agentId)[0]["firstname"]+" "+val.agentlist.filter(x => x.userId == agentId)[0]["lastname"];
+    this.showsearchlbl = true;
+    if (+agentId != +("0")) {
+      this.selectedAgentname = val.agentlist.filter(x => x.userId == agentId)[0]["firstname"] + " " + val.agentlist.filter(x => x.userId == agentId)[0]["lastname"];
     }
-    this.searchresult="Display Result for Agent: " +((+agentId==+("0"))?'All':this.selectedAgentname);
+    this.searchresult = "Display Result for Agent: " + ((+agentId == +("0")) ? 'All' : this.selectedAgentname);
   }
 
-  backtoagentlist()
-  {
+  backtoagentlist() {
     this.onPageChange.emit('List');
   }
 

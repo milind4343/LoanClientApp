@@ -70,7 +70,7 @@ export class ProfileComponent implements OnInit {
       password: [''],
       confirmPassword: [''],
       mobile:[user.mobile,Validators.required],
-      phone:[user.phone,Validators.required],
+      phone:[user.phone],
       address:[user.address,Validators.required],
       stateId:[user.stateId,Validators.required],
       cityId:[user.cityId,Validators.required],

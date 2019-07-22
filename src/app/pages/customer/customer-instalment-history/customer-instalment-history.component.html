@@ -14,6 +14,7 @@
                     <th>Instalment Amount</th>
                     <th>Instalment Date</th>
                     <th>Is Paid</th>
+                    <th>Paid Amount</th>
                     <!-- <th>Action</th> -->
                   </tr>
                 </thead>
@@ -23,7 +24,7 @@
                     <td>₱ {{instalment.installmentamount}}</td>
                     <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
                     <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
-                    
+                    <td>₱ {{instalment.paidamount}}</td>
                     <!-- <td>
                         <button class="icon-btn"   style="cursor: pointer;" (click)="installmentlist(loanhistory.customerLoanId)"  title="Installments">
                             <i class="fa fa-history" title="Installments"></i>

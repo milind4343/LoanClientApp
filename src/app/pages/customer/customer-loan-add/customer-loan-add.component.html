@@ -180,13 +180,13 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-3"></div>
-    <div class="button-container">
+    <div class="col-sm-4"></div>
+    <!-- <div class="button-container">
       <button type="button" [disabled]="loanamount.invalid || interest.invalid" class="btn btn-info"
         (click)="tenurecalculation(loan);">Preview Installments</button>
-    </div>
+    </div> -->
     <div class="button-container">
-      <button type="button" class="btn btn-primary" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
+      <button type="button" class="btn btn-warning" (click)="submitted=true;assignloan(loan,loanform)">Assign</button>
     </div>
     <div class="button-container">
       <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>

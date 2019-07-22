@@ -152,6 +152,10 @@ export class RegistrationComponent {
         this.toastrService.danger('Something went wrong !', 'Failed', this.config);
       })
     }
+    else
+    {
+      this.loader.loader = false;
+    }
   }
 
   cancle() {
@@ -159,5 +163,12 @@ export class RegistrationComponent {
     this.userId = 0;
     this.onPageChange.emit('List');
   }
+
+  // values = '';
+  // onKeyUp(event: any) {
+  //   debugger
+  //     this.values = event.target.value;
+  //     this.values = this.values.toUpperCase();
+  // };
 
 }

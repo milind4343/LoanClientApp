@@ -5,14 +5,21 @@
     </nb-card-header>
     <nb-card-body>
       <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
             <label for="inputpaymentAmount">Actual Loan Amount</label>
             <input type="text" class="form-control" name="paymentamount" id="inputpaymentamount"
               #paymentamount="ngModel" [(ngModel)]="loan.loanamount" placeholder="Loan Amount" [disabled]="true">
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="inputpaymentAmount">Loan Re-Pay Amount</label>
+            <input type="text" class="form-control" name="rekspaymentamount"
+              #repaymentamount="ngModel" [(ngModel)]="loan.loanrepayamount" placeholder="Loan Amount" [disabled]="true">
+          </div>
+        </div>
+        <div class="col-sm-3">
           <div class="form-group">
             <label for="loanType">Installment Date</label>
             <input id="insallDate" class="form-control" nbInput placeholder="Installment Date" [disabled]="true"
@@ -21,9 +28,9 @@
             <nb-datepicker #installmentdate></nb-datepicker>
           </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-3">
           <div class="form-group">
-            <label for="inputInterestAmount">Installment Amount</label>
+            <label for="inputInterestAmount">Installment Amount</label>            
             <input type="text" class="form-control" #installmentAmount="ngModel" [(ngModel)]="loan.installmentamount"
               name="installmentAmount" placeholder="₱ 10000" [disabled]="true">
           </div>
@@ -45,11 +52,13 @@
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label>Paid Amount</label>
+            <label>Paid Amount</label>            
             <span class="text-danger" *ngIf="paidamount1.invalid && paidamount1.errors.required && submitted"> * required</span>
-            <span class="text-danger" *ngIf="paidamount1.touched && paidamount1.errors?.pattern"> * allows (0-9) only</span>
-            <input class="form-control" pattern="^\d+[0-9]*(.[0-9]{1,2})?" #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1"
-              placeholder="Enter Paid Amount" required>
+            <span class="text-danger" *ngIf="paidamount1.errors?.pattern"> * allows (0-9) only & two decimal precision</span>
+            <span class="text-danger" *ngIf="paidamount1.touched && (loan.paidamount > loan.totalunpaidamount)"> * not allowed</span>
+            <span class="text-danger" *ngIf="paidamount1.touched && (loan.paidamount == 0)"> * not allowed</span>
+            <input class="form-control" nbTooltip="Total Unpaid : ₱ {{loan.totalunpaidamount}}" nbTooltipPlacement="top" nbTooltipStatus="warning" pattern="^\d+[0-9]*(.[0-9]{1,2})?" 
+            #paidamount1="ngModel" [(ngModel)]="loan.paidamount" name="paidamount1" placeholder="Enter Paid Amount" required>
           </div>
         </div>
 
@@ -57,7 +66,7 @@
           <div class="form-group">
             <label for="chequenum">Cheque No.</label>
             <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && chequenum.invalid && submitted && chequenum.errors.required"> * required</span>
-            <span class="text-danger" *ngIf="chequenum.touched && chequenum.errors?.pattern"> * allows (0-9) only</span>
+            <span class="text-danger" *ngIf="chequenum.errors?.pattern"> * allows (0-9) only</span>
             <input type="text" class="form-control" #chequenum="ngModel" [(ngModel)]="loan.chequeno" name="chequenum"
               id="ChequeNo" placeholder="Enter Cheque No." pattern="[0-9]*" [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null" required>
           </div>
@@ -68,7 +77,7 @@
           <div class="form-group">
             <label for="bankName">Bank Name</label>
             <span class="text-danger" *ngIf="loan.paymentmethodid === 2 && bankName.invalid && submitted && bankName.errors.required"> * required</span>
-            <span class="text-danger" *ngIf="bankName.touched && bankName.errors?.pattern"> * allows (a-z) only</span>
+            <span class="text-danger" *ngIf="bankName.errors?.pattern"> * allows (a-z) only</span>
             <input type="text" pattern="[a-zA-Z ]*" class="form-control" #bankName="ngModel" [(ngModel)]="loan.bankname" name="bankName"
               placeholder="Enter Bank Name" [disabled]="loan.paymentmethodid === 1 || loan.paymentmethodid === null"
               required>
@@ -77,7 +86,7 @@
         <div class="col-sm-7">
           <div class="form-group">
             <label for="document">Remarks</label>
-            <span class="text-danger" *ngIf="remarks.touched && remarks.errors?.pattern"> * allows (a-z,0-9,. & space) only</span>
+            <span class="text-danger" *ngIf="remarks.errors?.pattern"> * allows (a-z,0-9,. & space) only</span>
             <textarea rows="1" pattern="[a-zA-Z0-9. ]*" class="form-control" id="remarks" name="remarks" [(ngModel)]="loan.remarks"
               placeholder="Enter Remarks" [(ngModel)]="loan.remarks" #remarks="ngModel"></textarea>
           </div>
@@ -85,8 +94,8 @@
       </div>
       <div class="row">
         <div class="col-sm-4"></div>
-        <div class="button-container">
-          <button type="button" (click)="submitted=true;markpaid(form)" class="btn btn-primary">Mark As Paid</button>
+        <div class="button-container">          
+          <button type="button" (click)="submitted=true;markpaid(form);" [disabled]="loan.paidamount == 0" class="btn btn-warning">Mark As Paid</button>
         </div>
         <div class="button-container">
           <button type="button" class="btn btn-warning" (click)="cancelForm()">Cancel</button>

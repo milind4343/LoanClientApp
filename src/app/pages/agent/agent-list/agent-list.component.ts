@@ -88,22 +88,19 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       });
   }
 
-  editAgent(userId){
-    debugger;
+  editAgent(userId){    
     this.userid=userId;
     this.pageView='Edit';
     this.pageTitle='Edit Agent Detail';
   }
 
-  fetchFundHistory(userId){
-    debugger;
+  fetchFundHistory(userId){    
     this.userid=userId;
     this.pageView='History';
   }
 
   popupFund(){
     this.agentService.getAgent().subscribe(result => {
-      debugger;
       if (result != null) {
         this.agent=[];
         this.agent.push({id:'',name: "--Select Agent--"});
@@ -123,7 +120,6 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   }
 
   resultfun(result:any) {
-    debugger;
     result=JSON.parse(result);
     this.agentService.addAgentfund(result).then(resultagent => {
       debugger;

@@ -101,7 +101,8 @@ export class CustomerAddComponent implements OnInit {
   
   register(form: any) {   
     this.loader.loader = true;
-    if (form.valid) {
+    if (form.valid) 
+    {
       this.loader.loader = true;
       this.loadingMediumGroup = true;
 
@@ -113,7 +114,6 @@ export class CustomerAddComponent implements OnInit {
         position: this.position,
         preventDuplicates: this.preventDuplicates
       };
-      debugger;
       //let ddt = JSON.stringify(this.customer.dob);
       //JSON.parse(ddt);
       //console.log(JSON.parse(this.customer.dob));
@@ -150,6 +150,10 @@ export class CustomerAddComponent implements OnInit {
         
         this.loadingMediumGroup = false;
       });
+    }
+    else
+    {
+      this.loader.loader = false;
     }
   }
 
@@ -203,7 +207,4 @@ export class CustomerAddComponent implements OnInit {
     this.editUserID = 0;
     this.callParent.emit('List');
   }
-
-
-
 }

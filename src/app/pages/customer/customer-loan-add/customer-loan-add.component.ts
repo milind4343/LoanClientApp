@@ -4,6 +4,7 @@ import { Agent } from '../../agent/agent';
 import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-customer-loan-add',
@@ -44,7 +45,8 @@ export class CustomerLoanAddComponent implements OnInit {
 
   constructor(private customerService: CustomerService, 
     private dateService: NbDateService<Date>, 
-    private toastrService: NbToastrService) {
+    private toastrService: NbToastrService,
+    private loader: LoaderService) {
   }
 
   ngOnInit() {
@@ -103,7 +105,7 @@ export class CustomerLoanAddComponent implements OnInit {
 
   assignloan(loan: any, form: any) {
     //loan.tenure=this.tenure;
-    debugger;
+    this.loader.loader = true;
     var finaldata = JSON.stringify(loan);
     this.formData = new FormData();
     this.formData.append('loandetail', finaldata);
@@ -120,25 +122,28 @@ export class CustomerLoanAddComponent implements OnInit {
     if(form.valid)
     {
       this.customerService.assignloan(this.formData).subscribe(result => {       
-        if (result.success) {
-          // this.tenure=[];
-          // this.loan={};
-          // this.installmenttenure=[];
-          // this.ngOnInit();
-          this.toastrService.success('Loan assigned !', 'Success', this.config);
+        if (result.success) {          
+          this.callParent.emit('List');          
           this.editUserID = 0;
-          this.callParent.emit('List');
+          this.loader.loader = false;
+          this.toastrService.success('Loan assigned !', 'Success', this.config);
         }
         else {  
-          //this.customerService.uploadLoanDoc(this.formData).subscribe(result=>{
-          this.customerService.uploadLoanDoc(this.formData).subscribe(result => {  
-          });
+          this.loader.loader = false;
+          this.toastrService.danger('Something goes wrong !', 'Failed', this.config);        
+          // this.customerService.uploadLoanDoc(this.formData).subscribe(result => {  
+          // });
         }
       }, err => {  
+          this.loader.loader = false;
+          this.toastrService.danger('Something goes wrong !', 'Failed', this.config);   
       });
-    }   
+    }
+    else
+    {
+      this.loader.loader = false;
+    }  
   }
-
 
   changeenddate(startdate: any) 
   {
@@ -160,14 +165,13 @@ export class CustomerLoanAddComponent implements OnInit {
       let finalAmount = 0;
       let interestDaily = +((+interestAnnual / 365).toFixed(2));
       let durationInterest = +((+interestDaily * 45).toFixed(2));
-      debugger
+      
       if (data.interestpayat == "Daily") {
          finalAmount=(loanamount)+(durationInterest);
         //finalAmount = (loanamount);
         this.loan.paymentamount = finalAmount.toFixed(2);
       }
-      else {
-        debugger;
+      else {        
         finalAmount = (loanamount);
         // this.loan.paymentamount = (finalAmount) - (durationInterest);
         this.loan.paymentamount = (loanamount).toFixed(2);

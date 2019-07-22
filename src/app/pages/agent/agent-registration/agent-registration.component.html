@@ -3,11 +3,11 @@
     <div class="col-sm-3">
       <div class="form-group">
         <!-- <input type="text" [(ngModel)]="customer.profile" name="profile" id="input-profile"> -->
-        <input style="display: none" type="file" name="file" #fileInput [(ngModel)]="user.profileImage" accept="image/*"
+        <input style="display: none" type="file" name="file" #fileInput accept="image/*"
           (change)="fileProgress(fileInput.files)"> <!-- (change)="onFileChanged($event)" -->
         <a (click)="fileInput.click()">
           <img [src]="imgUrl" style="height: 150px;" nbTooltip="Upload Profile Photo" nbTooltipPlacement="top"
-            nbTooltipStatus="success" />
+            nbTooltipStatus="warning" />
         </a>
       </div>
     </div>
@@ -19,7 +19,7 @@
             <label for="inputFirstname" class="col-form-label">FirstName</label>
             <span class="text-danger" *ngIf="Firstname.invalid && submitted && Firstname.errors.required"> * required</span>
             <span class="text-danger" *ngIf="Firstname.touched && Firstname.errors?.pattern"> * allows (a-z) only</span>
-            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="Firstname" #Firstname="ngModel" [(ngModel)]="user.firstname"
+            <input type="text" name="Firstname" #Firstname="ngModel" [(ngModel)]="user.firstname" (keyup)="user.firstname = $event.target.value.toUpperCase()"
               class="form-control" placeholder="FirstName" maxlength="15" required [pattern]="alphaonly">
           </div>
         </div>
@@ -29,7 +29,7 @@
             <label for="inputMiddlename" class="col-form-label">MiddleName</label>
             <span class="text-danger" *ngIf="MiddleName.invalid && submitted && MiddleName.errors.required"> * required</span>
             <span class="text-danger" *ngIf="MiddleName.touched && MiddleName.errors?.pattern"> * allows (a-z) only</span>
-            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.middlename"
+            <input type="text" (keyup)="user.middlename = $event.target.value.toUpperCase()" name="MiddleName" #MiddleName="ngModel" [(ngModel)]="user.middlename"
               class="form-control" id="inputmiddlename" placeholder="MiddleName" maxlength="15" required [pattern]="alphaonly">            
           </div>
         </div>
@@ -39,7 +39,7 @@
             <label for="inputLastname" class="col-form-label">LastName</label>
             <span class="text-danger" *ngIf="Lastname.invalid && submitted && Lastname.errors.required"> * required</span>
             <span class="text-danger" *ngIf="Lastname.touched && Lastname.errors?.pattern"> * allows (a-z) only</span>
-            <input type="text" onkeyup="this.value = this.value.toUpperCase();" name="Lastname" #Lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"
+            <input type="text" name="Lastname" (keyup)="user.lastname = $event.target.value.toUpperCase()" #Lastname="ngModel" [(ngModel)]="user.lastname" class="form-control"
               id="inputlastname" maxlength="15" placeholder="LastName" required [pattern]="alphaonly">            
           </div>
         </div>
@@ -73,7 +73,7 @@
               Email not valid
             </span>
             <span class="text-danger" *ngIf="EmailID.errors?.uniqueEmail"> * this email is already in use</span>
-            <input type="email" onkeyup="this.value = this.value.toUpperCase();" class="form-control" #EmailID="ngModel" id="inputemail" placeholder="Email"
+            <input type="email" class="form-control" (keyup)="user.emailId = $event.target.value.toUpperCase()" #EmailID="ngModel" id="inputemail" placeholder="Email"
               [(ngModel)]="user.emailId" name="EmailID" maxlength="50" required email [uniqueEmail]='user.userId'>            
           </div>
         </div>
@@ -144,7 +144,7 @@
       <div class="form-group">
         <label for="inputAddress" class="col-form-label">Address</label>
         <span class="text-danger" *ngIf="Address.invalid && submitted && Address.errors.required"> * required</span>
-        <textarea rows="5" onkeyup="this.value = this.value.toUpperCase();" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
+        <textarea rows="5" (keyup)="user.address = $event.target.value.toUpperCase()" nbInput fullWidth placeholder="Address" #Address="ngModel" [(ngModel)]="user.address"
           name="Address" maxlength="250" required class="form-control"></textarea>        
       </div>
     </div>
@@ -152,11 +152,11 @@
 
   <div class="row">
     <div class=" col-sm-12 text-center" *ngIf="(user.userId>0)">
-      <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)">Update</button>
+      <button type="button" class="btn btn-warning" (click)="submitted=true;registration(addEditform)">Update</button>
       <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancel</button>
     </div>
     <div class=" col-sm-12 text-center" *ngIf="(user.userId==0)">
-      <button type="button" class="btn btn-primary" (click)="submitted=true;registration(addEditform)">Register</button>
+      <button type="button" class="btn btn-warning" (click)="submitted=true;registration(addEditform)">Register</button>
       <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancel</button>
     </div>
   </div>
