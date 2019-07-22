@@ -58,7 +58,7 @@
     <div class="col-sm-3">
       <label for="inputContact">Contact No</label>
       <span class="text-danger" *ngIf="registerForm.controls.mobile.errors?.required && submitted"> * required</span>
-      <input type="ContactNo" class="form-control" placeholder="Contact No" pattern="[0-9]*" maxlength="25"
+      <input type="ContactNo" class="form-control" placeholder="Contact No"  maxlength="25"
         formControlName="mobile">
     </div>
 
@@ -149,7 +149,7 @@
   </div>
 
   <div class="offset-sm-3 col-sm-9" style="margin-top: 10px">
-    <button type="submit" class="btn btn-primary">Save and Continue Edit</button>
+    <button type="submit" return false  class="btn btn-primary">Save and Continue Edit</button>
     <button type="button" class="btn btn-success" (click)="backToHome()">cancle</button>
     <!-- <button type="button" style="margin:10px;" class="btn btn-primary" (click)="cancle()">Cancle</button> -->
   </div>
