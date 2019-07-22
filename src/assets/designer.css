@@ -14,7 +14,7 @@
     line-height: 1.5rem !important;
     padding: 1rem 1.125rem !important;
     margin-bottom: 1.5rem !important;
-    margin: 7px;
+    margin: 7px!important;
 }
 
 .nb-theme-corporate .alert-lb{
@@ -29,18 +29,18 @@
     line-height: 1.5rem !important;
     padding: 1rem 1.125rem !important;
     margin-bottom: 1.5rem !important;
-    margin: 7px;
+    margin: 7px!important;
 }
 
 
 .nb-theme-corporate .alert-lb strong{
-    font-size: 20px;
+    font-size: 20px !important;
 }
 .nb-theme-corporate .alert-bb strong{
-    font-size: 20px;
+    font-size: 20px !important;
 }
 .nb-theme-corporate .alert-vb strong{
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .nb-theme-corporate .alert-bb{
@@ -55,7 +55,7 @@
     line-height: 1.5rem !important;
     padding: 1rem 1.125rem !important;
     margin-bottom: 1.5rem !important;
-    margin: 7px;
+    margin: 7px !important;
 }
 
 /* designer */
@@ -65,15 +65,15 @@
     border:none !important;
 }
 .nb-theme-corporate nb-card-header h4{
-    color:#fff;
-    background: #e2ba89;
-    padding: 10px;
-    margin: 10px 0;
+    color:#fff!important;
+    background: #e2ba89!important;
+    padding: 10px!important;
+    margin: 10px 0 !important;
 }
 table.dataTable thead td, table.dataTable thead th {
-    border-bottom: 1px solid #b0b0b0;
-    font-weight: 500;
-    font-size: 16px;
+    border-bottom: 1px solid #b0b0b0!important;
+    font-weight: 500!important;
+    font-size: 16px!important;
 }
 
 .nb-theme-corporate nb-menu .menu-item a ,
@@ -82,15 +82,15 @@ table.dataTable thead td, table.dataTable thead th {
     color: #fff !important;
 }
 .nb-theme-corporate nb-menu .menu-item a.active, .nb-theme-corporate nb-menu .menu-item a:hover {
-    background-color: #337690;
-    color: #fff;
-    font-weight: 600;
+    background-color: #337690!important;
+    color: #fff!important;
+    font-weight: 600!important;
 }
 .nb-theme-corporate nb-menu ,
 .nb-theme-corporate nb-sidebar .main-container,
 ul.menu-items{
-    background: #4b96b6;
-    color: #fff;
+    background: #4b96b6!important;
+    color: #fff!important;
 }
 .nb-theme-corporate nb-menu .menu-item .menu-icon,
 .nb-theme-corporate nb-menu .menu-item a.active .chevron, 
@@ -99,41 +99,41 @@ ul.menu-items{
 .nb-theme-corporate nb-menu .menu-item a:hover .menu-icon,
 .nb-theme-corporate nb-actions nb-action i.control-icon,
 .nb-theme-corporate nb-search button{
-    color: #fff;
+    color: #fff!important;
 }
 .nb-theme-corporate nb-layout .layout nb-layout-header nav{
-    box-shadow: none;
+    box-shadow: none!important;
 }
 .nb-theme-corporate .btn.btn-warning ,
 .nb-theme-corporate [nbButton].btn-primary,
 .nb-theme-corporate .btn:not(:disabled):not(.disabled){
-    background-color: #e2ba89;
+    background-color: #e2ba89!important;
 }
 .nb-theme-corporate nb-layout .layout nb-layout-header nav {
-    background: #2e3a6a;
+    background: #2e3a6a !important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
     color: #fff!important;
-    background: #4b96b6;
-    border: none;
+    background: #4b96b6!important;
+    border: none!important;
 }
 
 .dataTable button.icon-btn{
-    cursor: pointer;
-    background: #e2ba89;
-    color: #fff;
-    border: none;
-    padding: 3px 5px 1px 5px;
-    border-radius: 3px;
-    margin: 0 1px;
+    cursor: pointer!important;
+    background: #e2ba89!important;
+    color: #fff!important;
+    border: none!important;
+    padding: 3px 5px 1px 5px!important;
+    border-radius: 3px!important;
+    margin: 0 1px!important;
 }
 .nb-theme-corporate [_nghost-c7] .socials[_ngcontent-c7] a[_ngcontent-c7]:hover {
-    color: #2e3a6a;
+    color: #2e3a6a!important;
 }
 .nb-theme-corporate [nbButton].btn-primary.hover, .nb-theme-corporate [nbButton].btn-primary:hover ,
 .nb-theme-corporate .btn.btn-primary.active, .nb-theme-corporate .btn.btn-primary:active, .nb-theme-corporate .btn.btn-primary:active:focus{
-    color: #fff;
-    background-color: #2e3a6a;
+    color: #fff!important;
+    background-color: #2e3a6a!important;
 }
 
 .nb-theme-corporate nb-card{
@@ -144,45 +144,45 @@ ul.menu-items{
     background: none !important;
 }
 .login_page{
-    background: url("images/login-bg-2.jpg") no-repeat;
-    background-size: 100% 100%;
+    background: url("images/login-bg-2.jpg") no-repeat!important;
+    background-size: 100% 100%!important;
 }
 .nb-theme-corporate nb-layout .layout{
     background: none !important;
 }
 h1#title{
-    color: #fff;
-    text-transform: uppercase;
-    background: #4f61a6;
-    padding:15px 10px;
-    border-radius: 5px 5px 0px 0px;
-    margin-bottom: 0;
-    font-size: 24px;
+    color: #fff!important;
+    text-transform: uppercase!important;
+    background: #4f61a6!important;
+    padding:15px 10px!important;
+    border-radius: 5px 5px 0px 0px!important;
+    margin-bottom: 0!important;
+    font-size: 24px!important;
 }
 .login_page form{
-    background: rgba(255, 255, 255, 0.7);
-    padding: 20px;
-    border-radius:0px 0px 10px 10px;
+    background: rgba(255, 255, 255, 0.7)!important;
+    padding: 20px!important;
+    border-radius:0px 0px 10px 10px!important;
 }
 .login_page form .label{
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: bold;
+    font-size: 15px!important;
+    text-transform: uppercase!important;
+    font-weight: bold!important;
 }
 .nb-theme-corporate [nbButton].btn-success {
-    background-color: #4f61a6;
-    font-size: 20px;
-    border-radius: 5px;
+    background-color: #4f61a6!important;
+    font-size: 20px!important;
+    border-radius: 5px!important;
 }
 .nb-theme-corporate [nbButton].btn-success.hover, 
 .nb-theme-corporate [nbButton].btn-success:hover {
-    background-color: #2e3a6a;
+    background-color: #2e3a6a!important;
 }
 .nb-theme-corporate [nbInput].input-success{
-    border: none;
-    border-bottom: 4px solid #2e3a6a;
-    height: 50px;
+    border: none!important;
+    border-bottom: 4px solid #2e3a6a!important;
+    height: 50px!important;
 }
 .login_page form  a.forgot-password {
-    color: #4f61a6;
+    color: #4f61a6!important;
 }

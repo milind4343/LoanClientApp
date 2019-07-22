@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { CustomerService } from '../../customer/customer.service';
 import { CustomerLoan } from '../../customer/customer-loan';
 import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-customer-loan-paid',
@@ -20,7 +21,9 @@ export class CustomerLoanPaidComponent implements OnInit {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
 
-  constructor(private customerservice: CustomerService, private toastrService: NbToastrService) { }
+  constructor(private customerservice: CustomerService, private toastrService: NbToastrService,
+    private loader: LoaderService) 
+    { }
 
   ngOnInit() {
     this.getInstallmentDtl(this.editTxnID);
@@ -42,17 +45,25 @@ export class CustomerLoanPaidComponent implements OnInit {
   }
 
   markpaid(form:any){
-    if(form.valid){
+    this.loader.loader = true;
+    if(form.valid && this.loan.paidamount <= this.loan.totalunpaidamount && this.loan.paidamount > 0)
+    {
       this.customerservice.markinstallmentpaid(this.loan).subscribe(res=>{
         if(res.success){
           this.cancelForm();
+          this.loader.loader = false;
           this.toastrService.success('Mark As Paid Successfully !', 'Success', this.config);
         }
         else
         {
+          this.loader.loader = false;
           this.toastrService.danger('Something went wrong !', 'Error', this.config);
         }
       });
+    }
+    else
+    {
+      this.loader.loader = false;
     }    
   }
 

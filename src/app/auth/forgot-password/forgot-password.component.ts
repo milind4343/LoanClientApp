@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, Inject, AfterViewChecked } from '@angular/core';
 import { NbLoginComponent, NbAuthService, NB_AUTH_OPTIONS } from '@nebular/auth';
 import { Router } from '@angular/router';
 import{AuthService} from '../auth.service'
@@ -9,10 +9,12 @@ import { LoaderService } from '../../commonServices/loader.service';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.scss']
 })
-export class ForgotPasswordComponent extends NbLoginComponent implements OnInit {
+export class ForgotPasswordComponent extends NbLoginComponent implements OnInit, AfterViewChecked {
 
-   user:any={};
-   constructor(service: NbAuthService, @Inject(NB_AUTH_OPTIONS) protected options = {}, cd: ChangeDetectorRef, router: Router,private authservice:AuthService,private toastrService: NbToastrService,public loader: LoaderService) {
+  loginCounter:number = 0;
+  user:any={};
+
+  constructor(service: NbAuthService, @Inject(NB_AUTH_OPTIONS) protected options = {}, cd: ChangeDetectorRef, router: Router,private authservice:AuthService,private toastrService: NbToastrService,public loader: LoaderService) {
     super(service, options, cd, router);
   }
   
@@ -20,6 +22,16 @@ export class ForgotPasswordComponent extends NbLoginComponent implements OnInit 
     position: NbGlobalPhysicalPosition.TOP_RIGHT,
   };
   ngOnInit() {
+  }
+
+  ngAfterViewChecked() {
+    if(this.loginCounter == 0) {
+        // let nbCard =  (<HTMLCollection>document.getElementsByTagName("nb-card"));
+        let bodyelem =  (<HTMLCollection>document.getElementsByTagName("body"));
+        bodyelem[0].classList.add("login_page");
+        // nbCard[0].setAttribute("class","login_page");
+        this.loginCounter = 1;       
+    }
   }
 
 

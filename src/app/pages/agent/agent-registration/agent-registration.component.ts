@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { AgentService } from '../agent.service';
 import { Router } from '@angular/router';
 import { NbGlobalPhysicalPosition, NbToastrService } from '@nebular/theme';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-registration',
@@ -27,7 +28,11 @@ export class RegistrationComponent {
   imgUrl: any;
   formData: FormData = new FormData();
 
-  constructor(private agentService: AgentService, router: Router, private toastrService: NbToastrService) {
+  alphaonly = "[a-zA-Z]*";
+
+  constructor(private agentService: AgentService, router: Router, 
+    private toastrService: NbToastrService, public loader: LoaderService) 
+  {
     this.max = new Date();
     this.imgUrl = "assets/images/user-placeholder.png";
   }
@@ -36,26 +41,24 @@ export class RegistrationComponent {
     this.user.userId = 0; 
     this.state = [];
     this.agentService.getState().then(result => {
-      if (result != null) {
-        this.state.push({ id: '', name: "--Select State--" });
+      if (result != null) {        
         result.forEach(element => {
           this.state.push({ id: element.stateId, name: element.stateName })
         });
-        this.user.Gender = "Male";
       }
     }).catch(err => {
       console.log(err);
     })
     
-    debugger;
-    if(this.userId>0 || this.userId==undefined){
+    if(this.userId > 0 || this.userId == undefined){
       this.agentService.editAgent(this.userId).subscribe(result =>{
       debugger;
       this.onStateSelect(result.stateId);
       this.onCitySelect(result.cityId);
-      debugger;
+    
       this.user = result;
       this.user.dob=new Date(result.dob);
+      this.user.gender = result.gender.toUpperCase();
       if(result.profileImageURL != null){
         this.imgUrl = result.profileImageURL;
       }    
@@ -64,25 +67,34 @@ export class RegistrationComponent {
     else {
       this.user.userId = 0;
       this.user.stateId = '';
-      this.user.gender = "Male";
     }
+    this.user.cityId = "";
+    this.user.zipcode = "";
   }
 
   fileProgress(fileInput: any) {
     var reader = new FileReader();
     let fileToUpload = <File>fileInput[0];
-    this.formData.append('file', fileToUpload, fileToUpload.name);
-    reader.readAsDataURL(fileInput[0]);
-    reader.onload = (_event) => {
-      this.imgUrl = reader.result;
+    if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/jpg' || fileToUpload.type == 'image/png')
+    {
+      this.formData.append('file', fileToUpload, fileToUpload.name);
+      reader.readAsDataURL(fileInput[0]);
+      reader.onload = (_event) => {
+        this.imgUrl = reader.result;
+      }
     }
+    else
+    {
+      this.toastrService.danger('choose image in jpg/png format !', 'Failed', this.config);
+      this.imgUrl = "assets/images/user-placeholder.png";
+    }   
   }
 
   onStateSelect(stateId) {
     this.city = [];
+    this.user.cityId = '';
     this.agentService.getCity(+stateId).then(result => {
-      if (result != null && result.length > 0) {
-        this.city.push({ id: '', name: "--Select City--" });
+      if (result != null && result.length > 0) {        
         result.forEach(element => {
           this.city.push({ id: element.id, name: element.name })
         });
@@ -100,9 +112,9 @@ export class RegistrationComponent {
 
   onCitySelect(cityId) {   
     this.area = [];
+    this.user.areaId = '';
     this.agentService.getArea(+cityId).then(result => {
-      if (result != null) {
-        this.area.push({ id: '', name: "--Select Area--" });
+      if (result != null) {        
         result.forEach(element => {
           this.area.push({ id: element.id, name: element.name })
         });
@@ -113,28 +125,37 @@ export class RegistrationComponent {
   }
 
   registration(form: any) {
+    debugger;
+    this.loader.loader = true;
     if (form.valid) {
-
       this.formData.append("agent", JSON.stringify(this.user));
 
       this.agentService.register(this.formData).then(result => {
         if (result != null) {
           if (this.user.userId > 0) {
-            this.toastrService.success('Data update success !', 'Success', this.config);
             this.onPageChange.emit('List');
+            this.loader.loader = false;
+            this.toastrService.success('Data update success !', 'Success', this.config);            
           }
           else {
-            this.toastrService.success('Registration success !', 'Success', this.config);
             this.onPageChange.emit('List');
+            this.loader.loader = false;
+            this.toastrService.success('Registration success !', 'Success', this.config);            
           }
         }
         else {
+          this.loader.loader = false;
           this.toastrService.success('Registration failed !', 'Failed', this.config);
         }
       }).catch(err => {
         console.log(err);
+        this.loader.loader = false;
         this.toastrService.danger('Something went wrong !', 'Failed', this.config);
       })
+    }
+    else
+    {
+      this.loader.loader = false;
     }
   }
 
@@ -143,5 +164,12 @@ export class RegistrationComponent {
     this.userId = 0;
     this.onPageChange.emit('List');
   }
+
+  // values = '';
+  // onKeyUp(event: any) {
+  //   debugger
+  //     this.values = event.target.value;
+  //     this.values = this.values.toUpperCase();
+  // };
 
 }

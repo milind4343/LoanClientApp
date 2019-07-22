@@ -13,7 +13,7 @@ import { NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 export class LoginComponent extends NbLoginComponent implements OnInit , AfterViewChecked {
 
   //authService: any;
-  loginCounter:number=0;
+  loginCounter:number = 0;
   user: any = {};
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
@@ -30,8 +30,7 @@ export class LoginComponent extends NbLoginComponent implements OnInit , AfterVi
         let bodyelem =  (<HTMLCollection>document.getElementsByTagName("body"));
         bodyelem[0].classList.add("login_page");
         // nbCard[0].setAttribute("class","login_page");
-        this.loginCounter = 1;
-        debugger;
+        this.loginCounter = 1;       
     }
   }
 

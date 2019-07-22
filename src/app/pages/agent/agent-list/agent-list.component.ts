@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 //import { Http, Response } from '@angular/http';
 import { Subject } from 'rxjs';
 import{ Agent  }from '../agent';
@@ -6,6 +6,7 @@ import { AgentService } from '../agent.service';
 import { NbDialogService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { DialogNamePromptComponent } from '../../dialog-name-prompt/dialog-name-prompt.component';
 import { PageAccessService } from '../../../commonServices/getpageaccess.service';
+import { DataTableDirective } from 'angular-datatables';
 
 @Component({
   selector: 'ngx-agent-list',
@@ -30,10 +31,15 @@ export class ListAgentComponent implements OnInit, OnDestroy {
   config = {
     position: NbGlobalPhysicalPosition.TOP_RIGHT
   };
-  
-  constructor(private pageaccess:PageAccessService,private agentService: AgentService,private dialogService: NbDialogService,private toastrService: NbToastrService) {
 
-   }
+  @ViewChild(DataTableDirective)
+  dtElement: DataTableDirective;
+  
+  constructor(private pageaccess:PageAccessService,
+    private agentService: AgentService,
+    private dialogService: NbDialogService,
+    private toastrService: NbToastrService) 
+  { }
 
   ngOnInit(): void {
     this.pageaccesscontrol = this.pageaccess.getAccessData();
@@ -45,8 +51,8 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       columnDefs:[{orderable: false,targets:[5,6]}]
     };
 
-    this.agentService.getAgent().subscribe(result =>{     
-      this.agentlist =result;    
+    this.agentService.getAgentList().subscribe(result =>{     
+      this.agentlist = result;    
       this.dtTrigger.next();
     });
   }
@@ -82,22 +88,19 @@ export class ListAgentComponent implements OnInit, OnDestroy {
       });
   }
 
-  editAgent(userId){
-    debugger;
+  editAgent(userId){    
     this.userid=userId;
     this.pageView='Edit';
     this.pageTitle='Edit Agent Detail';
   }
 
-  fetchFundHistory(userId){
-    debugger;
+  fetchFundHistory(userId){    
     this.userid=userId;
     this.pageView='History';
   }
 
   popupFund(){
     this.agentService.getAgent().subscribe(result => {
-      debugger;
       if (result != null) {
         this.agent=[];
         this.agent.push({id:'',name: "--Select Agent--"});
@@ -121,9 +124,12 @@ export class ListAgentComponent implements OnInit, OnDestroy {
     this.agentService.addAgentfund(result).then(resultagent => {
       debugger;
       if (resultagent.status==200) {
-        this.dtTrigger = new Subject();
-        this.toastrService.success('Fund update success !','Success',this.config);
-        this.ngOnInit();
+        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+          this.toastrService.success('Fund Transferred successfully !','Success',this.config);
+          //this.agentlist = [];  
+          dtInstance.destroy();
+          this.ngOnInit();
+        });      
       }
       else
       {

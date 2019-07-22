@@ -5,6 +5,7 @@ import { CustomerService } from '../customer.service';
 import { DataTableDirective } from 'angular-datatables';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { Agent } from '../../agent/agent';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-customer-loan-history',
@@ -35,17 +36,21 @@ export class CustomerLoanHistoryComponent implements OnInit {
 
   constructor(private authservice: AuthenticationService, 
     private pageAccessService: PageAccessService, 
-    private customerservice: CustomerService) 
+    private customerservice: CustomerService,
+    private loader: LoaderService) 
     { 
       this.dtOptions = {
         pagingType: 'full_numbers',
         pageLength: 5,
         order:[0,'asc'],        
-        columnDefs:[{orderable: false,targets:[8]}]
+        columnDefs:[{orderable: false,targets:[9]}]
       };
     }
 
   ngOnInit() : void{
+
+    this.loader.loader = true;
+
     this.pageaccesscontrol = this.pageAccessService.getAccessData();
     this.authservice.getLoggedInUserDetail().subscribe(res => {
       if (res != null) {
@@ -60,15 +65,16 @@ export class CustomerLoanHistoryComponent implements OnInit {
     this.customerservice.getCustomerLoan(this.editUserID).subscribe(result => {
       this.loanhstorylist = result;
       this.dtTrigger.next();
+      this.loader.loader = false;
     },
       error => {
         console.log(error);
+        this.loader.loader = false;
         //this.handleError.handleExcption(error);
     });
   }
 
-  installmentlist(customerLoanId,customername,customerloanid){
-      debugger;
+  installmentlist(customerLoanId,customername,customerloanid){     
       this.pageView = "LoanInstallment";
       this.pageTitle = "Loan History";
       this.editloanID = customerLoanId;

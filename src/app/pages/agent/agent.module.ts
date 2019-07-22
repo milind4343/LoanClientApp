@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AgentdashboardComponent } from './agent-dashboard/agent-dashboard.component';
-import{AgentRoutingModule}from './agent-routing.module';
+import { AgentRoutingModule }from './agent-routing.module';
 import { RegistrationComponent } from './agent-registration/agent-registration.component';
 import { AgentComponent } from './agent.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -31,6 +31,6 @@ import { SharedModule } from '../../shared/shared.module';
     DataTablesModule,
     UiSwitchModule,
     SharedModule
-  ],
+  ]
 })
 export class AgentModule { }

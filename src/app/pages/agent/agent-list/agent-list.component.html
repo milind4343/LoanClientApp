@@ -4,13 +4,14 @@
       <nb-card-header><h4>{{pageTitle}}</h4></nb-card-header>
       <!-- Agent List -->
       <nb-card-body>
-        <div *ngIf="pageView === 'List'">
-          <div class="col-md-8" style="float: right;">
-            <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px" (click)="popupFund()"
-              *ngIf="pageaccesscontrol.isadd"><i class="fas fa-exchange-alt"></i> Fund Transfer</button>
-            <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
-              (click)="registration()"><i class="fas fa-user-plus"></i> Add New</button>
-            <!-- routerLink='/pages/agent/register' -->
+        <div *ngIf="pageView === 'List'">          
+          <div class="form-group" style="float: right">
+            <button nbButton status="primary" class="btn-demo" style="margin-right: 8px"
+              (click)="registration()"><i class="fas fa-user-plus"></i> Add New
+            </button>
+            <button nbButton status="primary" class="btn-demo" (click)="popupFund()"
+              *ngIf="pageaccesscontrol.isadd"><i class="fas fa-exchange-alt"></i> Fund Transfer
+            </button>
           </div>
           <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
             <thead>

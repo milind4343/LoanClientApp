@@ -31,7 +31,6 @@ export class CustomerAddComponent implements OnInit {
   pageaccesscontrol:any={};
   loadingMediumGroup = false;
 
-
   config: ToasterConfig;
   status = NbToastStatus.SUCCESS;
   destroyByClick = true;
@@ -40,6 +39,11 @@ export class CustomerAddComponent implements OnInit {
   position = NbGlobalPhysicalPosition.TOP_RIGHT;
   preventDuplicates = true;
   max: Date;
+
+  alphaonly = "[a-zA-Z]*";
+  numonly = "[0-9]*";
+  //emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+
   constructor(public loader: LoaderService, private customerservice: CustomerService, 
     private agentservice: AgentService, private toastrService: NbToastrService,
     private pageAccessService: PageAccessService) {            
@@ -65,6 +69,7 @@ export class CustomerAddComponent implements OnInit {
       this.formData = new FormData();
       this.customer = result[0];  
       this.customer.dob=new Date(result[0].dob);    
+      this.customer.gender = result[0].gender.toUpperCase();
       debugger;
       if(result[0].profileImageURL != null){
         this.imgUrl = result[0].profileImageURL;
@@ -78,16 +83,27 @@ export class CustomerAddComponent implements OnInit {
     //this.fileData = <File>fileInput.target.files[0];
     var reader = new FileReader();
     let fileToUpload = <File>fileInput[0];
-    this.formData.append('file', fileToUpload, fileToUpload.name);
-    reader.readAsDataURL(fileInput[0]);
-    reader.onload = (_event) => {
-      this.imgUrl = reader.result;
+
+    if(fileToUpload.type == 'image/jpeg' || fileToUpload.type == 'image/jpg' || fileToUpload.type == 'image/png')
+    {
+      this.formData.append('file', fileToUpload, fileToUpload.name);
+      reader.readAsDataURL(fileInput[0]);
+      reader.onload = (_event) => {
+        this.imgUrl = reader.result;
+      }
     }
+    else
+    {
+      this.toastrService.danger('choose image in jpg/png format !', 'Failed', this.config);
+      return false;
+      //this.imgUrl = "assets/images/user-placeholder.png";
+    }    
   }
   
-  register(form: any) {
-    debugger;
-    if (form.valid) {
+  register(form: any) {   
+    this.loader.loader = true;
+    if (form.valid) 
+    {
       this.loader.loader = true;
       this.loadingMediumGroup = true;
 
@@ -99,7 +115,10 @@ export class CustomerAddComponent implements OnInit {
         position: this.position,
         preventDuplicates: this.preventDuplicates
       };
-
+      //let ddt = JSON.stringify(this.customer.dob);
+      //JSON.parse(ddt);
+      //console.log(JSON.parse(this.customer.dob));
+      this.customer.dob = new Date(this.customer.dob.toISOString());
       this.formData.append("customer", JSON.stringify(this.customer));
 
       //this.customerservice.registerCustomer(this.customer).then(result=>{
@@ -107,29 +126,35 @@ export class CustomerAddComponent implements OnInit {
         if (result.success) {
           this.editUserID = 0;
           this.callParent.emit('List');
+          this.loader.loader = false;
           this.toastrService.show(
             "Customer Added Successfully",
             "Success",
             config);
         }
         else {
+          this.loader.loader = false;
           config.status = NbToastStatus.DANGER;
           this.toastrService.show(
             "Something goes wrong!",
             "Error",
             config);
         }
-        this.loadingMediumGroup = false;
-        this.loader.loader = false;
+        this.loadingMediumGroup = false;        
       },err => {
+        this.loader.loader = false;
         config.status = NbToastStatus.DANGER;
         this.toastrService.show(
           "Something goes wrong!",
           "Error",
           config);
-        this.loader.loader = false;
+        
         this.loadingMediumGroup = false;
       });
+    }
+    else
+    {
+      this.loader.loader = false;
     }
   }
 
@@ -183,7 +208,4 @@ export class CustomerAddComponent implements OnInit {
     this.editUserID = 0;
     this.callParent.emit('List');
   }
-
-
-
 }

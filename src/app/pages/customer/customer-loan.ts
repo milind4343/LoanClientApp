@@ -5,6 +5,8 @@ export class CustomerLoan {
     customername: string;
     customerloanid: number;
     loanamount: number;
+    loanrepayamount: number;
+    totalunpaidamount: number;
     installmentdate: Date;
     installmentamount: number;
     paidamount: number;

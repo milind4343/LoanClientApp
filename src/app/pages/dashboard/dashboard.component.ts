@@ -51,15 +51,15 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      columnDefs:[{orderable: false, targets:[6]}]
     };
-
   }
 
   ngOnDestroy() {
     //this.dtTrigger.unsubscribe();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
     this.authservice.getLoggedInUserDetail().subscribe(res => {
       if (res != null) {
         this.roleId = res.roleId;
@@ -118,35 +118,38 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.customerservice.getAgent().subscribe(res => {
       if (res !== null) {
         this.agentlist = res;
-        this.agentId = '0';
+        this.agentId = '';
       }
     });
   }
 
-  getChartData(req: any) {
+  getChartData(req: any, form:any) {
     console.log(req);
+    debugger
     this.showlbl = false;
     this.res = undefined;
     this.showsearchlbl = true;
-       
-    this.dashboardservice.getChartData(req).subscribe(res => {
-      if (res.length > 0) {
-        this.res = res;
-        if (this.selectedAgentname == undefined && this.roleId == 2) {
-          this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear();
-        }
-        else if (this.roleId == 1) {
-          this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear() + " " + ((this.selectedAgentname == undefined) ? '' : (" for agent : " + this.selectedAgentname));
-        }
-        else {
-          this.showsearchlbl = false;
-        }
-      }
-      else {
-        this.showlbl = true;
-        this.showsearchlbl = false;
-      }
-    });
+       if(form.valid){
+        this.dashboardservice.getChartData(req).subscribe(res => {
+          if (res.length > 0) {
+            this.res = res;
+            if (this.selectedAgentname == undefined && this.roleId == 2) {
+              this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear();
+            }
+            else if (this.roleId == 1) {
+              this.searchresult = "Display Result from: " + req.fromDate.getDate() + "-" + (req.fromDate.getMonth() + (1)) + "-" + req.fromDate.getFullYear() + " to: " + req.toDate.getDate() + "-" + (req.toDate.getMonth() + (1)) + "-" + req.toDate.getFullYear() + " " + ((this.selectedAgentname == undefined) ? '' : (" for agent : " + this.selectedAgentname));
+            }
+            else {
+              this.showsearchlbl = false;
+            }
+          }
+          else {
+            this.showlbl = true;
+            this.showsearchlbl = false;
+          }
+        });
+       }
+   
   }
 
   onAgentSelect(agentId: number, val: any) {

@@ -4,6 +4,7 @@ import { Agent } from '../../agent/agent';
 import { NbDateService, NbToastrService, NbGlobalPhysicalPosition } from '@nebular/theme';
 import { Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { LoaderService } from '../../../commonServices/loader.service';
 
 @Component({
   selector: 'ngx-customer-loan-add',
@@ -40,16 +41,18 @@ export class CustomerLoanAddComponent implements OnInit {
   docTypeList: any = [];
   finalDoc: any = [];
 
+  numonly = "[0-9]*";
+
   constructor(private customerService: CustomerService, 
     private dateService: NbDateService<Date>, 
-    private toastrService: NbToastrService) {
+    private toastrService: NbToastrService,
+    private loader: LoaderService) {
   }
-
 
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
-      pageLength: 5
+      pageLength: 10
     };
    
     // this.loan={};
@@ -89,7 +92,6 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   loantypebind() {
-    debugger;
     this.customerService.getloantype().subscribe(result => {
       if (result != null) {
         this.loantypelist.push({ id: '', name: "- - Select - -" });
@@ -102,7 +104,13 @@ export class CustomerLoanAddComponent implements OnInit {
   }
 
   assignloan(loan: any, form: any) {
+
+    debugger;
+    this.loan.startdate = new Date(this.loan.startdate).toDateString();
+    this.loan.enddate = new Date(this.loan.enddate).toDateString();    
+
     //loan.tenure=this.tenure;
+    this.loader.loader = true;
     var finaldata = JSON.stringify(loan);
     this.formData = new FormData();
     this.formData.append('loandetail', finaldata);
@@ -118,35 +126,37 @@ export class CustomerLoanAddComponent implements OnInit {
 
     if(form.valid)
     {
-      this.customerService.assignloan(this.formData).subscribe(result => {
-       
-        if (result.success) {
-          // this.tenure=[];
-          // this.loan={};
-          // this.installmenttenure=[];
-          // this.ngOnInit();
-          this.toastrService.success('Loan assigned !', 'Success', this.config);
+      this.customerService.assignloan(this.formData).subscribe(result => {       
+        if (result.success) {          
+          this.callParent.emit('List');          
           this.editUserID = 0;
-          this.callParent.emit('List');
+          this.loader.loader = false;
+          this.toastrService.success('Loan assigned !', 'Success', this.config);
         }
         else {  
-          //this.customerService.uploadLoanDoc(this.formData).subscribe(result=>{
-          this.customerService.uploadLoanDoc(this.formData).subscribe(result => {  
-          });
+          this.loader.loader = false;
+          this.toastrService.danger('Something goes wrong !', 'Failed', this.config);        
+          // this.customerService.uploadLoanDoc(this.formData).subscribe(result => {  
+          // });
         }
-      }, err => {
-  
+      }, err => {  
+          this.loader.loader = false;
+          this.toastrService.danger('Something goes wrong !', 'Failed', this.config);   
       });
-    }   
+    }
+    else
+    {
+      this.loader.loader = false;
+    }  
   }
 
-
-  changeenddate(startdate: any) {
+  changeenddate(startdate: any) 
+  {
     this.loan.enddate = this.dateService.addDay(startdate, 44);
   }
 
-  tenurecalculation(data: any) {
-   debugger;
+  tenurecalculation(data: any) 
+  {   
     if (data.loanamount != undefined && data.interest != "") {
       if (this.installmenttenure.length > 0) {
         this.rerender();
@@ -160,19 +170,19 @@ export class CustomerLoanAddComponent implements OnInit {
       let finalAmount = 0;
       let interestDaily = +((+interestAnnual / 365).toFixed(2));
       let durationInterest = +((+interestDaily * 45).toFixed(2));
+      
       if (data.interestpayat == "Daily") {
          finalAmount=(loanamount)+(durationInterest);
         //finalAmount = (loanamount);
-        this.loan.paymentamount = finalAmount;
+        this.loan.paymentamount = finalAmount.toFixed(2);
       }
-      else {
-        debugger;
+      else {        
         finalAmount = (loanamount);
         // this.loan.paymentamount = (finalAmount) - (durationInterest);
-        this.loan.paymentamount = (loanamount);
+        this.loan.paymentamount = (loanamount).toFixed(2);
       }
       this.loan.interestamount = +(durationInterest);
-
+      debugger;
       let date = data.startdate;
       if (data.paymentperiodicity == "Weekly") {
         this.loan.totalinstallments = 6;
@@ -184,23 +194,28 @@ export class CustomerLoanAddComponent implements OnInit {
             date = this.dateService.addDay(date, 7);
           this.tenure.push({
             srno: i,
-            installmentdate: date,
+            installmentdate: new Date(date).toDateString(),
             installmentamount: weeklyinstallment
           })
         }
       }
       else {
+        debugger
         this.loan.totalinstallments = 45;
         let dailyinstallment = +(finalAmount / 45).toFixed(2);
 
         this.tenure = [];
 
-        for (let i = 1; i < 46; i++) {
-          // if (i !== 0)
-            date = this.dateService.addDay(date, 1);
+        this.tenure.push({
+          srno: 1 ,
+          installmentdate: new Date(date).toDateString(),
+          installmentamount: dailyinstallment
+        })
+        for (let i = 2; i < 46; i++) {          
+          date = this.dateService.addDay(date, 1);
           this.tenure.push({
-            srno: i,
-            installmentdate: date,
+            srno: i ,
+            installmentdate: new Date(date).toDateString(),
             installmentamount: dailyinstallment
           })
         }
@@ -223,7 +238,6 @@ export class CustomerLoanAddComponent implements OnInit {
     // this.installmenttenure = {
     //   tenure:this.tenure
     // }
-
   }
 
   cancelForm() {
@@ -236,8 +250,14 @@ export class CustomerLoanAddComponent implements OnInit {
       return;
     this.docTypeList = [];
     this.getAllDocTypes();    
-    for (let f of fileInput) {
+    for (let f of fileInput) {     
       let file = <File>f;
+      var ext = file.name.split('.').pop().toLowerCase();
+      if($.inArray(ext, ['pdf','doc','docx', 'png', 'jpg', 'jpeg']) == -1) 
+      {
+        this.toastrService.danger('choose file in doc/pdf/png/jpg format !', 'Failed', this.config);       
+        return false;
+      }
       this.objDoc.push({ filedata: file, docType: '', isChecked: true, downloadPath: '', filename:file.name });
     }   
   }

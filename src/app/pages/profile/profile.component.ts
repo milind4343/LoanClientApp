@@ -13,6 +13,9 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
+  alphaonly = "[a-zA-Z]*";
+  numonly = "[0-9]*";
+
   registerForm: FormGroup;  
   passwordvalid:boolean=true;
   user: any = {};
@@ -67,7 +70,7 @@ export class ProfileComponent implements OnInit {
       password: [''],
       confirmPassword: [''],
       mobile:[user.mobile,Validators.required],
-      phone:[user.phone,Validators.required],
+      phone:[user.phone],
       address:[user.address,Validators.required],
       stateId:[user.stateId,Validators.required],
       cityId:[user.cityId,Validators.required],
@@ -86,6 +89,7 @@ export class ProfileComponent implements OnInit {
   }
  
   onSubmit() {  
+    debugger
     this.submitted = true;
     // stop here if form is invalid
     if (this.registerForm.valid) {

@@ -3,23 +3,22 @@
     <nb-card>
       <nb-card-header><h4>Fund History</h4></nb-card-header>
       <nb-card-body>     
-        <div *ngIf="!IsAgent" class="col-md-12" style="float: right;">         
+        <div *ngIf="!IsAgent" class="form-group">         
           <!-- <button nbButton status="primary" class="btn-demo" style="float: right;margin: 10px"
             (click)="backtoagentlist()">
-            Cancle </button> -->
-
-            <label for="agent">Agent</label>
-                <select class="form-control col-md-4" [(ngModel)]="agentId" #agent="ngModel" 
-                name="agent" (change)="onAgentSelect(agentId,this)">              
-                  <option value="0">- - Choose Agent - -</option>
-                  <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
+            Cancle </button> -->            
+            <!-- <label class="label col-sm-1 col-form-label" for="agent"></label> -->
+            <select class="form-control col-sm-4" [(ngModel)]="agentId" #agent="ngModel" name="agent"
+              (change)="onAgentSelect(agentId,this)">
+              <option value="0">- - Choose Agent - -</option>
+              <option *ngFor="let a of agentlist" value="{{a.userId}}">{{a.firstname + ' ' + a.lastname}}</option>
             </select>
-            <h5 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 15px;">{{searchresult}}</h5>
-            <br>
+            <div>
+              <h4 *ngIf="showsearchlbl" style="color: rebeccapurple;margin-top: 15px;font-size: 18px;border-bottom: 1px solid;padding-bottom: 7px;margin-bottom: 15px;">{{searchresult}}</h4>
+            </div>            
         </div>
         <!-- <h4  *ngIf="IsAgent" class="text-danger">{{agentName}}</h4> -->
-        <br/>        
-        
+                
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover">
           <thead style="text-align: center">
             <tr>
