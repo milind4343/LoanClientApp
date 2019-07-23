@@ -4,7 +4,6 @@ import 'rxjs/add/operator/map';
 import { UserService } from '../../shared/user.service';
 
 export function emailExistValidator(userService: UserService): AsyncValidatorFn {
-  debugger;
   return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
     return userService.getUserByEmail(control.value,'3').map(
       users => {

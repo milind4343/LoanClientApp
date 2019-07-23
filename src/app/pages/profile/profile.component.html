@@ -8,10 +8,10 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="form-group">
-            <label for="inputFirstname">FirstName</label>
+            <label for="inputFirstname">FirstName</label>            
             <span class="text-danger" *ngIf="registerForm.controls.firstname.errors?.required && submitted"> * required</span>
             <span class="text-danger" *ngIf="registerForm.controls.firstname.touched && registerForm.controls.firstname.errors?.pattern"> * allows (a-z) only</span>
-            <input type="text" formControlName="firstname" [pattern]="alphaonly" class="form-control" placeholder="FirstName" maxlength="15">
+            <input type="text" formControlName="firstname" (keyup)="registerForm.get('firstname').setValue($event.target.value.toUpperCase())" [pattern]="alphaonly" class="form-control" placeholder="FirstName" maxlength="15">
           </div>
         </div>
         <div class="col-sm-3">
@@ -20,15 +20,16 @@
             <span class="text-danger" *ngIf="registerForm.controls.middlename.errors?.required && submitted"> * required</span>
             <span class="text-danger" *ngIf="registerForm.controls.middlename.touched && registerForm.controls.middlename.errors?.pattern"> * allows (a-z) only</span>
             <input type="text" formControlName="middlename" [pattern]="alphaonly" class="form-control" placeholder="MiddleName"
-              maxlength="15">
+              maxlength="15" (keyup)="registerForm.get('middlename').setValue($event.target.value.toUpperCase())">
           </div>
         </div>
         <div class="col-sm-3">
           <div class="form-group">
-            <label for="inputLastname">LastName</label>
+            <label for="inputLastname">LastName</label>            
             <span class="text-danger" *ngIf="registerForm.controls.lastname.errors?.required && submitted"> * required</span>
             <span class="text-danger" *ngIf="registerForm.controls.lastname.touched && registerForm.controls.lastname.errors?.pattern"> * allows (a-z) only</span>
-            <input type="text" class="form-control" maxlength="15" [pattern]="alphaonly" placeholder="LastName" formControlName="lastname">
+            <input type="text" class="form-control" maxlength="15" [pattern]="alphaonly" placeholder="LastName" formControlName="lastname"
+            (keyup)="registerForm.get('lastname').setValue($event.target.value.toUpperCase())">
           </div>
         </div>
         <div class="col-sm-3">
@@ -48,8 +49,8 @@
             <!-- <span class="text-danger" *ngIf="gender.invalid && submitted && gender.errors.required"> * required</span> -->
             <div class="demo-radio">
               <nb-radio-group name="gender" formControlName="gender" required>
-                <nb-radio style="display: inline-block;" [value]="'Male'">Male</nb-radio>
-                <nb-radio style="display: inline-block;" [value]="'Female'">Female</nb-radio>
+                <nb-radio style="display: inline-block;" [value]="'MALE'">Male</nb-radio>
+                <nb-radio style="display: inline-block;" [value]="'FEMALE'">Female</nb-radio>
               </nb-radio-group>
             </div>
           </div>
@@ -77,7 +78,7 @@
             <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.emailExists"> * email already exists</span>
             <span class="text-danger" *ngIf="registerForm.controls.emailId.errors?.email"> * invalid email</span>
             <input type="email" name="email" class="form-control" placeholder="Email" maxlength="100"
-              formControlName="emailId" email>
+              formControlName="emailId" email (keyup)="registerForm.get('emailId').setValue($event.target.value.toUpperCase())">
           </div>
         </div>
       </div>
@@ -103,7 +104,7 @@
           <label for="inputAddress">Address</label>
           <span class="text-danger" *ngIf="registerForm.controls.address.errors?.required && submitted"> * required</span>
           <textarea class="form-control" rows="2" nbInput fullWidth placeholder="Address" maxlength="200"
-            formControlName="address"></textarea>
+            formControlName="address" (keyup)="registerForm.get('address').setValue($event.target.value.toUpperCase())"></textarea>
         </div>
       </div>
 

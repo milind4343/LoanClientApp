@@ -39,6 +39,7 @@ export class PagesComponent implements OnInit {
 
 
   ngOnInit() {
+    debugger
     //this.menu = MENU_ITEMS;
     if (this.activeLinks === undefined || this.activeLinks.length === 0) {
       let item = localStorage.getItem("encryptkey");
@@ -94,6 +95,7 @@ export class PagesComponent implements OnInit {
   }
 
   checkAccessPage(): Boolean {
+    debugger
     let routerurl = this.router.url;
     if (routerurl !== "/" && routerurl !== "/auth/login") {
       for (let i = 0; i < this.activeLinks.length; i++) {

@@ -14,6 +14,7 @@ export class PageAccessService {
      * 
      */
     getAccessData() : any{
+      debugger;
         let routerurl = this.router.url;
         let item = localStorage.getItem("encryptkey");
         if(item !== null && item !== "") {

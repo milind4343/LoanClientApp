@@ -43,7 +43,7 @@
             <div class="col-sm-3">
               <div class="form-group">
                 <label for="endDate">To Date</label>
-                <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate
+                <input id="endDate" class="form-control" nbInput placeholder="To Date" [nbDatepicker]="enddate" #enddate="ngModel"
                   [(ngModel)]="balance.toDate" name="enddate" [disabled]="true">
                 <nb-datepicker #enddate></nb-datepicker>
                 <!-- <label for="endDate">To Date</label>
@@ -92,6 +92,7 @@
               <th>Installment Amount</th>
               <th>Installment Date</th>
               <th>Is Paid</th>
+              <th>Status</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -103,6 +104,10 @@
               <td>₱ {{instalment.installmentamount}}</td>
               <td>{{instalment.installmentdate | date:'dd-MM-yyyy'}}</td>
               <td>{{(instalment.ispaid)==false?'UnPaid':'Paid'}}</td>
+              <td><span [ngClass]="{
+                'datestatus_overdue': instalment.datestatus === 'overdue',
+                'datestatus_upcoming': instalment.datestatus === 'upcoming'
+              }">{{instalment.datestatus}}</span></td>
               <td>
                 <button class="icon-btn" style="cursor: pointer;" (click)="receiptpay(instalment.transactionid)"
                   title="Installments">

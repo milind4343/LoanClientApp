@@ -9,7 +9,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { CustomerAddComponent } from './customer-add/customer-add.component';
 import { CustomerLoanAddComponent } from './customer-loan-add/customer-loan-add.component';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
+//import { CustomerLoanHistoryComponent } from './customer-loan-history/customer-loan-history.component';
 import { CustomerInstalmentHistoryComponent } from './customer-instalment-history/customer-instalment-history.component';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -19,8 +19,8 @@ import { SharedModule } from '../../shared/shared.module';
     CustomerComponent, 
     CustomerAddComponent, 
     CustomerLoanAddComponent,
-    CustomerLoanHistoryComponent, 
-    CustomerInstalmentHistoryComponent
+    //CustomerLoanHistoryComponent, 
+    //CustomerInstalmentHistoryComponent
   ],
   imports: [
     CommonModule,

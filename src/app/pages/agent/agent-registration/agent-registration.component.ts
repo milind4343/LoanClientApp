@@ -103,7 +103,7 @@ export class RegistrationComponent {
         this.city = [];
         this.user.cityId = '';
         this.area = [];
-        this.user.areaId = '';
+        this.user.zipcode = '';
       }
     }).catch(err => {
       console.log(err);
@@ -112,7 +112,7 @@ export class RegistrationComponent {
 
   onCitySelect(cityId) {   
     this.area = [];
-    this.user.areaId = '';
+    this.user.zipcode = '';
     this.agentService.getArea(+cityId).then(result => {
       if (result != null) {        
         result.forEach(element => {

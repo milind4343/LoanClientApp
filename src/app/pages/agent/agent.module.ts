@@ -9,7 +9,7 @@ import { ThemeModule } from '../../@theme/theme.module';
 import { ListAgentComponent } from './agent-list/agent-list.component';
 import { DataTablesModule } from 'angular-datatables';
 import { UiSwitchModule } from 'ngx-ui-switch';
-import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
+//import { AgentFundhistoryComponent } from './agent-fundhistory/agent-fundhistory.component';
 import { AgentVbPaidComponent } from './agent-vb-paid/agent-vb-paid.component';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -20,7 +20,7 @@ import { SharedModule } from '../../shared/shared.module';
     AgentdashboardComponent,
     RegistrationComponent,
     ListAgentComponent,
-    AgentFundhistoryComponent,
+    //AgentFundhistoryComponent,
     AgentVbPaidComponent,
   ],
   imports: [

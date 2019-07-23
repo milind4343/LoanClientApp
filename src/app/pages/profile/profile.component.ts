@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
+
 export class ProfileComponent implements OnInit {
 
   alphaonly = "[a-zA-Z]*";
@@ -35,10 +36,10 @@ export class ProfileComponent implements OnInit {
     private fb: FormBuilder, private service: UserValidators, private router : Router)
     {    
       this.max = new Date();
-      this.agentService.editProfile().subscribe(result =>{                
-        this.createForm(result);
+      this.agentService.editProfile().subscribe(result =>{                        
         this.onStateSelect(result.stateId, this.isdrpbind);
         this.onCitySelect(result.cityId, this.isdrpbind);
+        this.createForm(result);
     });
   }
 
@@ -51,7 +52,7 @@ export class ProfileComponent implements OnInit {
         result.forEach(element => {
           this.state.push({id : element.stateId , name : element.stateName})
         });
-         this.user.Gender="Male";
+        // this.user.Gender = "Male";
       }
     }).catch(err => {
       //console.log(err);
@@ -62,7 +63,7 @@ export class ProfileComponent implements OnInit {
   {
     debugger;
     this.registerForm = this.fb.group({
-      firstname: [user.firstname, Validators.required],
+      firstname: [user.firstname, [Validators.required]],
       middlename: [user.middlename, Validators.required],
       lastname: [user.lastname, Validators.required],
       dob: [new Date(user.dob), Validators.required],
@@ -75,7 +76,7 @@ export class ProfileComponent implements OnInit {
       stateId:[user.stateId,Validators.required],
       cityId:[user.cityId,Validators.required],
       zipcode:[user.zipcode,Validators.required],
-      gender:[user.gender,Validators.required],
+      gender:[user.gender.toUpperCase(),Validators.required],
       userId:[user.userId],
       roleid:[user.roleid],
   },
@@ -95,7 +96,7 @@ export class ProfileComponent implements OnInit {
     if (this.registerForm.valid) {
       this.agentService.updateprofile(this.registerForm.value).then(result => {
         if (result != null) {
-          if(this.user.userId>0)
+          if(this.user.userId > 0)
           {
             //this.router.navigate(['/pages/dashboard']);           
             this.toastrService.success('Profile Updated Successfully !','Success',this.config);          
@@ -118,7 +119,7 @@ export class ProfileComponent implements OnInit {
 
   onStateSelect(stateId,ischange) {
     debugger;
-    this.isdrpbind=ischange;
+    this.isdrpbind = ischange;
     this.city = [];
     this.agentService.getCity(+stateId).then(result => {
       if (result != null && result.length>0) {       
@@ -130,10 +131,10 @@ export class ProfileComponent implements OnInit {
       }
       else
       {
-        this.city=[];
-        this.user.cityId='';
-        this.area=[];
-        this.user.areaId='';
+        this.city = [];
+        this.user.cityId = '';
+        this.area = [];
+        this.user.areaId = '';
       }
     }).catch(err => {
       //console.log(err);
@@ -141,10 +142,11 @@ export class ProfileComponent implements OnInit {
   }
 
   onCitySelect(cityId,ischange) {
-    this.isdrpbind=ischange;
-    debugger
+    this.isdrpbind=ischange;    
     this.area = [];
-    this.user.cityId="";
+    this.user.cityId = "";
+    this.user.zipcode = '';
+
     this.agentService.getArea(+cityId).then(result => {
       if (result != null && result.length > 0) {       
         result.forEach(element => {
@@ -169,5 +171,10 @@ export class ProfileComponent implements OnInit {
   // {
   //   this.user={};
   // }
+
+  test(event:any){
+    console.log(event);
+    //this.registerForm. = event.target.value.toUpperCase()
+  }
  
 }

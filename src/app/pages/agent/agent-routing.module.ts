@@ -24,10 +24,6 @@ const routes: Routes = [{
     component: RegistrationComponent,
   },
   {
-    path: 'history',
-    component: AgentFundhistoryComponent
-  },
-  {
     path:'vb',
     component: AgentVbPaidComponent
   }],

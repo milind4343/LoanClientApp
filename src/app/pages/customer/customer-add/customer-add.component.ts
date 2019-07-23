@@ -55,27 +55,30 @@ export class CustomerAddComponent implements OnInit {
   ngOnInit() {   
     this.customer.userID = 0;
     this.pageaccesscontrol = this.pageAccessService.getAccessData(); //used in future to disable add/delete/view button ad per role-rights 
-    this.customer.cityId = "";
-    this.customer.zipcode = "";
+    this.customer.cityId = '';
+    this.customer.zipcode = '';
     let userId = this.editUserID;
+    this.getState();
     if (userId > 0) {
       this.getCustomer(userId);
     }
-    this.getState();
+    else{
+      this.customer.cityId = '';
+      this.customer.zipcode = '';
+    }
   }
 
   getCustomer(userID: number) {  
     this.customerservice.getCustomers(userID).subscribe(result => {
       this.formData = new FormData();
+      if(result[0].profileImageURL != null){
+        this.imgUrl = result[0].profileImageURL;
+      }  
+      this.onStateSelect(result[0].stateId);
+      this.onCitySelect(result[0].cityId);
       this.customer = result[0];  
       this.customer.dob=new Date(result[0].dob);    
       this.customer.gender = result[0].gender.toUpperCase();
-      debugger;
-      if(result[0].profileImageURL != null){
-        this.imgUrl = result[0].profileImageURL;
-      }      
-      this.onStateSelect(this.customer.stateId);
-      this.onCitySelect(this.customer.cityId);
     })
   }
 
@@ -171,32 +174,32 @@ export class CustomerAddComponent implements OnInit {
   }
 
   onStateSelect(stateId: string) {
-    debugger;
+    this.city = [];
+    this.customer.cityId = "";
+    this.customer.zipcode = '';
     this.agentservice.getCity(stateId).then(result => {
-
       if (result != null && result.length > 0) {
-
+        debugger;
         result.forEach(element => {
           this.city.push({ id: element.id, name: element.name })
         });
-        if (!(this.editUserID > 0))
-          this.customer.cityId = "";
       }
       else {
         this.city = [];
+        this.areacode = [];
       }
     });
   }
 
   onCitySelect(cityId: string) {
+    this.areacode = [];  
+    this.customer.zipcode = '';  
     this.agentservice.getArea(cityId).then(result => {
       if (result != null && result.length > 0) {
+        debugger
         result.forEach(e => {
           this.areacode.push({ id: e.id, name: e.name });
         })
-
-        if (!(this.editUserID > 0))
-          this.customer.zipcode = "";
       }
       else {
         this.areacode = [];

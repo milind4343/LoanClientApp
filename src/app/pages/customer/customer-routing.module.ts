@@ -19,10 +19,6 @@ const routes: Routes = [{
   {
     path: 'loan',
     component: CustomerLoanAddComponent
-  },
-  {
-    path: 'assignedloan',
-    component: CustomerLoanHistoryComponent
   }]
 }];
 

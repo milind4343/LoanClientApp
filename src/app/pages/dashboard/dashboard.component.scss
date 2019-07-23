@@ -31,6 +31,24 @@
     padding: 0;
     line-height: 44px;
 }
+
+.datestatus_overdue{  
+    background-color: indianred;
+    margin: 5px;
+    padding: 2px;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    color: white;
+}
+
+.datestatus_upcoming{  
+  background-color: mediumseagreen;
+  margin: 5px;
+  padding: 2px;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  color: white;
+}
  
 }
 

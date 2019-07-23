@@ -77,6 +77,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           this.dueinstallmenthstorylist = [];
           this.dashboardservice.getLoanInstallments(0).subscribe(result => {
             this.dueinstallmenthstorylist = result;
+            
             this.dtTrigger.next();
           },
             error => {

@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     this.authenticationService.getLoggedInUserDetail().subscribe((result)=> {     
       debugger; 
       this.profileImage = result.profileImageURL==null ? "assets/images/user-placeholder.png" :result.profileImageURL; 
-      this.profilename = result.firstname +' '+ result.middlename+' '+result.lastname;
+      this.profilename = result.firstname + ' ' + ' ' + result.lastname;
       this.userRole=(result.roleId==1)?"Welcome Admin":((result.roleId==2)?"Welcome Agent":"Welcome Customer");
     },error => {  
         this.exceptionHandler.handleExcption(error);
